@@ -35,6 +35,7 @@ export function useFemtanylSettings() {
     setCharScale: (charScale: number) => patch({ charScale }),
     setPixelBg: (pixelBg: boolean) => patch({ pixelBg }),
     setPixelChar: (pixelChar: boolean) => patch({ pixelChar }),
+    setPostProcessing: (postProcessing: boolean) => patch({ postProcessing }),
     resetSettings: () => {
       const next = { ...defaultFemtanylSettings };
       saveFemtanylSettings(next);

@@ -34,6 +34,82 @@ void main() {
   outColor = vec4(col, 1.0);
 }`;
 
+const SOUNDWAVE_FRAG = `#version 300 es
+precision highp float;
+in vec2 v_uv;
+out vec4 outColor;
+uniform float iTime;
+uniform vec2 iResolution;
+
+void main() {
+  vec2 uv = v_uv;
+  float t = iTime * 1.1;
+  float w = sin((uv.x + uv.y * cos(uv.x + uv.y)) * 50.0 + t * 5.4);
+  w += sin((uv.x + uv.x * cos(uv.x - uv.y)) * 50.0 + t * 20.4);
+  float p = sin((uv.y + uv.x * sin(uv.x)) * 30.0 + t * 3.0);
+  vec3 col = vec3(w * 0.5 + 0.5, p * 0.4 + 0.35, sin(t + uv.x * 8.0) * 0.35 + 0.45);
+  col = clamp(col * 1.35, 0.0, 1.0);
+  float bar = step(0.35, abs(sin(uv.y * 40.0 + t * 90.0)));
+  col *= 0.65 + 0.35 * bar;
+  outColor = vec4(col, 1.0);
+}`;
+
+const INFINITE_DOOR_FRAG = `#version 300 es
+precision highp float;
+in vec2 v_uv;
+out vec4 outColor;
+uniform float iTime;
+uniform vec2 iResolution;
+
+float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  float a = hash(i);
+  float b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0));
+  float d = hash(i + vec2(1.0, 1.0));
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+void main() {
+  vec2 st = (v_uv - 0.5) * 2.0;
+  float ang = iTime * 0.35;
+  mat2 rot = mat2(cos(ang), -sin(ang), sin(ang), cos(ang));
+  st = rot * st;
+  float n = noise(st * 8.0 + iTime * 0.4);
+  vec3 col = vec3(n * 0.9, n * 0.35, 1.0 - n * 0.7);
+  col *= 0.8 + 0.2 * sin(iTime * 2.0 + st.x * 10.0);
+  outColor = vec4(col, 1.0);
+}`;
+
+const VORTEX_FRAG = `#version 300 es
+precision highp float;
+in vec2 v_uv;
+out vec4 outColor;
+uniform float iTime;
+
+float zig(vec2 p, float n, float r) {
+  float l = length(p);
+  l += sin(n * atan(p.y, p.x)) * 0.48;
+  return 1.0 - step(r, l);
+}
+
+void main() {
+  vec2 uv = (v_uv - 0.5) * 2.0;
+  float t = iTime;
+  uv *= 0.5 * vec2(sin(t / 17.0), cos(t / 19.0));
+  float a = zig(uv, 160.0 * sin(t / 12.0), 0.5 * sin(t / 17.0));
+  float b = zig(uv, 128.0 * sin(t / 16.0), 0.5 * sin(t / 13.0));
+  float c = zig(uv, 256.0 * sin(t / 15.0), 0.5 * sin(t / 11.0));
+  vec3 col = vec3(a + b, b + c, c + a) * 1.2;
+  outColor = vec4(col, 1.0);
+}`;
+
 const EPILEPSY_FRAG = `#version 300 es
 precision highp float;
 in vec2 v_uv;
@@ -81,6 +157,9 @@ export class BackgroundRenderer {
   gl: WebGL2RenderingContext;
   trippy: WebGLProgram;
   epilepsy: WebGLProgram;
+  soundwave: WebGLProgram;
+  infiniteDoor: WebGLProgram;
+  vortex: WebGLProgram;
   mode = "trippy";
   iTime = 0;
   booming = 1.4;
@@ -103,6 +182,24 @@ export class BackgroundRenderer {
     this._buf = buf;
     this.trippy = this._program(TRIPPY_FRAG);
     this.epilepsy = this._program(EPILEPSY_FRAG);
+    this.soundwave = this._program(SOUNDWAVE_FRAG);
+    this.infiniteDoor = this._program(INFINITE_DOOR_FRAG);
+    this.vortex = this._program(VORTEX_FRAG);
+  }
+
+  private _progForMode(): WebGLProgram {
+    switch (this.mode) {
+      case "epilepsy":
+        return this.epilepsy;
+      case "soundwave":
+        return this.soundwave;
+      case "infiniteDoor":
+        return this.infiniteDoor;
+      case "vortex":
+        return this.vortex;
+      default:
+        return this.trippy;
+    }
   }
 
   private _program(fragSrc: string) {
@@ -136,13 +233,19 @@ export class BackgroundRenderer {
     const h = this.canvas.height;
     gl.viewport(0, 0, w, h);
 
+    if (this.mode === "black") {
+      gl.clearColor(0, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      return;
+    }
+
     if (this.mode === "green") {
       gl.clearColor(0x7b / 255, 0xcf / 255, 0x0c / 255, 1);
       gl.clear(gl.COLOR_BUFFER_BIT);
       return;
     }
 
-    const prog = this.mode === "epilepsy" ? this.epilepsy : this.trippy;
+    const prog = this._progForMode();
     gl.useProgram(prog);
     gl.bindBuffer(gl.ARRAY_BUFFER, this._buf);
     const loc = gl.getAttribLocation(prog, "a_pos");

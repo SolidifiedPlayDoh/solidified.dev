@@ -128,6 +128,71 @@ body.femtanyl-route #main {
   pointer-events: none;
 }
 
+.femtanyl-stage--booting canvas {
+  visibility: hidden;
+}
+
+.femtanyl-boot {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  background: #0a0612;
+  color: #dfe8ff;
+}
+
+.femtanyl-boot__panel {
+  width: min(92%, 22rem);
+  padding: 1.1rem 1.25rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(123, 207, 12, 0.35);
+  background: linear-gradient(160deg, #1a1028 0%, #0d0814 100%);
+  box-shadow:
+    0 0 24px rgba(123, 207, 12, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.femtanyl-boot__label {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(123, 207, 12, 0.85);
+}
+
+.femtanyl-boot__message {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  min-height: 2.5em;
+  color: #f0eef8;
+}
+
+.femtanyl-boot__bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.femtanyl-boot__bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #5a9c12 0%, #7bcf0c 55%, #b8ff4a 100%);
+  transition: width 0.12s linear;
+}
+
+.femtanyl-boot__pct {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  color: rgba(223, 232, 255, 0.55);
+  text-align: right;
+}
+
 .femtanyl-loading {
   position: absolute;
   inset: 0;
@@ -137,6 +202,10 @@ body.femtanyl-route #main {
   background: rgba(0, 0, 0, 0.75);
   z-index: 2;
   color: #eee;
+}
+
+.femtanyl-loading--error {
+  color: #ff8fa3;
 }
 
 .femtanyl-panel {
@@ -275,6 +344,111 @@ body.femtanyl-route #main {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+}
+
+.femtanyl-btn--watch {
+  background: linear-gradient(180deg, #9b4dff 0%, #6a28c8 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.femtanyl-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.femtanyl-watch-error {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #ff8fa3;
+}
+
+.femtanyl-stage__camera {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 55%;
+  will-change: transform;
+}
+
+.femtanyl-stage__camera canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.femtanyl-intro {
+  position: absolute;
+  left: 40%;
+  top: 48%;
+  z-index: 4;
+  font-family: "Slender", Georgia, serif;
+  font-size: clamp(2rem, 5.5vw, 3.4rem);
+  color: #fff;
+  transform: rotate(4deg);
+  pointer-events: none;
+  text-align: left;
+  white-space: pre;
+}
+
+.femtanyl-talk {
+  display: none !important;
+}
+
+.femtanyl-post {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.femtanyl-post[hidden] {
+  display: none !important;
+}
+
+.femtanyl-watch-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+}
+
+.femtanyl-watch-modal__panel {
+  width: min(92vw, 32rem);
+  padding: 1.35rem 1.5rem;
+  border-radius: 12px;
+  background: #1a1428;
+  border: 2px solid #9b4dff;
+  box-shadow: 0 0 40px rgba(155, 77, 255, 0.35);
+  color: #f0eef8;
+}
+
+.femtanyl-watch-modal__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  color: #c9a0ff;
+}
+
+.femtanyl-watch-modal__body {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.femtanyl-watch-modal__body p {
+  margin: 0 0 0.65rem;
+}
+
+.femtanyl-watch-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 @media (max-width: 720px) {

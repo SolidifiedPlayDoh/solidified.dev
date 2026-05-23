@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 
 import { EpilepsyGate } from "../femtanyl/EpilepsyGate";
 import { FemtanylStage } from "../femtanyl/FemtanylStage";
+import { FemtanylWatchDisclaimer } from "../femtanyl/FemtanylWatchDisclaimer";
 import { loadEpilepsySkipped, obsPopoutUrl } from "../femtanyl/storage";
+import { useChartWatch } from "../femtanyl/useChartWatch";
 import { useFemtanylAnimator } from "../femtanyl/useFemtanylAnimator";
+import { useFemtanylBootOverlay } from "../femtanyl/useFemtanylBootOverlay";
 import { useFemtanylSettings } from "../femtanyl/useFemtanylSettings";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { absoluteUrl } from "../lib/siteUrl";
@@ -28,6 +31,7 @@ export function FemtanylFNFPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [recording, setRecording] = useState(false);
+  const [watchDisclaimerOpen, setWatchDisclaimerOpen] = useState(false);
 
   const {
     settings,
@@ -35,18 +39,43 @@ export function FemtanylFNFPage() {
     setCharScale,
     setPixelBg,
     setPixelChar,
+    setPostProcessing,
   } = useFemtanylSettings();
 
-  const { bgRef, charRef, stageRef, panelRef, toggleRecord } = useFemtanylAnimator({
+  const chartWatch = useChartWatch();
+
+  const {
+    bgRef,
+    charRef,
+    stageRef,
+    cameraWrapRef,
+    panelRef,
+    introRef,
+    talkRef,
+    postRef,
+    toggleRecord,
+  } = useFemtanylAnimator({
     active: animatorActive,
     settings,
+    watchRef: chartWatch.watchRef,
     onLoadingChange: setLoading,
     onError: setError,
   });
 
+  const boot = useFemtanylBootOverlay(animatorActive, loading);
+
   useEffect(() => {
     document.body.classList.add("femtanyl-route");
     document.body.style.overflow = "auto";
+
+    const fontId = "femtanyl-slender-font";
+    if (!document.getElementById(fontId)) {
+      const style = document.createElement("style");
+      style.id = fontId;
+      style.textContent = `@font-face{font-family:Slender;src:url(${import.meta.env.BASE_URL}femtanylFNF/fonts/slender.ttf) format("truetype");}`;
+      document.head.appendChild(style);
+    }
+
     return () => {
       document.body.classList.remove("femtanyl-route");
       document.body.style.overflow = "";
@@ -90,11 +119,15 @@ export function FemtanylFNFPage() {
         <div className="femtanyl-layout">
           <FemtanylStage
             stageRef={stageRef}
+            cameraWrapRef={cameraWrapRef}
             bgRef={bgRef}
             charRef={charRef}
+            introRef={introRef}
+            talkRef={talkRef}
+            postRef={postRef}
             pixelBg={settings.pixelBg}
             pixelChar={settings.pixelChar}
-            loading={animatorActive && loading}
+            boot={boot}
             error={error}
           />
 
@@ -149,15 +182,54 @@ export function FemtanylFNFPage() {
               Pixelated character
             </label>
 
+            <label className="femtanyl-check">
+              <input
+                type="checkbox"
+                checked={settings.postProcessing}
+                onChange={(e) => setPostProcessing(e.target.checked)}
+              />
+              Post processing (mod shaders &amp; screen FX)
+            </label>
+
             <button type="button" className="femtanyl-btn femtanyl-btn--secondary" onClick={openObsWindow}>
               Pop out OBS feed (1280×720)
             </button>
 
-            <button type="button" onClick={handleRecord}>
+            <button
+              type="button"
+              className="femtanyl-btn femtanyl-btn--watch"
+              disabled={chartWatch.isWatching || chartWatch.status === "loading"}
+              onClick={() => setWatchDisclaimerOpen(true)}
+            >
+              {chartWatch.isWatching ? "Playing chart…" : "Watch full chart (no input)"}
+            </button>
+
+            {chartWatch.isWatching && (
+              <button type="button" className="femtanyl-btn femtanyl-btn--secondary" onClick={() => chartWatch.stop()}>
+                Stop playback
+              </button>
+            )}
+
+            {chartWatch.error && (
+              <p className="femtanyl-watch-error" role="alert">
+                {chartWatch.error}
+              </p>
+            )}
+
+            <button type="button" onClick={handleRecord} disabled={chartWatch.isWatching}>
               {recording ? "Stop recording" : "Record WebM clip"}
             </button>
           </aside>
         </div>
+
+        <FemtanylWatchDisclaimer
+          open={watchDisclaimerOpen}
+          onCancel={() => setWatchDisclaimerOpen(false)}
+          onConfirm={() => {
+            setWatchDisclaimerOpen(false);
+            void chartWatch.start();
+          }}
+        />
       </div>
     </EpilepsyGate>
   );

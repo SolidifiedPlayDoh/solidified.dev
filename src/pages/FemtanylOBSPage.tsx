@@ -4,6 +4,7 @@ import { EpilepsyGate } from "../femtanyl/EpilepsyGate";
 import { FemtanylStage } from "../femtanyl/FemtanylStage";
 import { loadEpilepsySkipped } from "../femtanyl/storage";
 import { useFemtanylAnimator } from "../femtanyl/useFemtanylAnimator";
+import { useFemtanylBootOverlay } from "../femtanyl/useFemtanylBootOverlay";
 import { useFemtanylSettings } from "../femtanyl/useFemtanylSettings";
 import "../styles/femtanyl.css";
 
@@ -21,6 +22,8 @@ export function FemtanylOBSPage() {
     onLoadingChange: setLoading,
     onError: setError,
   });
+
+  const boot = useFemtanylBootOverlay(animatorActive, loading);
 
   useEffect(() => {
     document.body.classList.add("femtanyl-route", "femtanyl-route--obs");
@@ -41,7 +44,7 @@ export function FemtanylOBSPage() {
           charRef={charRef}
           pixelBg={settings.pixelBg}
           pixelChar={settings.pixelChar}
-          loading={animatorActive && loading}
+          boot={boot}
           error={error}
           obsMode
         />
