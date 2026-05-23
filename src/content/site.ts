@@ -1,6 +1,21 @@
-/** Copy for the main site after the intro reel — edit freely. */
+/**
+ * Site copy re-exports. Edit `siteDefaults.ts` to change homepage text.
+ */
+export {
+  siteContent,
+  defaultSiteContent,
+  type HomeLink,
+  type SiteContent,
+  type SiteContentDraft,
+} from "./siteDefaults";
+
+import { siteContent } from "./siteDefaults";
+
+/** Convenience alias for bundled copy. */
 export const homeCopy = {
-  headline: "Solidified.dev",
-  lead: "Prototype shell — drop your real landing content here.",
-  notes: ["Swap copy in src/content/site.ts", "Tunnel for friends: see README Cloudflare Tunnel section"],
-};
+  headline: siteContent.headline,
+  lead: siteContent.lead,
+  paragraphs: [...siteContent.paragraphs],
+} as const;
+
+export const homeLinks = [...siteContent.links] as const;

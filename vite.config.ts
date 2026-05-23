@@ -14,4 +14,10 @@ function viteBase(raw: string | undefined): "/" | `/${string}/` {
 export default defineConfig({
   plugins: [react()],
   base: viteBase(process.env.VITE_BASE_PATH),
+  server: {
+    host: true,
+  },
+  preview: {
+    host: true,
+  },
 });

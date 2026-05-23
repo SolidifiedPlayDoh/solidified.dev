@@ -1,0 +1,289 @@
+body.femtanyl-route {
+  overflow: auto;
+  background: #111;
+}
+
+body.femtanyl-route--obs {
+  overflow: hidden;
+  background: #000;
+}
+
+body.femtanyl-route .crt-overlay,
+body.femtanyl-route .intro-screen,
+body.femtanyl-route .skip-to-main,
+body.femtanyl-route #main {
+  display: none !important;
+}
+
+.femtanyl-page {
+  min-height: 100vh;
+  padding: 1rem;
+  font-family: system-ui, sans-serif;
+  color: #eee;
+  box-sizing: border-box;
+}
+
+.femtanyl-page--gated .femtanyl-layout {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.femtanyl-page__header {
+  max-width: 56rem;
+  margin: 0 auto 1rem;
+}
+
+.femtanyl-page__back {
+  color: #7bcf0c;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.femtanyl-page__back:hover {
+  text-decoration: underline;
+}
+
+.femtanyl-page__title {
+  margin: 0.5rem 0 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.femtanyl-page__disclaimer {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #aaa;
+  max-width: 52rem;
+}
+
+.femtanyl-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.femtanyl-stage-wrap {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  max-height: calc(100vh - 8rem);
+}
+
+.femtanyl-obs-wrap {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #000;
+}
+
+.femtanyl-obs-page {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+}
+
+.femtanyl-obs-page--gated .femtanyl-obs-wrap {
+  visibility: hidden;
+}
+
+.femtanyl-stage {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #000;
+  border: 2px solid #333;
+}
+
+.femtanyl-stage--obs {
+  border: none;
+}
+
+.femtanyl-stage canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* width/height set in JS for sharp nearest-neighbor upscale */
+}
+
+.femtanyl-render--pixel {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+.femtanyl-render--smooth {
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+}
+
+#femtanyl-char {
+  pointer-events: none;
+}
+
+.femtanyl-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 2;
+  color: #eee;
+}
+
+.femtanyl-panel {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.femtanyl-panel__heading {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.femtanyl-hint {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.femtanyl-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.femtanyl-check {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.5rem !important;
+}
+
+.femtanyl-panel select,
+.femtanyl-panel button,
+.femtanyl-panel input[type="range"] {
+  font: inherit;
+}
+
+.femtanyl-btn {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  font: inherit;
+  border-radius: 6px;
+}
+
+.femtanyl-btn--primary,
+.femtanyl-panel > button:not(.femtanyl-btn--secondary):not(.femtanyl-btn--retreat) {
+  background: #7bcf0c;
+  color: #111;
+}
+
+.femtanyl-btn--secondary {
+  background: #2a3550;
+  color: #dfe8ff;
+  border: 1px solid rgba(123, 207, 12, 0.35);
+}
+
+.femtanyl-btn--retreat {
+  background: linear-gradient(180deg, #5c3d1e 0%, #3d2810 100%);
+  color: #f4e4bc;
+  border: 2px solid #c9a227;
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.femtanyl-btn:hover {
+  filter: brightness(1.08);
+}
+
+.femtanyl-panel kbd {
+  background: #333;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+/* Epilepsy warning modal */
+.femtanyl-epilepsy-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(4px);
+}
+
+.femtanyl-epilepsy-dialog {
+  position: fixed;
+  z-index: 10001;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 28rem);
+  padding: 1.35rem 1.5rem 1.25rem;
+  border-radius: 12px;
+  background: #1a1428;
+  border: 2px solid #ff4466;
+  box-shadow:
+    0 0 40px rgba(255, 68, 102, 0.35),
+    0 24px 60px rgba(0, 0, 0, 0.6);
+  color: #f0eef8;
+}
+
+.femtanyl-epilepsy-dialog__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  color: #ff88a0;
+}
+
+.femtanyl-epilepsy-dialog__body {
+  margin: 0 0 0.65rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.femtanyl-epilepsy-dialog__body--muted {
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.femtanyl-epilepsy-dialog__check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.femtanyl-epilepsy-dialog__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+@media (max-width: 720px) {
+  .femtanyl-layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .femtanyl-panel {
+    max-width: none;
+  }
+}

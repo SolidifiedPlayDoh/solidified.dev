@@ -1,27 +1,34 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import gsap from "gsap";
 
 import { CrtOverlay } from "./components/CrtOverlay";
 import { HomePage } from "./components/HomePage";
-import { IntroGate } from "./components/IntroGate";
 import { IntroTimeline } from "./components/IntroTimeline";
 import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
+import { FemtanylOBSPage } from "./pages/FemtanylOBSPage";
+import { projects } from "./projects/registry";
 
-type Phase = "gate" | "intro" | "site";
+type Phase = "intro" | "site";
 
-export function App() {
+function PortfolioHome() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [phase, setPhase] = useState<Phase>("gate");
+  const [phase, setPhase] = useState<Phase>("intro");
   const mainRef = useRef<HTMLElement>(null);
 
-  const animateScanlines = phase !== "site" && !prefersReducedMotion;
+  const animateScanlines = !prefersReducedMotion;
 
   useEffect(() => {
     document.body.style.overflow = phase !== "site" ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
+  }, [phase]);
+
+  useEffect(() => {
+    document.body.classList.toggle("phase-site", phase === "site");
+    return () => document.body.classList.remove("phase-site");
   }, [phase]);
 
   useLayoutEffect(() => {
@@ -55,10 +62,6 @@ export function App() {
     setPhase("site");
   };
 
-  const beginIntro = () => {
-    setPhase("intro");
-  };
-
   return (
     <>
       <a className="skip-to-main" href="#main">
@@ -69,27 +72,16 @@ export function App() {
 
       {phase !== "site" && (
         <div className="intro-screen" role="presentation">
-          {phase === "gate" ? (
-            <>
-              <IntroGate onPress={beginIntro} />
-              <button type="button" className="skip-link" onClick={skipIntro}>
-                Skip intro
-              </button>
-            </>
-          ) : (
-            <>
-              <IntroTimeline
-                active={phase === "intro"}
-                reducedMotion={prefersReducedMotion}
-                onComplete={() => {
-                  setPhase("site");
-                }}
-              />
-              <button type="button" className="skip-link" onClick={skipIntro}>
-                Skip intro
-              </button>
-            </>
-          )}
+          <IntroTimeline
+            active={phase === "intro"}
+            reducedMotion={prefersReducedMotion}
+            onComplete={() => {
+              setPhase("site");
+            }}
+          />
+          <button type="button" className="skip-link" onClick={skipIntro}>
+            Skip intro
+          </button>
         </div>
       )}
 
@@ -97,5 +89,23 @@ export function App() {
         <HomePage />
       </main>
     </>
+  );
+}
+
+export function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/femtanylFNF/obs" element={<FemtanylOBSPage />} />
+        {projects.map((project) => (
+          <Route
+            key={project.path}
+            path={project.path}
+            element={<project.Component />}
+          />
+        ))}
+        <Route path="*" element={<PortfolioHome />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
