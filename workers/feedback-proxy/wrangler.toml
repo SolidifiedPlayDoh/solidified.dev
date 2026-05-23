@@ -1,0 +1,6 @@
+name = "solidified-feedback"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# After deploy, set the public worker URL as VITE_FEEDBACK_URL in GitHub Actions / local .env
+# wrangler secret put DISCORD_WEBHOOK_URL

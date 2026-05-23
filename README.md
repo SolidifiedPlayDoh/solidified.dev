@@ -31,6 +31,12 @@ every 30 seconds and shows avatar, status, optional activities/custom status and
 |---------|---------|
 | `VITE_DISCORD_USER_ID` | Your numeric Discord user snowflake — required for presence + sane default profile links. Enable **Developer Mode** in Discord → right‑click yourself → **Copy User ID**. |
 | `VITE_DISCORD_LINK_HREF` | *(Optional)* Overrides every bundled “Discord” pill / CTA (e.g. server invite vanity URL). |
+| `VITE_FEEDBACK_URL` | *(Optional)* Cloudflare Worker proxy instead of direct Discord. |
+| `VITE_DISCORD_FEEDBACK_WEBHOOK` | *(Optional)* Override the bundled feedback webhook URL. |
+
+### Site feedback button
+
+**Feedback** (bottom-left, every page except OBS pop-out) posts to Discord. The webhook is obfuscated in the client bundle — not secret, but fine for low-stakes spam risk. For a hidden webhook, use [`workers/feedback-proxy/`](workers/feedback-proxy/README.md) + `VITE_FEEDBACK_URL`.
 
 ### Adding a project page
 

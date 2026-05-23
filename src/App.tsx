@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import gsap from "gsap";
 
 import { CrtOverlay } from "./components/CrtOverlay";
+import { FeedbackWidget } from "./components/FeedbackWidget";
 import { HomePage } from "./components/HomePage";
 import { IntroTimeline } from "./components/IntroTimeline";
 import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
@@ -95,6 +96,7 @@ function PortfolioHome() {
 export function App() {
   return (
     <BrowserRouter>
+      <FeedbackWidget />
       <Routes>
         <Route path="/femtanylFNF/obs" element={<FemtanylOBSPage />} />
         {projects.map((project) => (

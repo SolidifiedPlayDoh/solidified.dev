@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { FemtanylAbout } from "../femtanyl/FemtanylAbout";
 import { EpilepsyGate } from "../femtanyl/EpilepsyGate";
 import { FemtanylStage } from "../femtanyl/FemtanylStage";
 import { FemtanylWatchDisclaimer } from "../femtanyl/FemtanylWatchDisclaimer";
@@ -221,6 +222,8 @@ export function FemtanylFNFPage() {
             </button>
           </aside>
         </div>
+
+        <FemtanylAbout />
 
         <FemtanylWatchDisclaimer
           open={watchDisclaimerOpen}

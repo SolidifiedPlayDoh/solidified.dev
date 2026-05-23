@@ -451,6 +451,49 @@ body.femtanyl-route #main {
   margin-top: 1rem;
 }
 
+.femtanyl-about {
+  max-width: 56rem;
+  margin: 2rem auto 3rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 10px;
+  border: 1px solid rgba(123, 207, 12, 0.22);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.femtanyl-about__heading {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #c9a0ff;
+}
+
+.femtanyl-about__body {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #bbb;
+}
+
+.femtanyl-about__body p {
+  margin: 0 0 0.75rem;
+}
+
+.femtanyl-about__body p:last-child {
+  margin-bottom: 0;
+}
+
+.femtanyl-about__body a {
+  color: #7bcf0c;
+}
+
+.femtanyl-about__body a:hover {
+  text-decoration: underline;
+}
+
+.femtanyl-about__feedback-link {
+  color: #7bcf0c;
+  font-weight: 600;
+}
+
 @media (max-width: 720px) {
   .femtanyl-layout {
     flex-direction: column;
@@ -459,5 +502,10 @@ body.femtanyl-route #main {
 
   .femtanyl-panel {
     max-width: none;
+  }
+
+  .femtanyl-about {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
