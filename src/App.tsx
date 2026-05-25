@@ -9,6 +9,7 @@ import { HomePage } from "./components/HomePage";
 import { IntroTimeline } from "./components/IntroTimeline";
 import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
 import { FemtanylOBSPage } from "./pages/FemtanylOBSPage";
+import { NightRemovedPage } from "./pages/NightRemovedPage";
 import { projects } from "./projects/registry";
 
 type Phase = "intro" | "site";
@@ -99,6 +100,7 @@ export function App() {
       <FeedbackWidget />
       <Routes>
         <Route path="/femtanylFNF/obs" element={<FemtanylOBSPage />} />
+        <Route path="/night" element={<NightRemovedPage />} />
         {projects.map((project) => (
           <Route
             key={project.path}
