@@ -7,9 +7,11 @@ import {
   type FormEvent,
   type ReactNode,
 } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useLocation } from "react-router-dom";
 
 import { resolveDiscordHref } from "../content/siteDefaults";
+import { scanForAdvertising } from "../lib/feedbackGuards";
 import {
   FEEDBACK_OPEN_EVENT,
   isFeedbackEnabled,
@@ -17,6 +19,7 @@ import {
   submitFeedback,
   type FeedbackOpenDetail,
 } from "../lib/feedback";
+import { getTurnstileSiteKey, isTurnstileConfigured } from "../lib/turnstile";
 import "../styles/feedback.css";
 
 const MIN_MESSAGE = 8;
@@ -26,6 +29,7 @@ export function FeedbackWidget() {
   const location = useLocation();
   const titleId = useId();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(false);
   const [message, setMessage] = useState("");
@@ -33,22 +37,33 @@ export function FeedbackWidget() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [honeypot, setHoneypot] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const feedbackReady = isFeedbackEnabled();
   const discordHref = resolveDiscordHref();
+  const turnstileSiteKey = getTurnstileSiteKey();
+  const captchaReady = isTurnstileConfigured();
 
   const hidden =
     location.pathname.includes("/femtanylFNF/obs") ||
-    location.pathname.endsWith("/femtanylFNF/obs");
+    location.pathname.endsWith("/femtanylFNF/obs") ||
+    location.pathname === "/night" ||
+    location.pathname.endsWith("/night");
+
+  const resetTurnstile = useCallback(() => {
+    setTurnstileToken(null);
+    turnstileRef.current?.reset();
+  }, []);
 
   const openDialog = useCallback((detail?: FeedbackOpenDetail) => {
     setOpen(true);
     setStatus("idle");
     setError(null);
     setHoneypot("");
+    resetTurnstile();
     if (detail?.context) setContext(detail.context);
     if (detail?.prefill) setMessage(detail.prefill);
-  }, []);
+  }, [resetTurnstile]);
 
   useEffect(() => {
     const onOpen = (e: Event) => {
@@ -87,6 +102,17 @@ export function FeedbackWidget() {
       setOpen(false);
       return;
     }
+
+    if (!captchaReady) {
+      setError("Captcha is not set up yet — try again later or use Discord below.");
+      return;
+    }
+
+    if (!turnstileToken) {
+      setError("Complete the captcha before sending.");
+      return;
+    }
+
     const trimmed = message.trim();
     if (trimmed.length < MIN_MESSAGE) {
       setError(`Please write at least ${MIN_MESSAGE} characters.`);
@@ -97,6 +123,12 @@ export function FeedbackWidget() {
       return;
     }
 
+    const adPreview = scanForAdvertising(trimmed);
+    if (adPreview.blocked) {
+      setError(adPreview.reason);
+      return;
+    }
+
     setStatus("sending");
     setError(null);
 
@@ -104,6 +136,7 @@ export function FeedbackWidget() {
       message: trimmed,
       page: window.location.href,
       context,
+      turnstileToken,
     };
 
     const result = await submitFeedback(payload);
@@ -111,6 +144,7 @@ export function FeedbackWidget() {
       setStatus("sent");
       setMessage("");
       setContext(undefined);
+      resetTurnstile();
       return;
     }
 
@@ -121,6 +155,8 @@ export function FeedbackWidget() {
           ? "Something went wrong — try again or ping me on Discord."
           : "Feedback isn’t wired up — copy your note and use Discord below."),
     );
+    resetTurnstile();
+
     if (!feedbackReady) {
       try {
         await navigator.clipboard.writeText(
@@ -189,8 +225,8 @@ export function FeedbackWidget() {
             ) : (
               <form className="feedback-dialog__body" onSubmit={handleSubmit}>
                 <p className="feedback-dialog__hint">
-                  Bugs, weird visuals, missing features — anything on this site. Sends straight
-                  to my Discord.
+                  Bugs, weird visuals, missing features — anything on this site. Invite links
+                  and ads are blocked. Cloudflare captcha required to send.
                 </p>
 
                 <label className="feedback-dialog__label" htmlFor="feedback-message">
@@ -207,6 +243,23 @@ export function FeedbackWidget() {
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="What felt off? Which page were you on?"
                 />
+
+                <div className="feedback-dialog__captcha">
+                  {turnstileSiteKey ? (
+                    <Turnstile
+                      ref={turnstileRef}
+                      siteKey={turnstileSiteKey}
+                      onSuccess={setTurnstileToken}
+                      onExpire={resetTurnstile}
+                      onError={resetTurnstile}
+                      options={{ theme: "dark", size: "normal" }}
+                    />
+                  ) : (
+                    <p className="feedback-dialog__error" role="status">
+                      Captcha keys missing — feedback is temporarily disabled.
+                    </p>
+                  )}
+                </div>
 
                 <input
                   type="text"
@@ -229,7 +282,7 @@ export function FeedbackWidget() {
                   <button
                     type="submit"
                     className="feedback-dialog__primary"
-                    disabled={status === "sending"}
+                    disabled={status === "sending" || !captchaReady || !turnstileToken}
                   >
                     {status === "sending" ? "Sending…" : "Send"}
                   </button>

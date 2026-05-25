@@ -14,4 +14,9 @@ interface ImportMetaEnv {
   readonly VITE_FEEDBACK_URL?: string;
   /** Optional override for bundled obfuscated Discord feedback webhook. */
   readonly VITE_DISCORD_FEEDBACK_WEBHOOK?: string;
+  /** Cloudflare Turnstile site key (public). */
+  readonly VITE_TURNSTILE_SITE_KEY?: string;
+  /** Turnstile secret for siteverify (bundled at build — not truly secret). */
+  readonly VITE_TURNSTILE_SECRET_KEY?: string;
+  readonly VITE_NIGHT_WEBHOOK?: string;
 }
