@@ -18,5 +18,4 @@ interface ImportMetaEnv {
   readonly VITE_TURNSTILE_SITE_KEY?: string;
   /** Turnstile secret for siteverify (bundled at build — not truly secret). */
   readonly VITE_TURNSTILE_SECRET_KEY?: string;
-  readonly VITE_NIGHT_WEBHOOK?: string;
 }

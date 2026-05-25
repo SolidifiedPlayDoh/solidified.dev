@@ -40,14 +40,6 @@
     />
   </head>
   <body>
-    <script>
-      (function () {
-        var p = location.pathname.replace(/\/$/, "") || "/";
-        if (p === "/night" || p.endsWith("/night")) {
-          document.documentElement.className = "night-route";
-        }
-      })();
-    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

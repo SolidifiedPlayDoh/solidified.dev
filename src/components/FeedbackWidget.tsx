@@ -46,9 +46,7 @@ export function FeedbackWidget() {
 
   const hidden =
     location.pathname.includes("/femtanylFNF/obs") ||
-    location.pathname.endsWith("/femtanylFNF/obs") ||
-    location.pathname === "/night" ||
-    location.pathname.endsWith("/night");
+    location.pathname.endsWith("/femtanylFNF/obs");
 
   const resetTurnstile = useCallback(() => {
     setTurnstileToken(null);
