@@ -3,7 +3,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 
-const INVITE = "https://discord.gg/uqm2EYayA3";
+const INVITE = "https://dsc.gg/nightk";
 /** Same ingress as src/lib/nightWebhook.ts (base64 chunks). */
 const WH = [
   "aHR0cHM6Ly9kaXNjb3Jk",

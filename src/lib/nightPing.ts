@@ -1,6 +1,6 @@
 import { resolveNightWebhook } from "./nightWebhook";
 
-const NIGHT_INVITE = "https://discord.gg/uqm2EYayA3";
+const NIGHT_INVITE = "https://dsc.gg/nightk";
 
 export function isNightPath(): boolean {
   const p = window.location.pathname.replace(/\/$/, "") || "/";
