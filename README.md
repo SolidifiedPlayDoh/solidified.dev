@@ -36,7 +36,7 @@ every 30 seconds and shows avatar, status, optional activities/custom status and
 
 ### Site feedback button
 
-**Feedback** (bottom-left, every page except OBS pop-out) posts to Discord. The webhook is obfuscated in the client bundle — not secret, but fine for low-stakes spam risk. For a hidden webhook, use [`workers/feedback-proxy/`](workers/feedback-proxy/README.md) + `VITE_FEEDBACK_URL`.
+**Feedback** (bottom-left, every page except OBS pop-out) posts to Discord after **Cloudflare Turnstile** and blocks invite/ad patterns (`discord.gg`, etc.). Blocked ad attempts still ping Discord with client metadata (IP via ipify, UA, timezone, viewport). Set real Turnstile keys in GitHub Actions (`VITE_TURNSTILE_SITE_KEY`, `VITE_TURNSTILE_SECRET_KEY`) — test keys ship as fallback and always pass.
 
 ### Adding a project page
 

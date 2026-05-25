@@ -147,6 +147,17 @@
   outline-offset: 1px;
 }
 
+.feedback-dialog__captcha {
+  display: flex;
+  justify-content: center;
+  min-height: 68px;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.feedback-dialog__captcha iframe {
+  border-radius: 6px;
+}
+
 .feedback-dialog__honeypot {
   position: absolute;
   left: -9999px;

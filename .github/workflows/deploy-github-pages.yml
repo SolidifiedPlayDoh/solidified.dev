@@ -28,6 +28,8 @@ jobs:
       - name: Install and build
         env:
           VITE_FEEDBACK_URL: ${{ secrets.VITE_FEEDBACK_URL }}
+          VITE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_TURNSTILE_SITE_KEY }}
+          VITE_TURNSTILE_SECRET_KEY: ${{ secrets.VITE_TURNSTILE_SECRET_KEY }}
         run: npm ci && npm run build
         # Optional: for https://USER.github.io/REPO/ without a custom domain, set env VITE_BASE_PATH: /REPO/
 

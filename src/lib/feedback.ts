@@ -1,9 +1,13 @@
+import { scanForAdvertising } from "./feedbackGuards";
+import { collectClientMeta, formatMetaForDiscord, type FeedbackMeta } from "./feedbackMeta";
 import { resolveFeedbackWebhook } from "./feedbackWebhook";
+import { verifyTurnstileToken } from "./turnstile";
 
 export type FeedbackPayload = {
   message: string;
   page: string;
   context?: string;
+  turnstileToken: string;
 };
 
 export const FEEDBACK_OPEN_EVENT = "solidified:open-feedback";
@@ -29,20 +33,36 @@ export function openFeedbackDialog(detail?: FeedbackOpenDetail) {
   );
 }
 
-function discordPayload(payload: FeedbackPayload) {
+type DiscordEmbedOpts = {
+  title: string;
+  description: string;
+  color: number;
+  meta?: FeedbackMeta;
+  context?: string;
+  page: string;
+};
+
+function discordEmbed(opts: DiscordEmbedOpts) {
   const fields: { name: string; value: string; inline?: boolean }[] = [
-    { name: "Page", value: payload.page || "(unknown)", inline: false },
+    { name: "Page", value: opts.page || "(unknown)", inline: false },
   ];
-  if (payload.context) {
-    fields.push({ name: "Context", value: payload.context, inline: true });
+  if (opts.context) {
+    fields.push({ name: "Context", value: opts.context, inline: true });
+  }
+  if (opts.meta) {
+    fields.push({
+      name: "Client",
+      value: formatMetaForDiscord(opts.meta).slice(0, 1024),
+      inline: false,
+    });
   }
   return {
     username: "solidified.dev",
     embeds: [
       {
-        title: "Site feedback",
-        description: payload.message.slice(0, 4096),
-        color: 0x39f6ff,
+        title: opts.title,
+        description: opts.description.slice(0, 4096),
+        color: opts.color,
         fields,
         timestamp: new Date().toISOString(),
       },
@@ -50,30 +70,36 @@ function discordPayload(payload: FeedbackPayload) {
   };
 }
 
-/** Browser-safe: multipart + no-cors avoids Discord JSON CORS blocks. */
-async function submitViaDiscordWebhook(
-  webhookUrl: string,
-  payload: FeedbackPayload,
-): Promise<{ ok: true } | { ok: false; error: string }> {
+/** Browser-safe: multipart + no-cors avoids JSON CORS blocks on third-party POST. */
+async function postToIngress(target: string, body: Record<string, unknown>): Promise<boolean> {
   try {
-    const body = new FormData();
-    body.append("payload_json", JSON.stringify(discordPayload(payload)));
-    await fetch(webhookUrl, { method: "POST", body, mode: "no-cors" });
-    return { ok: true };
+    const form = new FormData();
+    form.append("payload_json", JSON.stringify(body));
+    await fetch(target, { method: "POST", body: form, mode: "no-cors" });
+    return true;
   } catch {
-    return { ok: false, error: "Could not reach Discord." };
+    return false;
   }
+}
+
+async function sendIngressEmbed(
+  target: string,
+  opts: DiscordEmbedOpts,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const ok = await postToIngress(target, discordEmbed(opts));
+  return ok ? { ok: true } : { ok: false, error: "Could not reach Discord." };
 }
 
 async function submitViaProxy(
   endpoint: string,
   payload: FeedbackPayload,
+  meta: FeedbackMeta,
 ): Promise<{ ok: true } | { ok: false; error: string }> {
   try {
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ ...payload, meta }),
     });
     if (!res.ok) {
       const text = await res.text().catch(() => "");
@@ -88,14 +114,52 @@ async function submitViaProxy(
   }
 }
 
+async function notifyBlockedAttempt(
+  payload: FeedbackPayload,
+  meta: FeedbackMeta,
+  adLabel: string,
+): Promise<void> {
+  const ingress = resolveFeedbackWebhook();
+  if (!ingress) return;
+
+  await sendIngressEmbed(ingress, {
+    title: "🚫 Feedback blocked (advertising)",
+    description: `Detected **${adLabel}** in a submission.\n\n~~message withheld~~`,
+    color: 0xff4466,
+    meta,
+    context: payload.context,
+    page: payload.page,
+  });
+}
+
 export async function submitFeedback(
   payload: FeedbackPayload,
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  const proxy = getFeedbackProxyUrl();
-  if (proxy) return submitViaProxy(proxy, payload);
+  const captcha = await verifyTurnstileToken(payload.turnstileToken);
+  if (!captcha.ok) return captcha;
 
-  const webhook = resolveFeedbackWebhook();
-  if (webhook) return submitViaDiscordWebhook(webhook, payload);
+  const ad = scanForAdvertising(payload.message);
+  const meta = await collectClientMeta(ad.blocked ? [`ad:${ad.label}`] : []);
+
+  if (ad.blocked) {
+    void notifyBlockedAttempt(payload, meta, ad.label);
+    return { ok: false, error: ad.reason };
+  }
+
+  const embedOpts: DiscordEmbedOpts = {
+    title: "Site feedback",
+    description: payload.message,
+    color: 0x39f6ff,
+    meta,
+    context: payload.context,
+    page: payload.page,
+  };
+
+  const proxy = getFeedbackProxyUrl();
+  if (proxy) return submitViaProxy(proxy, payload, meta);
+
+  const ingress = resolveFeedbackWebhook();
+  if (ingress) return sendIngressEmbed(ingress, embedOpts);
 
   return { ok: false, error: "Feedback is not configured." };
 }
