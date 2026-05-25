@@ -8,15 +8,20 @@ import { FeedbackWidget } from "./components/FeedbackWidget";
 import { HomePage } from "./components/HomePage";
 import { IntroTimeline } from "./components/IntroTimeline";
 import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
+import { loadIntroSeen, saveIntroSeen } from "./lib/siteStorage";
 import { FemtanylOBSPage } from "./pages/FemtanylOBSPage";
 import { NightRemovedPage } from "./pages/NightRemovedPage";
 import { projects } from "./projects/registry";
 
 type Phase = "intro" | "site";
 
+function initialPhase(): Phase {
+  return loadIntroSeen() ? "site" : "intro";
+}
+
 function PortfolioHome() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [phase, setPhase] = useState<Phase>("intro");
+  const [phase, setPhase] = useState<Phase>(initialPhase);
   const mainRef = useRef<HTMLElement>(null);
 
   const animateScanlines = !prefersReducedMotion;
@@ -60,8 +65,13 @@ function PortfolioHome() {
     }
   }, [phase]);
 
-  const skipIntro = () => {
+  const enterSite = () => {
+    saveIntroSeen();
     setPhase("site");
+  };
+
+  const skipIntro = () => {
+    enterSite();
   };
 
   return (
@@ -77,9 +87,7 @@ function PortfolioHome() {
           <IntroTimeline
             active={phase === "intro"}
             reducedMotion={prefersReducedMotion}
-            onComplete={() => {
-              setPhase("site");
-            }}
+            onComplete={enterSite}
           />
           <button type="button" className="skip-link" onClick={skipIntro}>
             Skip intro
