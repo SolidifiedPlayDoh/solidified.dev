@@ -79,11 +79,74 @@ body.wow-route .feedback-fab {
   width: min(10rem, 42vw);
   height: auto;
   margin: 0 0 1.25rem;
-  transform: rotate(-6deg);
   filter: drop-shadow(0 12px 28px rgba(255, 77, 240, 0.35));
   image-rendering: pixelated;
   user-select: none;
   pointer-events: none;
+}
+
+.wow-secret {
+  position: fixed;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+
+.wow-secret__label {
+  margin: 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: #9a88b8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.05rem;
+}
+
+.wow-secret__arrow {
+  font-size: 0.7rem;
+  color: #ff4df0;
+  line-height: 1;
+}
+
+.wow-secret__row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-left: 0.15rem;
+}
+
+.wow-secret__btn {
+  width: 1.65rem;
+  height: 1.65rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 77, 240, 0.55);
+  background: radial-gradient(circle at 35% 30%, #3a1f4a, #120a18);
+  box-shadow: 0 0 12px rgba(255, 77, 240, 0.25);
+  cursor: pointer;
+}
+
+.wow-secret__btn:hover {
+  border-color: #ff4df0;
+  box-shadow: 0 0 16px rgba(255, 77, 240, 0.45);
+}
+
+.wow-secret__btn:active {
+  transform: scale(0.92);
+}
+
+.wow-secret__count {
+  min-width: 1.25rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  color: #ff6ef5;
 }
 
 .wow-prank__punchline {
