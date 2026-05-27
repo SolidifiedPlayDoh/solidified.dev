@@ -46,10 +46,15 @@ body.wow-route .feedback-fab {
 }
 
 .wow-prank__body {
-  margin: 0 0 1rem;
+  margin: 0 0 0.85rem;
   font-size: 0.95rem;
   line-height: 1.55;
   color: #c9b8e8;
+}
+
+.wow-prank__body--dim {
+  font-size: 0.88rem;
+  color: #9a88b8;
 }
 
 .wow-prank__stinger {

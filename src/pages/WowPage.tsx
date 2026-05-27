@@ -6,8 +6,11 @@ export function WowPage() {
       <p className="wow-prank__eyebrow">solidified.dev / wow</p>
       <h1 className="wow-prank__title">You wish.</h1>
       <p className="wow-prank__body">
-        This link was never going to be what you hoped. It&apos;s a joke page — bait for
-        the curious. You clicked. Respect.
+        This link was never going to be what you hoped. You still clicked it anyway.
+        Bold of you. Wrong, but bold.
+      </p>
+      <p className="wow-prank__body wow-prank__body--dim">
+        Go touch grass or keep L&apos;ing — either way, not here &gt;:3
       </p>
       <p className="wow-prank__stinger">&gt;;3</p>
       <a className="wow-prank__link" href="/">

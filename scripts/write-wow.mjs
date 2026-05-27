@@ -23,7 +23,8 @@ const html = `<!DOCTYPE html>
 <main>
   <p class="e">solidified.dev / wow</p>
   <h1>You wish.</h1>
-  <p>This link was never going to be what you hoped. It's a joke page — bait for the curious. You clicked. Respect.</p>
+  <p>This link was never going to be what you hoped. You still clicked it anyway. Bold of you. Wrong, but bold.</p>
+  <p style="margin:0 0 1rem;font-size:.88rem;color:#9a88b8">Go touch grass or keep L'ing — either way, not here &gt;:3</p>
   <p class="s">&gt;;3</p>
   <a href="/">← escape to the real site</a>
 </main>
