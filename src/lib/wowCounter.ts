@@ -25,7 +25,7 @@ export function formatFallenLine(count: number | null): string {
 
 export async function fetchSecretPressCount(): Promise<number> {
   try {
-    const res = await fetch(`${SECRET_BASE}/`, { signal: AbortSignal.timeout(8000) });
+    const res = await fetch(SECRET_BASE, { signal: AbortSignal.timeout(8000) });
     const n = await readCount(res);
     return n ?? 0;
   } catch {

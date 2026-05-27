@@ -20,6 +20,7 @@ if (standalone === "night") {
   createRoot(root).render(<NightRemovedPage />);
 } else if (standalone === "wow") {
   document.documentElement.classList.add("wow-route");
+  document.body.classList.add("wow-route");
   createRoot(root).render(<WowPage />);
 } else {
   createRoot(root).render(
