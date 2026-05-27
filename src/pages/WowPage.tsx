@@ -1,20 +1,26 @@
 import "../styles/wow.css";
 
+const STICKER = `${import.meta.env.BASE_URL}wow-sticker.png`;
+
 export function WowPage() {
   return (
     <main className="wow-prank">
-      <p className="wow-prank__eyebrow">solidified.dev / wow</p>
-      <h1 className="wow-prank__title">You wish.</h1>
-      <p className="wow-prank__body">
-        This link was never going to be what you hoped. You still clicked it anyway.
-        Bold of you. Wrong, but bold.
+      <h1 className="wow-prank__title">YOU WISH</h1>
+      <p className="wow-prank__kicker">tricked ya</p>
+      <img
+        className="wow-prank__sticker"
+        src={STICKER}
+        alt=""
+        width={160}
+        height={160}
+        draggable={false}
+      />
+      <p className="wow-prank__punchline">
+        hahha you are <strong>NOT</strong> getting solidifiedplaydoh exclusive content you
+        horny bastard
       </p>
-      <p className="wow-prank__body wow-prank__body--dim">
-        Go touch grass or keep L&apos;ing — either way, not here &gt;:3
-      </p>
-      <p className="wow-prank__stinger">&gt;;3</p>
       <a className="wow-prank__link" href="/">
-        ← escape to the real site
+        ← leave
       </a>
     </main>
   );

@@ -8,25 +8,25 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="robots" content="noindex"/>
-<title>You wish · Solidified.dev</title>
+<title>YOU WISH · Solidified.dev</title>
 <style>
   html,body{margin:0;min-height:100vh;background:#0a0614;color:#e8d4ff;font-family:system-ui,sans-serif}
-  main{box-sizing:border-box;max-width:28rem;margin:0 auto;padding:3rem 1.5rem}
-  .e{margin:0 0 .75rem;font:600 .72rem/1.4 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#ff4df0}
-  h1{margin:0 0 1rem;font-size:clamp(2.2rem,8vw,3rem);font-weight:600;line-height:1.05;color:#ffe8fb;text-shadow:0 0 32px rgba(255,77,240,.45)}
-  p{margin:0 0 1rem;font-size:.95rem;line-height:1.55;color:#c9b8e8}
-  .s{margin:0 0 1.5rem;font:600 1.1rem/1 ui-monospace,monospace;color:#ff4df0}
-  a{font:600 .78rem/1 ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:#39f6ff;text-decoration:none}
-  a:hover{text-decoration:underline}
+  main{box-sizing:border-box;max-width:22rem;margin:0 auto;padding:2.5rem 1.25rem 3rem;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  h1{margin:0;font-size:clamp(2.6rem,12vw,3.75rem);font-weight:800;line-height:.95;letter-spacing:.04em;color:#ffe8fb;text-shadow:0 0 40px rgba(255,77,240,.5)}
+  .k{margin:.35rem 0 1.25rem;font:600 1rem/1 ui-monospace,monospace;letter-spacing:.2em;color:#ff4df0}
+  .st{width:min(10rem,42vw);height:auto;margin:0 0 1.25rem;transform:rotate(-6deg);filter:drop-shadow(0 12px 28px rgba(255,77,240,.35));image-rendering:pixelated}
+  .p{margin:0;font-size:1rem;line-height:1.45;color:#d4c0f5}
+  .p strong{color:#ff6ef5}
+  a{margin-top:1.75rem;font:600 .72rem/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#39f6ff;text-decoration:none;opacity:.85}
+  a:hover{opacity:1;text-decoration:underline}
 </style>
 </head><body>
 <main>
-  <p class="e">solidified.dev / wow</p>
-  <h1>You wish.</h1>
-  <p>This link was never going to be what you hoped. You still clicked it anyway. Bold of you. Wrong, but bold.</p>
-  <p style="margin:0 0 1rem;font-size:.88rem;color:#9a88b8">Go touch grass or keep L'ing — either way, not here &gt;:3</p>
-  <p class="s">&gt;;3</p>
-  <a href="/">← escape to the real site</a>
+  <h1>YOU WISH</h1>
+  <p class="k">tricked ya</p>
+  <img class="st" src="/wow-sticker.png" alt="" width="160" height="160" draggable="false"/>
+  <p class="p">hahha you are <strong>NOT</strong> getting solidifiedplaydoh exclusive content you horny bastard</p>
+  <a href="/">← leave</a>
 </main>
 </body></html>
 `;

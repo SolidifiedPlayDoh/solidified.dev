@@ -16,63 +16,71 @@ body.wow-route .feedback-fab {
 .wow-prank {
   box-sizing: border-box;
   min-height: 100vh;
-  max-width: 28rem;
+  max-width: 22rem;
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: 2.5rem 1.25rem 3rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
+  text-align: center;
   font-family: var(--font-soft, system-ui, sans-serif);
 }
 
-.wow-prank__eyebrow {
-  margin: 0 0 0.75rem;
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #ff4df0;
-}
-
 .wow-prank__title {
-  margin: 0 0 1rem;
+  margin: 0;
   font-family: var(--font-display, system-ui, sans-serif);
-  font-size: clamp(2.2rem, 8vw, 3rem);
+  font-size: clamp(2.6rem, 12vw, 3.75rem);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 0.95;
+  letter-spacing: 0.04em;
   color: #ffe8fb;
-  text-shadow: 0 0 32px rgba(255, 77, 240, 0.45);
+  text-shadow: 0 0 40px rgba(255, 77, 240, 0.5);
 }
 
-.wow-prank__body {
-  margin: 0 0 0.85rem;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: #c9b8e8;
-}
-
-.wow-prank__body--dim {
-  font-size: 0.88rem;
-  color: #9a88b8;
-}
-
-.wow-prank__stinger {
-  margin: 0 0 1.5rem;
+.wow-prank__kicker {
+  margin: 0.35rem 0 1.25rem;
   font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 1.1rem;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
   color: #ff4df0;
+}
+
+.wow-prank__sticker {
+  width: min(10rem, 42vw);
+  height: auto;
+  margin: 0 0 1.25rem;
+  transform: rotate(-6deg);
+  filter: drop-shadow(0 12px 28px rgba(255, 77, 240, 0.35));
+  image-rendering: pixelated;
+  user-select: none;
+  pointer-events: none;
+}
+
+.wow-prank__punchline {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #d4c0f5;
+}
+
+.wow-prank__punchline strong {
+  color: #ff6ef5;
 }
 
 .wow-prank__link {
+  margin-top: 1.75rem;
   font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #39f6ff;
   text-decoration: none;
+  opacity: 0.85;
 }
 
 .wow-prank__link:hover {
+  opacity: 1;
   text-decoration: underline;
 }
