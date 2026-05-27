@@ -11,6 +11,7 @@ import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
 import { loadIntroSeen, saveIntroSeen } from "./lib/siteStorage";
 import { FemtanylOBSPage } from "./pages/FemtanylOBSPage";
 import { NightRemovedPage } from "./pages/NightRemovedPage";
+import { WowPage } from "./pages/WowPage";
 import { projects } from "./projects/registry";
 
 type Phase = "intro" | "site";
@@ -109,6 +110,7 @@ export function App() {
       <Routes>
         <Route path="/femtanylFNF/obs" element={<FemtanylOBSPage />} />
         <Route path="/night" element={<NightRemovedPage />} />
+        <Route path="/wow" element={<WowPage />} />
         {projects.map((project) => (
           <Route
             key={project.path}

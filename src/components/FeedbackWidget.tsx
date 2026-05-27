@@ -48,7 +48,9 @@ export function FeedbackWidget() {
     location.pathname.includes("/femtanylFNF/obs") ||
     location.pathname.endsWith("/femtanylFNF/obs") ||
     location.pathname === "/night" ||
-    location.pathname.endsWith("/night");
+    location.pathname.endsWith("/night") ||
+    location.pathname === "/wow" ||
+    location.pathname.endsWith("/wow");
 
   const resetTurnstile = useCallback(() => {
     setTurnstileToken(null);

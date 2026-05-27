@@ -1,0 +1,73 @@
+html.wow-route,
+body.wow-route {
+  margin: 0;
+  min-height: 100vh;
+  background: #0a0614;
+  color: #e8d4ff;
+}
+
+body.wow-route .crt-overlay,
+body.wow-route .intro-screen,
+body.wow-route .skip-to-main,
+body.wow-route .feedback-fab {
+  display: none !important;
+}
+
+.wow-prank {
+  box-sizing: border-box;
+  min-height: 100vh;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: var(--font-soft, system-ui, sans-serif);
+}
+
+.wow-prank__eyebrow {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff4df0;
+}
+
+.wow-prank__title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display, system-ui, sans-serif);
+  font-size: clamp(2.2rem, 8vw, 3rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: #ffe8fb;
+  text-shadow: 0 0 32px rgba(255, 77, 240, 0.45);
+}
+
+.wow-prank__body {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #c9b8e8;
+}
+
+.wow-prank__stinger {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 1.1rem;
+  color: #ff4df0;
+}
+
+.wow-prank__link {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #39f6ff;
+  text-decoration: none;
+}
+
+.wow-prank__link:hover {
+  text-decoration: underline;
+}
