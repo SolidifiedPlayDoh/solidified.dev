@@ -13,6 +13,34 @@ body.wow-route .feedback-fab {
   display: none !important;
 }
 
+.wow-prank__counter {
+  position: fixed;
+  top: 0.85rem;
+  right: 0.85rem;
+  left: 0.85rem;
+  margin: 0;
+  max-width: 14rem;
+  margin-left: auto;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 77, 240, 0.35);
+  background: rgba(10, 6, 20, 0.88);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  text-align: right;
+  color: #c9b8e8;
+  z-index: 2;
+}
+
+@media (max-width: 480px) {
+  .wow-prank__counter {
+    font-size: 0.62rem;
+    max-width: 11rem;
+  }
+}
+
 .wow-prank {
   box-sizing: border-box;
   min-height: 100vh;
