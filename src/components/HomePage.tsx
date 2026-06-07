@@ -1,26 +1,10 @@
-import { useState } from "react";
-
 import { siteContent } from "../content/siteDefaults";
-import {
-  loadNightNoticeDismissed,
-  saveNightNoticeDismissed,
-} from "../lib/siteStorage";
 
-import { DiscordPresenceCard } from "./DiscordPresenceCard";
-import { NightNoticeModal } from "./NightNoticeModal";
 import { ProjectGrid } from "./ProjectGrid";
 
 export function HomePage() {
-  const [noticeOpen, setNoticeOpen] = useState(() => !loadNightNoticeDismissed());
-
-  const dismissNotice = () => {
-    saveNightNoticeDismissed();
-    setNoticeOpen(false);
-  };
-
   return (
     <div className="soft-site">
-      <NightNoticeModal open={noticeOpen} onDismiss={dismissNotice} />
       <div className="soft-site__inner">
         <hr className="soft-divider" aria-hidden />
 
@@ -36,8 +20,6 @@ export function HomePage() {
           </div>
 
           <div className="soft-column soft-column--aside">
-            <DiscordPresenceCard />
-
             <nav className="soft-nav" aria-label="Links">
               <ul>
                 {siteContent.links.map((link, idx) => (

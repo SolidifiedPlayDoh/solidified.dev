@@ -1,6 +1,5 @@
-import { FeedbackLink } from "../components/FeedbackWidget";
-
 const VIDEO_URL = "https://www.youtube.com/watch?v=rigyc6Lesc4";
+const GITHUB_URL = "https://github.com/SolidifiedPlayDoh/portfolio";
 
 export function FemtanylAbout() {
   return (
@@ -21,15 +20,11 @@ export function FemtanylAbout() {
         </p>
         <p>
           This is still a fan recreation, not the real game — timing, shaders, and poses might
-          be off. If something looks wrong or breaks, please tell me using the{" "}
-          <FeedbackLink
-            context="Femtanyl FNF animator"
-            prefill="Femtanyl animator: "
-            className="femtanyl-about__feedback-link"
-          >
-            Feedback
-          </FeedbackLink>{" "}
-          button in the bottom-left corner of the page (same one on every page here).
+          be off. If something looks wrong or breaks, open an issue on{" "}
+          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          .
         </p>
       </div>
     </section>

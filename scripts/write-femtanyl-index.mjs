@@ -1,6 +1,6 @@
 /**
  * Writes dist/femtanylFNF/index.html — same SPA bundle as the site, but with
- * Femtanyl-specific Open Graph tags for Discord/crawlers (no redirect).
+ * Femtanyl-specific Open Graph tags for crawlers (no redirect).
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 

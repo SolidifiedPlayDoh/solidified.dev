@@ -1,4 +1,4 @@
-/** Canonical site origin for Open Graph absolute URLs (Discord, Twitter, etc.). */
+/** Canonical site origin for Open Graph absolute URLs. */
 export const SITE_ORIGIN =
   import.meta.env.VITE_SITE_ORIGIN?.replace(/\/$/, "") ||
   "https://solidified.dev";

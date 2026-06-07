@@ -4,13 +4,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import gsap from "gsap";
 
 import { CrtOverlay } from "./components/CrtOverlay";
-import { FeedbackWidget } from "./components/FeedbackWidget";
 import { HomePage } from "./components/HomePage";
 import { IntroTimeline } from "./components/IntroTimeline";
 import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
 import { loadIntroSeen, saveIntroSeen } from "./lib/siteStorage";
 import { FemtanylOBSPage } from "./pages/FemtanylOBSPage";
-import { NightRemovedPage } from "./pages/NightRemovedPage";
 import { WowPage } from "./pages/WowPage";
 import { projects } from "./projects/registry";
 
@@ -106,10 +104,8 @@ function PortfolioHome() {
 export function App() {
   return (
     <BrowserRouter>
-      <FeedbackWidget />
       <Routes>
         <Route path="/femtanylFNF/obs" element={<FemtanylOBSPage />} />
-        <Route path="/night" element={<NightRemovedPage />} />
         <Route path="/wow" element={<WowPage />} />
         {projects.map((project) => (
           <Route

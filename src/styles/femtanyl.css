@@ -489,11 +489,6 @@ body.femtanyl-route #main {
   text-decoration: underline;
 }
 
-.femtanyl-about__feedback-link {
-  color: #7bcf0c;
-  font-weight: 600;
-}
-
 @media (max-width: 720px) {
   .femtanyl-layout {
     flex-direction: column;

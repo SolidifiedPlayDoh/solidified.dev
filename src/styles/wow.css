@@ -8,8 +8,7 @@ body.wow-route {
 
 body.wow-route .crt-overlay,
 body.wow-route .intro-screen,
-body.wow-route .skip-to-main,
-body.wow-route .feedback-fab {
+body.wow-route .skip-to-main {
   display: none !important;
 }
 
