@@ -13,8 +13,13 @@ export type SiteContent = {
 
 export const siteContent: SiteContent = {
   headline: "Solidified.dev",
-  lead: "Hai im solidifedplaydoh. i am a vibecoder and i love to make experimental dev & build-y things. this website is still a work in progress.",
-  paragraphs: [],
+  lead:
+    "im SolidifiedPlayDoh — vibecoder, AI wrangler, and professional hardware botherer. i ship web experiments, discord plugins, embedded firmware hacks, and roblox tooling. usually in less than a day.",
+  paragraphs: [
+    "i hack random stuff to do things they were never meant to do — pocket radios that play FLAC, flypads that shouldn't exist, morse decoders bolted onto SDR software.",
+    "most of what i make starts as a silly idea and ends up working before i gotta go to bed. AI helps me move stupid fast without cutting the chaos.",
+    "this site is where i put the finished experiments.",
+  ],
   links: [{ label: "GitHub", href: "https://github.com/SolidifiedPlayDoh" }],
 };
 

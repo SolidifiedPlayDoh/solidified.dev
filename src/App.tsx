@@ -9,6 +9,7 @@ import { IntroTimeline } from "./components/IntroTimeline";
 import { usePrefersReducedMotion } from "./hooks/usePrefersReducedMotion";
 import { loadIntroSeen, saveIntroSeen } from "./lib/siteStorage";
 import { FemtanylOBSPage } from "./pages/FemtanylOBSPage";
+import { HiPage } from "./pages/HiPage";
 import { WowPage } from "./pages/WowPage";
 import { projects } from "./projects/registry";
 
@@ -106,6 +107,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/femtanylFNF/obs" element={<FemtanylOBSPage />} />
+        <Route path="/hi" element={<HiPage />} />
         <Route path="/wow" element={<WowPage />} />
         {projects.map((project) => (
           <Route

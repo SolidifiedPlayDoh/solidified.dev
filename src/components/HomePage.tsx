@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
+import { homeAboutCopy } from "../content/hiContent";
 import { siteContent } from "../content/siteDefaults";
 
 import { ProjectGrid } from "./ProjectGrid";
+
+import "../styles/hi.css";
 
 export function HomePage() {
   return (
@@ -17,11 +22,23 @@ export function HomePage() {
                 {block}
               </p>
             ))}
+            <p className="soft-body home-hi-link">
+              <Link to="/hi" className="soft-pill">
+                <span className="soft-pill__dot" aria-hidden />
+                <span className="soft-pill__label">{homeAboutCopy.hiLinkLabel}</span>
+              </Link>
+            </p>
           </div>
 
           <div className="soft-column soft-column--aside">
             <nav className="soft-nav" aria-label="Links">
               <ul>
+                <li>
+                  <Link to="/hi" className="soft-pill">
+                    <span className="soft-pill__dot" aria-hidden />
+                    <span className="soft-pill__label">Hi</span>
+                  </Link>
+                </li>
                 {siteContent.links.map((link, idx) => (
                   <li key={`${idx}-${link.href}`}>
                     <a
