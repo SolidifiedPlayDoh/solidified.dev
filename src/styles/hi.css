@@ -32,11 +32,20 @@
   margin-top: 1.5rem;
 }
 
-.hi-page a.soft-pill {
+.hi-page a.soft-pill,
+.soft-site a.soft-pill {
   color: #000;
   text-decoration: none;
 }
 
 .home-hi-link {
   margin-top: 1.25rem;
+}
+
+.hi-page--short .soft-site__inner {
+  max-width: 36rem;
+}
+
+.hi-page--short .hi-page__headline {
+  margin-top: 0.5rem;
 }
