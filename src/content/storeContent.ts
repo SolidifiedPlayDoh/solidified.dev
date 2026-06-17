@@ -9,6 +9,9 @@ export type StoreProduct = {
   tags: string[];
   githubRepo: string;
   releaseAssetName: string;
+  /** ISO date — used to sort the homepage shelf (newest first). */
+  addedAt: string;
+  isNew?: boolean;
 };
 
 export const storePageCopy = {
@@ -29,8 +32,17 @@ export const storeProducts: StoreProduct[] = [
     tags: ["Chrome", "Extension", "Ad blocker"],
     githubRepo: "SolidifiedPlayDoh/stillweb",
     releaseAssetName: "stillweb-chrome.zip",
+    addedAt: "2026-06-10",
+    isNew: true,
   },
 ];
+
+/** Newest store items for the homepage shelf. */
+export function getRecentStoreProducts(limit = 12): StoreProduct[] {
+  return [...storeProducts]
+    .sort((a, b) => b.addedAt.localeCompare(a.addedAt))
+    .slice(0, limit);
+}
 
 export const stillwebPageCopy = {
   headline: "StillWeb",

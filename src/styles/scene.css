@@ -214,6 +214,7 @@ body.phase-site::after {
 .soft-project-card,
 .matrix-section,
 .store-card__face,
+.store-shelf-card__face,
 .store-section,
 .music-track {
   border-radius: var(--scene-radius) !important;
@@ -227,7 +228,8 @@ body.phase-site::after {
 }
 
 .soft-project-card:hover,
-.store-card:hover .store-card__face {
+.store-card:hover .store-card__face,
+.store-shelf-card:hover .store-shelf-card__face {
   transform: translateY(-2px);
   border-color: rgba(255, 230, 102, 0.45) !important;
   box-shadow:
@@ -239,6 +241,7 @@ body.phase-site::after {
 .matrix-section__title,
 .store-section__title,
 .store-card__name,
+.store-shelf-card__name,
 .hi-section__title {
   font-family: var(--font-display);
   font-weight: 600;
@@ -357,7 +360,8 @@ body.phase-site #main a:not(.soft-pill) {
 
 @media (prefers-reduced-motion: reduce) {
   .soft-pill:hover,
-  .soft-project-card:hover {
+  .soft-project-card:hover,
+  .store-shelf-card:hover .store-shelf-card__face {
     transform: none;
   }
 }

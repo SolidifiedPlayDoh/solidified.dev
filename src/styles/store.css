@@ -274,3 +274,203 @@
 .store-steps__body {
   margin: 0;
 }
+
+/* Homepage Netflix-style shelf */
+.store-shelf {
+  margin: 0 0 2.25rem;
+}
+
+.store-shelf__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.store-shelf__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+}
+
+.store-shelf__all {
+  flex-shrink: 0;
+  min-height: 2.35rem;
+  padding-inline: 1rem;
+  font-size: 0.84rem;
+}
+
+.store-shelf__viewport {
+  position: relative;
+  margin-inline: calc(-1 * clamp(1.25rem, 4vw, 2.5rem));
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 1.25rem,
+    #000 calc(100% - 1.25rem),
+    transparent
+  );
+}
+
+.store-shelf__track {
+  display: flex;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0.35rem 0 1rem;
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(192, 132, 252, 0.55) rgba(15, 6, 24, 0.5);
+}
+
+.store-shelf__track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.store-shelf__track::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(192, 132, 252, 0.55);
+}
+
+.store-shelf__item {
+  flex: 0 0 clamp(210px, 68vw, 260px);
+  scroll-snap-align: start;
+}
+
+.store-shelf-card {
+  position: relative;
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--scene-radius, 18px);
+}
+
+.store-shelf-card__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 30% 0%,
+    rgba(255, 110, 199, 0.28),
+    transparent 58%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.store-shelf-card:hover .store-shelf-card__glow,
+.store-shelf-card:focus-visible .store-shelf-card__glow {
+  opacity: 1;
+}
+
+.store-shelf-card__face {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  min-height: clamp(15rem, 42vw, 17.5rem);
+  padding: clamp(0.9rem, 2.5vw, 1.15rem);
+  border-radius: inherit;
+  background: linear-gradient(
+    165deg,
+    rgba(55, 20, 82, 0.95) 0%,
+    rgba(28, 10, 44, 0.98) 55%,
+    rgba(15, 6, 24, 1) 100%
+  );
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 5px 0 var(--scene-ink, #0f0618);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.store-shelf-card:hover .store-shelf-card__face,
+.store-shelf-card:focus-visible .store-shelf-card__face {
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(255, 230, 102, 0.45);
+  box-shadow:
+    0 8px 0 var(--scene-ink, #0f0618),
+    0 0 22px rgba(255, 110, 199, 0.22);
+}
+
+.store-shelf-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--scene-ink, #0f0618);
+  background: linear-gradient(135deg, #ffe566, #ff9f43);
+  border: 2px solid var(--scene-ink, #0f0618);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  box-shadow: 0 2px 0 var(--scene-ink, #0f0618);
+}
+
+.store-shelf-card__emoji {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  line-height: 1;
+  margin-bottom: auto;
+  padding-top: 0.25rem;
+}
+
+.store-shelf-card__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  font-weight: 600;
+  color: var(--scene-cyan, #7df9ff);
+  line-height: 1.15;
+}
+
+.store-shelf-card__tagline {
+  color: var(--text-bright, #faf5ff);
+  font-size: 0.88rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.store-shelf-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
+}
+
+.store-shelf-card__price {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--scene-ink, #0f0618);
+  background: linear-gradient(135deg, #b8ff5c, #7df9ff);
+  border: 2px solid var(--scene-ink, #0f0618);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+}
+
+.store-shelf-card__tags {
+  color: var(--text-dim, #d8c4f5);
+  font-size: 0.72rem;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -7,6 +7,7 @@ import { homePageCopy } from "../content/hiContent";
 import { siteContent } from "../content/siteDefaults";
 
 import { ProjectGrid } from "./ProjectGrid";
+import { StoreShelf } from "./StoreShelf";
 
 import "../styles/hi.css";
 
@@ -63,7 +64,9 @@ export function HomePage() {
           <hr className="soft-divider soft-divider--thick" aria-hidden />
         </GlitchReveal>
 
-        <ProjectGrid revealDelay={560} />
+        <StoreShelf revealDelay={520} />
+
+        <ProjectGrid revealDelay={640} />
       </div>
     </div>
   );
