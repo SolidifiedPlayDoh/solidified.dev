@@ -275,7 +275,7 @@ body.phase-site #root {
 
 body.phase-site::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
@@ -289,7 +289,7 @@ body.phase-site::before {
 
 body.phase-site::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
