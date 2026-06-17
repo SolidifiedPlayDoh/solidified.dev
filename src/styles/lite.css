@@ -1,0 +1,158 @@
+/**
+ * Default performance mode — static Tron look without continuous GPU work.
+ * Toggle off via “visual effects” on the homepage (sets solidified-fx=1).
+ */
+
+html.site-lite {
+  --neon-bloom: 0.72;
+  --crt-scanline-alpha: 0;
+  --crt-vignette-alpha: 0;
+  --font-accent: var(--font-display);
+  --font-soft: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (dynamic-range: high), (color-gamut: p3) {
+  html.site-lite {
+    --neon-bloom: 0.78;
+  }
+}
+
+html.site-lite *,
+html.site-lite *::before,
+html.site-lite *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.12s !important;
+}
+
+html.site-lite body.phase-site::before {
+  animation: none !important;
+  filter: none !important;
+  opacity: 0.34;
+  background-size: 48px 48px;
+}
+
+html.site-lite body.phase-site::after {
+  background:
+    radial-gradient(ellipse 90% 42% at 50% 100%, rgba(0, 212, 255, 0.08), transparent 68%),
+    radial-gradient(ellipse 55% 28% at 50% 0%, rgba(0, 50, 60, 0.2), transparent 72%);
+}
+
+html.site-lite .title-neon,
+html.site-lite .soft-brand {
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.35);
+}
+
+html.site-lite .title-neon::before {
+  display: none;
+}
+
+html.site-lite .soft-lead {
+  text-shadow: none;
+}
+
+html.site-lite .soft-divider {
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.22);
+}
+
+html.site-lite .soft-divider::after {
+  display: none;
+}
+
+html.site-lite .soft-pill {
+  box-shadow: inset 0 0 12px rgba(0, 212, 255, 0.03);
+}
+
+html.site-lite .soft-pill:hover {
+  transform: none;
+  box-shadow:
+    0 0 12px rgba(0, 212, 255, 0.2),
+    inset 0 0 16px rgba(0, 212, 255, 0.05);
+}
+
+html.site-lite .soft-pill__dot {
+  box-shadow: none;
+}
+
+html.site-lite .soft-project-card,
+html.site-lite .soft-card,
+html.site-lite .matrix-section,
+html.site-lite .store-card__face,
+html.site-lite .store-section {
+  box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.03);
+}
+
+html.site-lite .soft-project-card:hover .soft-project-card__face,
+html.site-lite .store-card:hover .store-card__face {
+  transform: none;
+}
+
+html.site-lite .soft-card__emoji,
+html.site-lite .soft-project-card__emoji {
+  filter: none;
+}
+
+html.site-lite .glitch-idle::after {
+  display: none;
+}
+
+html.site-lite .glitch-reveal__wire,
+html.site-lite .glitch-reveal__scan {
+  display: none;
+}
+
+html.site-lite .glitch-reveal:not(.glitch-reveal--active) .glitch-reveal__content,
+html.site-lite .glitch-reveal--active .glitch-reveal__content {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
+}
+
+html.site-lite .site-notice {
+  backdrop-filter: none;
+  background: rgba(5, 5, 12, 0.92);
+}
+
+html.site-lite body.phase-site #main a:not(.soft-pill) {
+  text-shadow: none;
+}
+
+html.site-lite .store-download__button {
+  box-shadow: 0 0 14px rgba(20, 184, 166, 0.2);
+}
+
+html.site-lite .store-download__button:hover,
+html.site-lite .store-download__button:focus-visible {
+  transform: none;
+}
+
+.site-fx-toggle {
+  margin: 1.5rem 0 0;
+  text-align: center;
+}
+
+.site-fx-toggle__btn {
+  border: 1px solid rgba(0, 212, 255, 0.28);
+  background: rgba(0, 16, 22, 0.7);
+  color: var(--text-dim);
+  border-radius: 2px;
+  padding: 0.45rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.site-fx-toggle__btn:hover {
+  color: var(--neon-lit-cyan);
+  border-color: rgba(0, 212, 255, 0.5);
+}
+
+.site-fx-toggle__hint {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.72rem;
+  color: rgba(106, 154, 170, 0.85);
+}

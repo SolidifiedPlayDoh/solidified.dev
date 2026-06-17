@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { useSiteLite } from "../hooks/useSiteLite";
 
 import { CrtOverlay } from "./CrtOverlay";
 import { GlitchAmbience } from "./GlitchAmbience";
@@ -12,6 +13,8 @@ type SiteShellProps = {
 
 export function SiteShell({ children }: SiteShellProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const lite = useSiteLite();
+  const heavyFx = !lite && !prefersReducedMotion;
 
   useEffect(() => {
     document.body.classList.add("phase-site");
@@ -23,9 +26,13 @@ export function SiteShell({ children }: SiteShellProps) {
       <a className="skip-to-main" href="#main">
         Skip to content
       </a>
-      <WireframeField />
-      <CrtOverlay animateScanlines={!prefersReducedMotion} />
-      <GlitchAmbience reducedMotion={prefersReducedMotion} />
+      {heavyFx ? <WireframeField /> : null}
+      {heavyFx ? (
+        <CrtOverlay animateScanlines />
+      ) : lite ? null : (
+        <CrtOverlay animateScanlines={false} />
+      )}
+      {heavyFx ? <GlitchAmbience reducedMotion={false} /> : null}
       {children}
     </>
   );

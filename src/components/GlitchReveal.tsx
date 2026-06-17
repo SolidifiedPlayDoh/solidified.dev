@@ -1,6 +1,7 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { useSiteLite } from "../hooks/useSiteLite";
 
 export type GlitchRevealVariant = "block" | "hero" | "line" | "card" | "pill";
 
@@ -18,16 +19,22 @@ export function GlitchReveal({
   variant = "block",
 }: GlitchRevealProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [active, setActive] = useState(prefersReducedMotion);
+  const lite = useSiteLite();
+  const instant = prefersReducedMotion || lite;
+  const [active, setActive] = useState(instant);
 
   useEffect(() => {
-    if (prefersReducedMotion) {
+    if (instant) {
       setActive(true);
       return;
     }
     const id = window.setTimeout(() => setActive(true), delay);
     return () => window.clearTimeout(id);
-  }, [delay, prefersReducedMotion]);
+  }, [delay, instant]);
+
+  if (instant) {
+    return <div className={className}>{children}</div>;
+  }
 
   const style = { "--reveal-delay": `${delay}ms` } as CSSProperties;
 
