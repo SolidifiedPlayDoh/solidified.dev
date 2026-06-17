@@ -5,6 +5,7 @@ import { SiteShell } from "./components/SiteShell";
 import { FemtanylOBSPage } from "./pages/FemtanylOBSPage";
 import { HiPage } from "./pages/HiPage";
 import { StillwebPage } from "./pages/StillwebPage";
+import { StorePage } from "./pages/StorePage";
 import { WowPage } from "./pages/WowPage";
 import { projects } from "./projects/registry";
 
@@ -26,6 +27,7 @@ export function App() {
         <Route path="/hi" element={<HiPage />} />
         <Route path="/wow" element={<WowPage />} />
         <Route path="/store/stillweb" element={<StillwebPage />} />
+        <Route path="/store" element={<StorePage />} />
         {projects.map((project) => (
           <Route
             key={project.path}
