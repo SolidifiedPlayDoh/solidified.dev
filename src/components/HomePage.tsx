@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { AboutSections } from "./AboutSections";
 import { GlitchReveal } from "./GlitchReveal";
 import { MatrixNotice } from "./MatrixNotice";
-import { SiteFxToggle } from "./SiteFxToggle";
 import { homePageCopy } from "../content/hiContent";
 import { siteContent } from "../content/siteDefaults";
 
@@ -23,7 +22,7 @@ export function HomePage() {
         <GlitchReveal variant="hero" delay={90}>
           <header>
             <h1
-              className="soft-brand title-neon glitch-idle hi-page__headline"
+              className="soft-brand scene-headline hi-page__headline"
               data-text={homePageCopy.headline}
             >
               {homePageCopy.headline}
@@ -65,10 +64,6 @@ export function HomePage() {
         </GlitchReveal>
 
         <ProjectGrid revealDelay={560} />
-
-        <GlitchReveal variant="block" delay={640}>
-          <SiteFxToggle />
-        </GlitchReveal>
       </div>
     </div>
   );

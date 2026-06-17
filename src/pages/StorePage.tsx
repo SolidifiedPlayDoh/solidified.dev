@@ -12,7 +12,7 @@ export function StorePage() {
     title: "Store | Solidified.dev",
     description: "Download free tools and extensions from Solidified.dev.",
     path: "/store",
-    themeColor: "#000000",
+    themeColor: "#14061f",
   });
 
   return (
@@ -35,7 +35,7 @@ export function StorePage() {
           <GlitchReveal variant="hero" delay={160}>
             <header>
               <h1
-                className="soft-brand title-neon glitch-idle store-page__headline"
+                className="soft-brand scene-headline store-page__headline"
                 data-text={storePageCopy.headline}
               >
                 {storePageCopy.headline}

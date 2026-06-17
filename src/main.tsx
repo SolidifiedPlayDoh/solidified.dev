@@ -1,21 +1,11 @@
 import "./styles/global.css";
-import "./styles/glitch.css";
-import "./styles/lite.css";
+import "./styles/scene.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { App } from "./App";
-import { applySiteFxClass, loadOptionalFxStyles } from "./lib/siteFx";
 import { getStandaloneRoute } from "./lib/standalonePath";
 import { WowPage } from "./pages/WowPage";
-
-applySiteFxClass();
-loadOptionalFxStyles();
-
-/** Mirrors `dynamic-range: high` glow in CSS — not OS HDR, just our bloom preset. */
-if (import.meta.env.DEV || import.meta.env.VITE_HDR_PREVIEW === "1") {
-  document.documentElement.setAttribute("data-hdr-preview", "");
-}
 
 const root = document.getElementById("root")!;
 const standalone = getStandaloneRoute();

@@ -1,0 +1,336 @@
+/**
+ * Y2K / scenecore skin — bubbly, rainbow, sticker energy. Static by default (fast).
+ */
+
+:root {
+  --bg-deep: #14061f;
+  --bg-panel: #1f0a2e;
+  --scene-rainbow: linear-gradient(
+    90deg,
+    #ff6ec7 0%,
+    #ffe566 22%,
+    #b8ff5c 45%,
+    #7df9ff 68%,
+    #c084fc 100%
+  );
+  --scene-rainbow-soft: linear-gradient(
+    135deg,
+    rgba(255, 110, 199, 0.35),
+    rgba(255, 229, 102, 0.28),
+    rgba(184, 255, 92, 0.28),
+    rgba(125, 249, 255, 0.32),
+    rgba(192, 132, 252, 0.35)
+  );
+  --scene-ink: #0f0618;
+  --scene-pink: #ff6ec7;
+  --scene-cyan: #7df9ff;
+  --scene-lime: #b8ff5c;
+  --scene-yellow: #ffe566;
+  --scene-purple: #c084fc;
+  --scene-radius: 18px;
+  --scene-radius-pill: 999px;
+  --neon-cyan: var(--scene-cyan);
+  --neon-cyan-dim: #5bc4e8;
+  --neon-magenta: var(--scene-pink);
+  --neon-amber: var(--scene-yellow);
+  --neon-hot: #ff9f43;
+  --neon-lit-cyan: #f5f0ff;
+  --neon-lit-magenta: #ffe8f7;
+  --neon-lit-amber: #fff8dc;
+  --text-dim: #d8c4f5;
+  --text-bright: #faf5ff;
+  --neon-bloom: 0.85;
+  --font-display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --font-accent: "Nunito", system-ui, sans-serif;
+  --font-soft: "Nunito", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-dim);
+  font-family: var(--font-soft);
+}
+
+a {
+  color: var(--scene-cyan);
+}
+
+body.phase-site {
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 0%, rgba(255, 110, 199, 0.18), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 90% 10%, rgba(125, 249, 255, 0.14), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(192, 132, 252, 0.16), transparent 55%),
+    var(--bg-deep);
+}
+
+body.phase-site::before {
+  opacity: 0.22;
+  animation: none !important;
+  filter: none !important;
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.045) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.045) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.045) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.045) 75%);
+  background-size: 24px 24px;
+  background-position:
+    0 0,
+    0 12px,
+    12px -12px,
+    -12px 0;
+}
+
+body.phase-site::after {
+  background:
+    radial-gradient(ellipse 90% 42% at 50% 100%, rgba(255, 110, 199, 0.1), transparent 68%),
+    radial-gradient(ellipse 55% 28% at 50% 0%, rgba(125, 249, 255, 0.08), transparent 72%);
+}
+
+.soft-brand,
+.title-neon,
+.scene-headline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 3.05rem);
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: transparent;
+  background: var(--scene-rainbow);
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 0 rgba(15, 6, 24, 0.85));
+}
+
+.soft-brand::before,
+.title-neon::before {
+  display: none;
+}
+
+.soft-projects__title.title-neon,
+.soft-projects__title.scene-headline {
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+}
+
+.soft-lead {
+  font-family: var(--font-soft);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  letter-spacing: 0.01em;
+  color: var(--text-bright);
+  text-shadow: none;
+}
+
+.soft-body {
+  font-family: var(--font-soft);
+  color: var(--text-dim);
+}
+
+.soft-divider {
+  height: 4px;
+  margin: 0 0 clamp(1.5rem, 4vw, 2.25rem);
+  border-radius: var(--scene-radius-pill);
+  background: var(--scene-rainbow);
+  box-shadow: 0 2px 0 var(--scene-ink);
+  opacity: 0.9;
+}
+
+.soft-divider::after {
+  display: none;
+}
+
+.soft-divider--thick {
+  height: 6px;
+}
+
+.soft-pill {
+  min-height: 2.65rem;
+  padding: 0 1.35rem;
+  border-radius: var(--scene-radius-pill);
+  border: 3px solid var(--scene-ink);
+  background: var(--scene-rainbow-soft);
+  color: var(--text-bright);
+  font-family: var(--font-soft);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  box-shadow: 0 4px 0 var(--scene-ink);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.soft-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--scene-ink);
+  filter: brightness(1.06);
+  border-color: var(--scene-ink);
+}
+
+.soft-pill:focus-visible {
+  outline: 3px solid var(--scene-yellow);
+  outline-offset: 3px;
+}
+
+.soft-pill__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--scene-yellow);
+  box-shadow: 0 0 0 2px var(--scene-ink);
+}
+
+.soft-card,
+.soft-project-card,
+.matrix-section,
+.store-card__face,
+.store-section,
+.music-track {
+  border-radius: var(--scene-radius) !important;
+  border: 3px solid rgba(255, 255, 255, 0.14) !important;
+  background: linear-gradient(
+    155deg,
+    rgba(45, 16, 66, 0.92) 0%,
+    rgba(24, 8, 38, 0.96) 100%
+  ) !important;
+  box-shadow: 0 5px 0 var(--scene-ink) !important;
+}
+
+.soft-project-card:hover,
+.store-card:hover .store-card__face {
+  transform: translateY(-2px);
+  border-color: rgba(255, 230, 102, 0.45) !important;
+  box-shadow:
+    0 7px 0 var(--scene-ink),
+    0 0 20px rgba(255, 110, 199, 0.2) !important;
+}
+
+.soft-project-card__name,
+.matrix-section__title,
+.store-section__title,
+.store-card__name,
+.hi-section__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--scene-cyan);
+}
+
+.soft-project-card__tags {
+  font-family: var(--font-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: rgba(216, 196, 245, 0.75);
+}
+
+.soft-project-card__emoji,
+.soft-card__emoji,
+.store-card__emoji {
+  filter: none;
+}
+
+body.phase-site #main a:not(.soft-pill) {
+  color: var(--scene-cyan);
+  text-shadow: none;
+}
+
+.site-notice {
+  backdrop-filter: none;
+  background: rgba(15, 6, 24, 0.88);
+}
+
+.site-notice__panel {
+  border-radius: var(--scene-radius);
+  border: 3px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 0 var(--scene-ink);
+}
+
+.site-notice__btn {
+  border-radius: var(--scene-radius-pill);
+  border: 3px solid var(--scene-ink);
+  font-family: var(--font-soft);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.store-card__price,
+.store-detail__badge {
+  border: 2px solid var(--scene-ink);
+  border-radius: var(--scene-radius-pill);
+  background: var(--scene-rainbow);
+  color: var(--scene-ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  box-shadow: 0 2px 0 var(--scene-ink);
+}
+
+.store-download__button {
+  border-radius: var(--scene-radius-pill);
+  border: 3px solid var(--scene-ink);
+  background: var(--scene-rainbow) !important;
+  color: var(--scene-ink) !important;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.03em;
+  box-shadow: 0 5px 0 var(--scene-ink) !important;
+}
+
+.store-download__button:hover,
+.store-download__button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 var(--scene-ink) !important;
+  filter: brightness(1.05);
+}
+
+.store-steps__num {
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: var(--scene-yellow);
+  font-family: var(--font-display);
+}
+
+.matrix-homeserver {
+  border-radius: 14px;
+  border: 2px dashed rgba(255, 110, 199, 0.45);
+  background: rgba(15, 6, 24, 0.5);
+}
+
+.matrix-homeserver__url {
+  color: var(--scene-cyan);
+}
+
+/* Performance: no infinite loops */
+*,
+*::before,
+*::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+}
+
+.glitch-idle::after,
+.glitch-reveal__wire,
+.glitch-reveal__scan {
+  display: none !important;
+}
+
+.glitch-reveal:not(.glitch-reveal--active) .glitch-reveal__content,
+.glitch-reveal--active .glitch-reveal__content {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .soft-pill:hover,
+  .soft-project-card:hover {
+    transform: none;
+  }
+}

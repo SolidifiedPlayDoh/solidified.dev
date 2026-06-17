@@ -83,7 +83,7 @@ export function MusicPage() {
     title: "Music | Solidified.dev",
     description: "Listen to SolidifiedPlayDoh mashups and remixes.",
     path: "/music",
-    themeColor: "#000000",
+    themeColor: "#14061f",
   });
 
   return (
@@ -106,7 +106,7 @@ export function MusicPage() {
           <GlitchReveal variant="hero" delay={160}>
             <header>
               <h1
-                className="soft-brand title-neon glitch-idle music-page__headline"
+                className="soft-brand scene-headline music-page__headline"
                 data-text={musicPageCopy.headline}
               >
                 {musicPageCopy.headline}

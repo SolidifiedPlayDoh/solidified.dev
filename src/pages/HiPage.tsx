@@ -15,7 +15,7 @@ export function HiPage() {
     description:
       "hello!! im SolidifiedPlayDoh — welcome to my corner of the internet >w<",
     path: "/hi",
-    themeColor: "#000000",
+    themeColor: "#14061f",
   });
 
   return (
@@ -25,7 +25,7 @@ export function HiPage() {
           <GlitchReveal variant="hero" delay={60}>
             <header>
               <h1
-                className="soft-brand title-neon glitch-idle hi-page__headline"
+                className="soft-brand scene-headline hi-page__headline"
                 data-text={hiPageCopy.headline}
               >
                 {hiPageCopy.headline}

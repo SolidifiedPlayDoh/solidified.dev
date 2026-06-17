@@ -32,7 +32,7 @@ export function StillwebPage() {
     description:
       "Download StillWeb — a free Chrome ad blocker that just works. No account, no paywall.",
     path: "/store/stillweb",
-    themeColor: "#000000",
+    themeColor: "#14061f",
   });
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export function StillwebPage() {
               </span>
               <div>
                 <h1
-                  className="soft-brand title-neon glitch-idle store-page__headline"
+                  className="soft-brand scene-headline store-page__headline"
                   data-text={stillwebPageCopy.headline}
                 >
                   {stillwebPageCopy.headline}

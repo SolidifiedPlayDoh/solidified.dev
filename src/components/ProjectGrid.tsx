@@ -16,7 +16,7 @@ export function ProjectGrid({ revealDelay = 0 }: ProjectGridProps) {
       <GlitchReveal variant="hero" delay={revealDelay}>
         <h2
           id="projects-heading"
-          className="soft-projects__title soft-brand title-neon glitch-idle"
+          className="soft-projects__title soft-brand scene-headline"
           data-text="Projects"
         >
           Projects

@@ -12,7 +12,7 @@ export function MatrixPage() {
     title: "Matrix | Solidified.dev",
     description: "What Matrix is and how to join the solidified.dev homeserver.",
     path: "/matrix",
-    themeColor: "#000000",
+    themeColor: "#14061f",
   });
 
   return (
@@ -35,7 +35,7 @@ export function MatrixPage() {
           <GlitchReveal variant="hero" delay={160}>
             <header>
               <h1
-                className="soft-brand title-neon glitch-idle matrix-page__headline"
+                className="soft-brand scene-headline matrix-page__headline"
                 data-text={matrixPageCopy.headline}
               >
                 {matrixPageCopy.headline}
