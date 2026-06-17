@@ -12,6 +12,8 @@ export type StoreProduct = {
   /** ISO date — used to sort the homepage shelf (newest first). */
   addedAt: string;
   isNew?: boolean;
+  /** When listed, enables real one-click "Add to Chrome" on the product page. */
+  chromeWebStoreUrl?: string;
 };
 
 export const storePageCopy = {
@@ -51,6 +53,38 @@ export const stillwebPageCopy = {
     "StillWeb blocks ads and trackers in Chrome. No account. No credit card. No premium tier. Turn it on and browse.",
     "I built it because I was tired of extensions that cost money, break on sites, or dump you on a confusing GitHub page when you just want the thing.",
   ],
+  installReality: {
+    title: "Why isn’t it just one click?",
+    body: "Chrome used to install .crx files straight from a download — click, confirm, done. Google removed that on Windows and Mac years ago (security thing). These days the only real one-click install for normal people is the Chrome Web Store. A .zip or .crx from a website won’t auto-add itself anymore.",
+    footnote:
+      "I’m working on a Web Store listing. Until then, setup takes about a minute — no coding, just a few clicks in Chrome.",
+  },
+  easyInstallLabel: "Add to Chrome — one click",
+  manualInstallTitle: "Set up manually",
+  manualInstallLead:
+    "Download the latest build, unzip it once, then tell Chrome to load that folder. You only do this once.",
+  installSteps: [
+    {
+      title: "Download",
+      body: "Grab the zip below. It’s the extension folder, packed up.",
+    },
+    {
+      title: "Unzip",
+      body: "Double-click the zip. Leave the folder somewhere you won’t delete (Downloads is fine).",
+    },
+    {
+      title: "Open Extensions",
+      body: "Type chrome://extensions in your address bar and hit Enter.",
+    },
+    {
+      title: "Developer mode on",
+      body: "Flip the Developer mode switch in the top-right. Sounds scary — it’s just Chrome’s “install from folder” mode.",
+    },
+    {
+      title: "Load unpacked",
+      body: "Click Load unpacked, pick the folder you unzipped. StillWeb shows up in your toolbar. Done.",
+    },
+  ],
   features: [
     {
       title: "Network blocking",
@@ -67,28 +101,6 @@ export const stillwebPageCopy = {
     {
       title: "Control panel",
       body: "Toggle modules on or off from a full settings page inside the extension.",
-    },
-  ],
-  installSteps: [
-    {
-      title: "Download",
-      body: "Click the button below. You get a .zip file — that is the extension.",
-    },
-    {
-      title: "Unzip it",
-      body: "Double-click the zip so you have a folder (stillweb-chrome or similar).",
-    },
-    {
-      title: "Open Chrome extensions",
-      body: "Go to chrome://extensions in your address bar.",
-    },
-    {
-      title: "Turn on Developer mode",
-      body: "Toggle it on in the top-right corner of the extensions page.",
-    },
-    {
-      title: "Load unpacked",
-      body: "Click Load unpacked and choose the folder you unzipped. Done.",
     },
   ],
   about: [

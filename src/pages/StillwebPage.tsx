@@ -86,12 +86,47 @@ export function StillwebPage() {
           </GlitchReveal>
 
           <GlitchReveal variant="block" delay={240}>
-            <section className="store-section store-download" aria-labelledby="stillweb-download">
+            <section className="store-section store-install" aria-labelledby="stillweb-install-info">
+              <h2 id="stillweb-install-info" className="store-section__title">
+                {stillwebPageCopy.installReality.title}
+              </h2>
+              <p className="soft-body store-section__body">{stillwebPageCopy.installReality.body}</p>
+              <p className="soft-body store-section__body store-callout__note">
+                {stillwebPageCopy.installReality.footnote}
+              </p>
+            </section>
+          </GlitchReveal>
+
+          {product.chromeWebStoreUrl && (
+            <GlitchReveal variant="block" delay={280}>
+              <section className="store-section store-download" aria-labelledby="stillweb-store">
+                <h2 id="stillweb-store" className="store-section__title">
+                  Get StillWeb
+                </h2>
+                <div className="store-download__actions">
+                  <a
+                    href={product.chromeWebStoreUrl}
+                    className="store-download__button store-download__button--primary"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {stillwebPageCopy.easyInstallLabel}
+                  </a>
+                </div>
+              </section>
+            </GlitchReveal>
+          )}
+
+          <GlitchReveal variant="block" delay={product.chromeWebStoreUrl ? 340 : 300}>
+            <section
+              className="store-section store-download"
+              aria-labelledby="stillweb-download"
+            >
               <h2 id="stillweb-download" className="store-section__title">
-                Download for Chrome
+                {stillwebPageCopy.manualInstallTitle}
               </h2>
               <p className="soft-body store-section__body">
-                One click. No GitHub maze. The button pulls the latest release automatically.
+                {stillwebPageCopy.manualInstallLead}
               </p>
 
               <div className="store-download__actions">
@@ -101,10 +136,10 @@ export function StillwebPage() {
                   <>
                     <a
                       href={release.downloadUrl}
-                      className="store-download__button"
+                      className="store-download__button store-download__button--secondary"
                       rel="noopener noreferrer"
                     >
-                      Download StillWeb {release.version}
+                      Download {release.version} (.zip)
                     </a>
                     <p className="store-download__meta">
                       Released {formatDate(release.publishedAt)} · Chrome / Edge / Brave
@@ -152,7 +187,7 @@ export function StillwebPage() {
           <GlitchReveal variant="block" delay={440}>
             <section className="store-section" aria-labelledby="stillweb-install">
               <h2 id="stillweb-install" className="store-section__title">
-                Install in 5 steps
+                Quick setup
               </h2>
               <ol className="store-steps">
                 {stillwebPageCopy.installSteps.map((step, idx) => (

@@ -197,6 +197,29 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
+.store-download__button--primary {
+  color: #0f0618;
+  background: linear-gradient(135deg, #ffe566 0%, #ff9f43 55%, #ff6ec7 100%);
+  border-color: rgba(255, 230, 102, 0.65);
+  box-shadow:
+    0 4px 0 #0f0618,
+    0 0 calc(24px * var(--neon-bloom)) rgba(255, 158, 67, 0.35);
+}
+
+.store-download__button--secondary {
+  color: #0f0618;
+  background: linear-gradient(135deg, #7df9e8 0%, #14b8a6 55%, #0f766e 100%);
+}
+
+.store-callout__note {
+  margin-top: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--scene-radius, 18px);
+  border: 2px dashed rgba(255, 110, 199, 0.4);
+  background: rgba(15, 6, 24, 0.45);
+  color: var(--text-bright, #faf5ff);
+}
+
 .store-download__meta,
 .store-download__status {
   margin: 0.75rem 0 0;
