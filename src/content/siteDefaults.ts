@@ -12,6 +12,7 @@ export type SiteContent = {
 export const siteContent: SiteContent = {
   headline: "Solidified.dev",
   links: [
+    { label: "Store", href: "/store" },
     { label: "GitHub", href: "https://github.com/SolidifiedPlayDoh" },
     { label: "SoundCloud", href: "https://soundcloud.com/solidifiedplaydoh" },
   ],

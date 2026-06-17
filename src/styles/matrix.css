@@ -1,0 +1,119 @@
+.matrix-page__top {
+  margin-bottom: 0.5rem;
+}
+
+.matrix-page__headline {
+  margin: 0 0 0.35rem;
+}
+
+.matrix-page__lead {
+  margin: 0 0 1.25rem;
+}
+
+.matrix-section {
+  margin-bottom: 1.35rem;
+  padding: clamp(1rem, 3vw, 1.35rem);
+  border-radius: 2px;
+  background: linear-gradient(160deg, rgba(0, 28, 38, 0.82) 0%, rgba(0, 8, 14, 0.92) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.32);
+  box-shadow:
+    0 0 calc(18px * var(--neon-bloom)) rgba(0, 212, 255, 0.12),
+    inset 0 0 32px rgba(0, 212, 255, 0.03);
+}
+
+.matrix-section__title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neon-lit-cyan);
+}
+
+.matrix-section__body {
+  margin: 0 0 0.65rem;
+}
+
+.matrix-section__body:last-of-type {
+  margin-bottom: 0;
+}
+
+.matrix-homeserver {
+  margin: 0.85rem 0 0;
+  padding: 0.75rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  background: rgba(0, 0, 0, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.matrix-homeserver__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 212, 255, 0.5);
+  font-size: 0.68rem;
+}
+
+.matrix-homeserver__url {
+  color: var(--neon-lit-cyan);
+  word-break: break-all;
+}
+
+.matrix-steps {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.matrix-steps__item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.matrix-steps__num {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--neon-lit-cyan);
+}
+
+.matrix-steps__title {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.matrix-steps__body {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.matrix-section__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.matrix-page__cta {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 212, 255, 0.2);
+}

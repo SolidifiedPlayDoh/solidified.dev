@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 import { AboutSections } from "../components/AboutSections";
-import { CrtOverlay } from "../components/CrtOverlay";
+import { GlitchReveal } from "../components/GlitchReveal";
+import { SiteShell } from "../components/SiteShell";
 import { hiPageCopy } from "../content/hiContent";
 import { siteContent } from "../content/siteDefaults";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -15,45 +15,51 @@ export function HiPage() {
     description:
       "hello!! im SolidifiedPlayDoh — welcome to my corner of the internet >w<",
     path: "/hi",
-    themeColor: "#12081f",
+    themeColor: "#000000",
   });
 
-  useEffect(() => {
-    document.body.classList.add("phase-site");
-    return () => document.body.classList.remove("phase-site");
-  }, []);
-
   return (
-    <>
-      <CrtOverlay animateScanlines />
-      <div className="soft-site hi-page hi-page--short">
+    <SiteShell>
+      <main id="main" className="soft-site hi-page hi-page--short">
         <div className="soft-site__inner">
-          <header>
-            <h1 className="soft-brand crt-bloom hi-page__headline">{hiPageCopy.headline}</h1>
-          </header>
+          <GlitchReveal variant="hero" delay={60}>
+            <header>
+              <h1
+                className="soft-brand title-neon glitch-idle hi-page__headline"
+                data-text={hiPageCopy.headline}
+              >
+                {hiPageCopy.headline}
+              </h1>
+            </header>
+          </GlitchReveal>
 
-          <AboutSections sections={hiPageCopy.sections} />
+          <GlitchReveal variant="block" delay={180}>
+            <AboutSections sections={hiPageCopy.sections} />
+          </GlitchReveal>
 
           <div className="hi-page__links">
-            <Link to="/" className="soft-pill">
-              <span className="soft-pill__dot" aria-hidden />
-              <span className="soft-pill__label">{hiPageCopy.moreAboutLabel}</span>
-            </Link>
-            {siteContent.links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="soft-pill"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+            <GlitchReveal variant="pill" delay={300}>
+              <Link to="/" className="soft-pill">
                 <span className="soft-pill__dot" aria-hidden />
-                <span className="soft-pill__label">{link.label}</span>
-              </a>
+                <span className="soft-pill__label">{hiPageCopy.moreAboutLabel}</span>
+              </Link>
+            </GlitchReveal>
+            {siteContent.links.map((link, idx) => (
+              <GlitchReveal key={link.href} variant="pill" delay={360 + idx * 70}>
+                <a
+                  href={link.href}
+                  className="soft-pill"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span className="soft-pill__dot" aria-hidden />
+                  <span className="soft-pill__label">{link.label}</span>
+                </a>
+              </GlitchReveal>
             ))}
           </div>
         </div>
-      </div>
-    </>
+      </main>
+    </SiteShell>
   );
 }

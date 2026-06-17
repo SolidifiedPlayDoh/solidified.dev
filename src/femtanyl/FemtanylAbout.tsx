@@ -1,5 +1,5 @@
 const VIDEO_URL = "https://www.youtube.com/watch?v=rigyc6Lesc4";
-const GITHUB_URL = "https://github.com/SolidifiedPlayDoh/portfolio";
+const GITHUB_URL = "https://github.com/SolidifiedPlayDoh/solidified.dev/issues";
 
 export function FemtanylAbout() {
   return (

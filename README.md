@@ -1,6 +1,8 @@
-# Solidified portfolio (`solidified.dev`)
+# [solidified.dev](https://solidified.dev)
 
-Vite + React + TypeScript personal site — intro gate, CRT/pastel “main phase,” and auto-listed project cards.
+Repo: [github.com/SolidifiedPlayDoh/solidified.dev](https://github.com/SolidifiedPlayDoh/solidified.dev)
+
+Vite + React + TypeScript personal site — Tron-grid glitch aesthetic and auto-listed project cards.
 
 Handle: **Soli / Solidified** ([GitHub @SolidifiedPlayDoh](https://github.com/SolidifiedPlayDoh)).
 

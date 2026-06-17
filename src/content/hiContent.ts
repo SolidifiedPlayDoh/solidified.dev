@@ -35,7 +35,7 @@ export const homePageCopy = {
       title: "homebrew ethos",
       paragraphs: [
         "turns out theres a name for how i am — homebrew ethos. basically i'd rather hack something together myself than wait for the official version.",
-        "flash a radio into a music player. write a discord plugin because the real client wont. bolt AI onto roblox studio. if it works and its silly, thats the whole point >w<",
+        "flash a radio into a music player. bolt AI onto roblox studio. ship a browser toy before breakfast. if it works and its silly, thats the whole point >w<",
       ],
     },
     {
@@ -50,7 +50,6 @@ export const homePageCopy = {
       title: "real talk",
       paragraphs: [
         "i have autism and ADHD.",
-        "i was recently falsely banned from discord so im sad :c but i hope to get my account back!",
         "poke around the projects below or my github if youre curious about what else i get up to.",
       ],
     },

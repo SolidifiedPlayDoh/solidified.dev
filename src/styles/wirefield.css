@@ -1,0 +1,171 @@
+.wirefield {
+  --camera-y: 0px;
+  --camera-progress: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  filter: blur(1.5px);
+  opacity: 0.92;
+  perspective: 1100px;
+  perspective-origin: 50% calc(38% + var(--camera-progress, 0) * 22%);
+}
+
+.wirefield__camera {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(16deg);
+  transform-origin: 50% 42%;
+}
+
+.wirefield__world {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 240vh;
+  transform-style: preserve-3d;
+  transform: translate3d(
+    0,
+    calc(var(--camera-y, 0px) * -0.72),
+    calc(var(--camera-progress, 0) * -120px)
+  );
+  will-change: transform;
+}
+
+.wirefield__drifter {
+  position: absolute;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  animation: wirefield-drift var(--drift-dur, 36s) ease-in-out infinite alternate;
+  animation-delay: var(--drift-delay, 0s);
+  will-change: transform;
+}
+
+@keyframes wirefield-drift {
+  0% {
+    transform: translate3d(0, 0, -40px) rotateZ(0deg);
+  }
+  33% {
+    transform: translate3d(calc(var(--drift-x, 12px) * 0.7), calc(var(--drift-y, -8px) * 0.6), -20px)
+      rotateZ(10deg);
+  }
+  66% {
+    transform: translate3d(calc(var(--drift-x, 12px) * -0.5), var(--drift-y, -8px), -55px)
+      rotateZ(-8deg);
+  }
+  100% {
+    transform: translate3d(var(--drift-x, 12px), calc(var(--drift-y, -8px) * -0.8), -30px)
+      rotateZ(14deg);
+  }
+}
+
+/* ── Wire cube ── */
+.wirefield__cube {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 400px;
+}
+
+.wirefield__cube-frame {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: wirefield-cube-spin linear infinite;
+}
+
+.wirefield__cube-frame--inner {
+  inset: 18%;
+  border: 1px solid rgba(0, 212, 255, 0.45);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+  animation-direction: reverse;
+  animation-duration: 19s;
+}
+
+@keyframes wirefield-cube-spin {
+  from {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(280deg) rotateZ(140deg);
+  }
+}
+
+.wirefield__cube-edge {
+  position: absolute;
+  border: 1.5px solid rgba(0, 212, 255, 0.58);
+  box-shadow:
+    0 0 14px rgba(0, 212, 255, 0.28),
+    inset 0 0 12px rgba(0, 212, 255, 0.06);
+  background: transparent;
+}
+
+.wirefield__cube-edge--front {
+  inset: 0;
+  transform: translateZ(var(--cube-half, 26px));
+}
+
+.wirefield__cube-edge--back {
+  inset: 0;
+  transform: rotateY(180deg) translateZ(var(--cube-half, 26px));
+}
+
+.wirefield__cube-edge--left {
+  inset: 0;
+  transform: rotateY(-90deg) translateZ(var(--cube-half, 26px));
+}
+
+.wirefield__cube-edge--right {
+  inset: 0;
+  transform: rotateY(90deg) translateZ(var(--cube-half, 26px));
+}
+
+.wirefield__cube-edge--top {
+  inset: 0;
+  transform: rotateX(90deg) translateZ(var(--cube-half, 26px));
+}
+
+.wirefield__cube-edge--bottom {
+  inset: 0;
+  transform: rotateX(-90deg) translateZ(var(--cube-half, 26px));
+}
+
+/* ── Wire sphere (3D latitude + longitude rings) ── */
+.wirefield__sphere-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  animation: wirefield-sphere-spin linear infinite;
+  filter: drop-shadow(0 0 14px rgba(0, 212, 255, 0.22));
+}
+
+.wirefield__sphere-ring {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(0, 212, 255, 0.52);
+  border-radius: 50%;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.14);
+}
+
+.wirefield__sphere-ring--meridian {
+  border-color: rgba(0, 212, 255, 0.42);
+}
+
+@keyframes wirefield-sphere-spin {
+  from {
+    transform: rotateX(-22deg) rotateY(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(-22deg) rotateY(360deg) rotateZ(120deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wirefield {
+    display: none;
+  }
+}

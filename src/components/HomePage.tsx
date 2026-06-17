@@ -1,4 +1,8 @@
+import { Link } from "react-router-dom";
+
 import { AboutSections } from "./AboutSections";
+import { GlitchReveal } from "./GlitchReveal";
+import { MatrixNotice } from "./MatrixNotice";
 import { homePageCopy } from "../content/hiContent";
 import { siteContent } from "../content/siteDefaults";
 
@@ -9,33 +13,57 @@ import "../styles/hi.css";
 export function HomePage() {
   return (
     <div className="soft-site">
+      <MatrixNotice />
       <div className="soft-site__inner">
-        <hr className="soft-divider" aria-hidden />
+        <GlitchReveal variant="line" delay={0}>
+          <hr className="soft-divider" aria-hidden />
+        </GlitchReveal>
 
-        <header>
-          <h1 className="soft-brand crt-bloom hi-page__headline">{homePageCopy.headline}</h1>
-        </header>
-
-        <AboutSections sections={homePageCopy.sections} />
-
-        <div className="hi-page__links">
-          {siteContent.links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="soft-pill"
-              rel="noopener noreferrer"
-              target="_blank"
+        <GlitchReveal variant="hero" delay={90}>
+          <header>
+            <h1
+              className="soft-brand title-neon glitch-idle hi-page__headline"
+              data-text={homePageCopy.headline}
             >
-              <span className="soft-pill__dot" aria-hidden />
-              <span className="soft-pill__label">{link.label}</span>
-            </a>
-          ))}
-        </div>
+              {homePageCopy.headline}
+            </h1>
+          </header>
+        </GlitchReveal>
 
-        <hr className="soft-divider soft-divider--thick" aria-hidden />
+        <GlitchReveal variant="block" delay={200}>
+          <AboutSections sections={homePageCopy.sections} />
+        </GlitchReveal>
 
-        <ProjectGrid />
+        <GlitchReveal variant="block" delay={320}>
+          <div className="hi-page__links">
+            {siteContent.links.map((link, idx) => (
+              <GlitchReveal key={link.href} variant="pill" delay={380 + idx * 70}>
+                {link.href.startsWith("/") ? (
+                  <Link to={link.href} className="soft-pill">
+                    <span className="soft-pill__dot" aria-hidden />
+                    <span className="soft-pill__label">{link.label}</span>
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="soft-pill"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span className="soft-pill__dot" aria-hidden />
+                    <span className="soft-pill__label">{link.label}</span>
+                  </a>
+                )}
+              </GlitchReveal>
+            ))}
+          </div>
+        </GlitchReveal>
+
+        <GlitchReveal variant="line" delay={480}>
+          <hr className="soft-divider soft-divider--thick" aria-hidden />
+        </GlitchReveal>
+
+        <ProjectGrid revealDelay={560} />
       </div>
     </div>
   );

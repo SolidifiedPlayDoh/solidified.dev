@@ -1,4 +1,7 @@
 import "./styles/global.css";
+import "./styles/glitch.css";
+import "./styles/wirefield.css";
+import "./styles/ambient.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 

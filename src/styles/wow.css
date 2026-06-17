@@ -2,12 +2,16 @@ html.wow-route,
 body.wow-route {
   margin: 0;
   min-height: 100vh;
-  background: #0a0614;
-  color: #e8d4ff;
+  background: #000;
+  color: #b8e8f8;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-body.wow-route .crt-overlay,
-body.wow-route .intro-screen,
+body.wow-route .crt-shell,
+body.wow-route .glitch-ambience,
 body.wow-route .skip-to-main {
   display: none !important;
 }
@@ -21,15 +25,16 @@ body.wow-route .skip-to-main {
   max-width: 14rem;
   margin-left: auto;
   padding: 0.45rem 0.65rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 77, 240, 0.35);
-  background: rgba(10, 6, 20, 0.88);
+  border-radius: 2px;
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  background: rgba(0, 12, 18, 0.9);
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.68rem;
   line-height: 1.35;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
   text-align: right;
-  color: #c9b8e8;
+  color: var(--neon-cyan, #00d4ff);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.15);
   z-index: 2;
 }
 
@@ -51,7 +56,7 @@ body.wow-route .skip-to-main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: var(--font-soft, system-ui, sans-serif);
+  font-family: var(--font-mono, ui-monospace, monospace);
 }
 
 .wow-prank__title {
@@ -60,9 +65,12 @@ body.wow-route .skip-to-main {
   font-size: clamp(2.6rem, 12vw, 3.75rem);
   font-weight: 400;
   line-height: 0.95;
-  letter-spacing: 0.04em;
-  color: #ffe8fb;
-  text-shadow: 0 0 40px rgba(255, 77, 240, 0.5);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e0faff;
+  text-shadow:
+    0 0 40px rgba(0, 212, 255, 0.55),
+    0 0 80px rgba(0, 212, 255, 0.25);
 }
 
 .wow-prank__kicker {
@@ -70,15 +78,16 @@ body.wow-route .skip-to-main {
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 1rem;
   letter-spacing: 0.2em;
-  text-transform: lowercase;
-  color: #ff4df0;
+  text-transform: uppercase;
+  color: #ff7700;
+  text-shadow: 0 0 20px rgba(255, 119, 0, 0.45);
 }
 
 .wow-prank__sticker {
   width: min(10rem, 42vw);
   height: auto;
   margin: 0 0 1.25rem;
-  filter: drop-shadow(0 12px 28px rgba(255, 77, 240, 0.35));
+  filter: drop-shadow(0 12px 28px rgba(0, 212, 255, 0.25));
   image-rendering: pixelated;
   user-select: none;
   pointer-events: none;
@@ -99,9 +108,9 @@ body.wow-route .skip-to-main {
   margin: 0;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.58rem;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
-  color: #9a88b8;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(0, 212, 255, 0.45);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,7 +119,7 @@ body.wow-route .skip-to-main {
 
 .wow-secret__arrow {
   font-size: 0.7rem;
-  color: #ff4df0;
+  color: #00d4ff;
   line-height: 1;
 }
 
@@ -126,15 +135,15 @@ body.wow-route .skip-to-main {
   height: 1.65rem;
   padding: 0;
   border-radius: 50%;
-  border: 1px solid rgba(255, 77, 240, 0.55);
-  background: radial-gradient(circle at 35% 30%, #3a1f4a, #120a18);
-  box-shadow: 0 0 12px rgba(255, 77, 240, 0.25);
+  border: 1px solid rgba(0, 212, 255, 0.55);
+  background: radial-gradient(circle at 35% 30%, #003344, #000810);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
   cursor: pointer;
 }
 
 .wow-secret__btn:hover {
-  border-color: #ff4df0;
-  box-shadow: 0 0 16px rgba(255, 77, 240, 0.45);
+  border-color: #00d4ff;
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.55);
 }
 
 .wow-secret__btn:active {
@@ -145,27 +154,28 @@ body.wow-route .skip-to-main {
   min-width: 1.25rem;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.62rem;
-  color: #ff6ef5;
+  color: #00d4ff;
 }
 
 .wow-prank__punchline {
   margin: 0;
   font-size: 1rem;
   line-height: 1.45;
-  color: #d4c0f5;
+  color: var(--text-dim, #6a9aaa);
 }
 
 .wow-prank__punchline strong {
-  color: #ff6ef5;
+  color: #ff7700;
+  text-shadow: 0 0 12px rgba(255, 119, 0, 0.35);
 }
 
 .wow-prank__link {
   margin-top: 1.75rem;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #39f6ff;
+  color: #00d4ff;
   text-decoration: none;
   opacity: 0.85;
 }
@@ -173,4 +183,5 @@ body.wow-route .skip-to-main {
 .wow-prank__link:hover {
   opacity: 1;
   text-decoration: underline;
+  text-shadow: 0 0 12px rgba(0, 212, 255, 0.45);
 }

@@ -1,6 +1,10 @@
 body.femtanyl-route {
   overflow: auto;
-  background: #111;
+  background: #000;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
 body.femtanyl-route--obs {
@@ -8,8 +12,8 @@ body.femtanyl-route--obs {
   background: #000;
 }
 
-body.femtanyl-route .crt-overlay,
-body.femtanyl-route .intro-screen,
+body.femtanyl-route .crt-shell,
+body.femtanyl-route .glitch-ambience,
 body.femtanyl-route .skip-to-main,
 body.femtanyl-route #main {
   display: none !important;
@@ -34,9 +38,12 @@ body.femtanyl-route #main {
 }
 
 .femtanyl-page__back {
-  color: #7bcf0c;
+  color: #00d4ff;
   text-decoration: none;
   font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-mono, ui-monospace, monospace);
 }
 
 .femtanyl-page__back:hover {
@@ -482,7 +489,7 @@ body.femtanyl-route #main {
 }
 
 .femtanyl-about__body a {
-  color: #7bcf0c;
+  color: #00d4ff;
 }
 
 .femtanyl-about__body a:hover {
