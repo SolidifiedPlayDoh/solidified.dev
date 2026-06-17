@@ -99,6 +99,10 @@ export const stillwebPageCopy = {
       title: "Control panel",
       body: "Toggle modules on or off from a full settings page inside the extension.",
     },
+    {
+      title: "Update checks",
+      body: "StillWeb checks for new releases and offers to download them — unzip over your folder and hit Reload.",
+    },
   ],
   about: [
     "I made StillWeb because I got tired of extensions that cost money, do not work, or get blocked on sites. I just wanted an ad blocker that worked without any fuss.",
