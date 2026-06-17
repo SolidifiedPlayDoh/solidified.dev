@@ -12,8 +12,6 @@ export type StoreProduct = {
   /** ISO date — used to sort the homepage shelf (newest first). */
   addedAt: string;
   isNew?: boolean;
-  /** When listed, enables real one-click "Add to Chrome" on the product page. */
-  chromeWebStoreUrl?: string;
 };
 
 export const storePageCopy = {
@@ -55,14 +53,13 @@ export const stillwebPageCopy = {
   ],
   installReality: {
     title: "Why isn’t it just one click?",
-    body: "Chrome used to install .crx files straight from a download — click, confirm, done. Google removed that on Windows and Mac years ago (security thing). These days the only real one-click install for normal people is the Chrome Web Store. A .zip or .crx from a website won’t auto-add itself anymore.",
+    body: "Chrome used to install .crx files straight from a download — click, confirm, done. Google removed that on Windows and Mac years ago. A .zip or .crx from a website won’t auto-add itself anymore.",
     footnote:
-      "I’m working on a Web Store listing. Until then, setup takes about a minute — no coding, just a few clicks in Chrome.",
+      "Setup takes about a minute — no coding, just a few clicks in Chrome. You only do it once.",
   },
-  easyInstallLabel: "Add to Chrome — one click",
-  manualInstallTitle: "Set up manually",
-  manualInstallLead:
-    "Download the latest build, unzip it once, then tell Chrome to load that folder. You only do this once.",
+  downloadTitle: "Get StillWeb",
+  downloadLead:
+    "Download the latest build, unzip it once, then tell Chrome to load that folder.",
   installSteps: [
     {
       title: "Download",

@@ -97,36 +97,16 @@ export function StillwebPage() {
             </section>
           </GlitchReveal>
 
-          {product.chromeWebStoreUrl && (
-            <GlitchReveal variant="block" delay={280}>
-              <section className="store-section store-download" aria-labelledby="stillweb-store">
-                <h2 id="stillweb-store" className="store-section__title">
-                  Get StillWeb
-                </h2>
-                <div className="store-download__actions">
-                  <a
-                    href={product.chromeWebStoreUrl}
-                    className="store-download__button store-download__button--primary"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {stillwebPageCopy.easyInstallLabel}
-                  </a>
-                </div>
-              </section>
-            </GlitchReveal>
-          )}
-
-          <GlitchReveal variant="block" delay={product.chromeWebStoreUrl ? 340 : 300}>
+          <GlitchReveal variant="block" delay={300}>
             <section
               className="store-section store-download"
               aria-labelledby="stillweb-download"
             >
               <h2 id="stillweb-download" className="store-section__title">
-                {stillwebPageCopy.manualInstallTitle}
+                {stillwebPageCopy.downloadTitle}
               </h2>
               <p className="soft-body store-section__body">
-                {stillwebPageCopy.manualInstallLead}
+                {stillwebPageCopy.downloadLead}
               </p>
 
               <div className="store-download__actions">
@@ -136,7 +116,7 @@ export function StillwebPage() {
                   <>
                     <a
                       href={release.downloadUrl}
-                      className="store-download__button store-download__button--secondary"
+                      className="store-download__button"
                       rel="noopener noreferrer"
                     >
                       Download {release.version} (.zip)
