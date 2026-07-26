@@ -1,3 +1,5 @@
+import { atypeFonts } from "./atypeContent";
+
 export type StoreProduct = {
   slug: string;
   path: string;
@@ -7,35 +9,57 @@ export type StoreProduct = {
   emoji: string;
   priceLabel: string;
   tags: string[];
-  githubRepo: string;
-  releaseAssetName: string;
-  /** ISO date — used to sort the homepage shelf (newest first). */
+  githubRepo?: string;
+  releaseAssetName?: string;
+  /** ISO date - used to sort the homepage shelf (newest first). */
   addedAt: string;
   isNew?: boolean;
 };
 
 export const storePageCopy = {
   headline: "Store",
-  lead: "Stuff I build that you can actually download. No accounts, no checkout flow — just grab it.",
+  lead: "",
+};
+
+const atypeStoreProducts: StoreProduct[] = atypeFonts.map((font) => ({
+  slug: `atype-${font.slug}`,
+  path: `/store/atype/${font.slug}`,
+  name: font.name,
+  tagline: font.tagline,
+  description: font.description,
+  emoji: "◎",
+  priceLabel: "Free",
+  tags: ["Fonts", "AType"],
+  addedAt: "2026-07-14",
+  isNew: true,
+}));
+
+export const stillwebProduct: StoreProduct & {
+  githubRepo: string;
+  releaseAssetName: string;
+} = {
+  slug: "stillweb",
+  path: "/store/stillweb",
+  name: "StillWeb",
+  tagline: "Chrome ad blocker.",
+  description: "Blocks ads and trackers. Load unpacked and go.",
+  emoji: "◉",
+  priceLabel: "Free",
+  tags: ["Extensions"],
+  githubRepo: "SolidifiedPlayDoh/stillweb",
+  releaseAssetName: "stillweb-chrome.zip",
+  addedAt: "2026-06-10",
+  isNew: true,
 };
 
 export const storeProducts: StoreProduct[] = [
-  {
-    slug: "stillweb",
-    path: "/store/stillweb",
-    name: "StillWeb",
-    tagline: "The ad blocker that just works.",
-    description:
-      "Free Chrome extension. Blocks ads and clutter without subscriptions, logins, or nonsense.",
-    emoji: "◉",
-    priceLabel: "Free",
-    tags: ["Chrome", "Extension", "Ad blocker"],
-    githubRepo: "SolidifiedPlayDoh/stillweb",
-    releaseAssetName: "stillweb-chrome.zip",
-    addedAt: "2026-06-10",
-    isNew: true,
-  },
+  ...atypeStoreProducts,
+  stillwebProduct,
 ];
+
+export function getStoreProductByPath(path: string): StoreProduct | undefined {
+  return storeProducts.find((product) => product.path === path);
+}
 
 /** Newest store items for the homepage shelf. */
 export function getRecentStoreProducts(limit = 12): StoreProduct[] {
@@ -46,68 +70,61 @@ export function getRecentStoreProducts(limit = 12): StoreProduct[] {
 
 export const stillwebPageCopy = {
   headline: "StillWeb",
-  lead: "The ad blocker that just works.",
-  intro: [
-    "StillWeb blocks ads and trackers in Chrome. No account. No credit card. No premium tier. Turn it on and browse.",
-    "I built it because I was tired of extensions that cost money, break on sites, or dump you on a confusing GitHub page when you just want the thing.",
-  ],
+  lead: "Chrome ad blocker.",
+  intro: [],
   installReality: {
-    title: "Why isn’t it just one click?",
-    body: "Chrome used to install .crx files straight from a download — click, confirm, done. Google removed that on Windows and Mac years ago. A .zip or .crx from a website won’t auto-add itself anymore.",
-    footnote:
-      "Setup takes about a minute — no coding, just a few clicks in Chrome. You only do it once.",
+    title: "Install",
+    body: "Chrome won't sideload a .zip in one click anymore. Unzip, then Load unpacked.",
+    footnote: "",
   },
-  downloadTitle: "Get StillWeb",
-  downloadLead:
-    "Download the latest build, unzip it once, then tell Chrome to load that folder.",
+  downloadTitle: "Download",
+  downloadLead: "",
   installSteps: [
     {
       title: "Download",
-      body: "Grab the zip below. It’s the extension folder, packed up.",
+      body: "Grab the zip.",
     },
     {
       title: "Unzip",
-      body: "Double-click the zip. Leave the folder somewhere you won’t delete (Downloads is fine).",
+      body: "Extract it somewhere permanent.",
     },
     {
-      title: "Open Extensions",
-      body: "Type chrome://extensions in your address bar and hit Enter.",
+      title: "chrome://extensions",
+      body: "Open that URL.",
     },
     {
-      title: "Developer mode on",
-      body: "Flip the Developer mode switch in the top-right. Sounds scary — it’s just Chrome’s “install from folder” mode.",
+      title: "Developer mode",
+      body: "Flip it on.",
     },
     {
       title: "Load unpacked",
-      body: "Click Load unpacked, pick the folder you unzipped. StillWeb shows up in your toolbar. Done.",
+      body: "Pick the unzipped folder.",
     },
   ],
   features: [
     {
-      title: "Network blocking",
-      body: "Stops ad and tracker requests with EasyList + EasyPrivacy rules.",
+      title: "Network",
+      body: "EasyList + EasyPrivacy.",
     },
     {
-      title: "Cosmetic cleanup",
-      body: "Hides leftover ad boxes and empty slots the network layer misses.",
+      title: "Cosmetic",
+      body: "Hides leftover ad shells.",
     },
     {
-      title: "YouTube mode",
-      body: "Extra cleanup on YouTube — promos, overlays, and watch-page clutter.",
+      title: "YouTube",
+      body: "Extra cleanup on watch pages.",
     },
     {
-      title: "Control panel",
-      body: "Toggle modules on or off from a full settings page inside the extension.",
+      title: "Controls",
+      body: "Toggle modules in settings.",
     },
     {
-      title: "Update checks",
-      body: "StillWeb checks for new releases and offers to download them — unzip over your folder and hit Reload.",
+      title: "Updates",
+      body: "Checks GitHub and prompts a reload.",
     },
   ],
   about: [
-    "I made StillWeb because I got tired of extensions that cost money, do not work, or get blocked on sites. I just wanted an ad blocker that worked without any fuss.",
-    "Free forever. No paywall. No signup. It just blocks ads — like it is supposed to.",
-    "Chrome did not have many options that felt this simple, so I built my own.",
+    "Built because the paid ones suck.",
   ],
 };
 

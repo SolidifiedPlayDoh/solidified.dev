@@ -13,9 +13,9 @@ export function HiPage() {
   usePageMeta({
     title: "Hi | Solidified.dev",
     description:
-      "hello!! im SolidifiedPlayDoh — welcome to my corner of the internet >w<",
+      "hello!! im SolidifiedPlayDoh. welcome to my corner of the internet >w<",
     path: "/hi",
-    themeColor: "#14061f",
+    themeColor: "#080506",
   });
 
   return (

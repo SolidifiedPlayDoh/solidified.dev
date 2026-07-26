@@ -6,7 +6,10 @@ export type ProjectDefinition = {
   description: string;
   emoji?: string;
   tags?: string[];
-  Component: ComponentType;
+  /** In-app route - omit when `externalHref` is set */
+  Component?: ComponentType;
+  /** Opens off-site instead of an internal route */
+  externalHref?: string;
 };
 
 const modules = import.meta.glob<{ default: ProjectDefinition }>(

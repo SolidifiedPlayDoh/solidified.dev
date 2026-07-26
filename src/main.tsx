@@ -1,5 +1,9 @@
 import "./styles/global.css";
 import "./styles/scene.css";
+import "./styles/glitch.css";
+import "./styles/psycho.css";
+import "./styles/psycho-boot.css";
+import "./styles/psycho-intel.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 

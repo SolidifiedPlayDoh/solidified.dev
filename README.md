@@ -2,7 +2,7 @@
 
 Repo: [github.com/SolidifiedPlayDoh/solidified.dev](https://github.com/SolidifiedPlayDoh/solidified.dev)
 
-Vite + React + TypeScript personal site — Tron-grid glitch aesthetic and auto-listed project cards.
+Vite + React + TypeScript personal site - Tron-grid glitch aesthetic and auto-listed project cards.
 
 Handle: **Soli / Solidified** ([GitHub @SolidifiedPlayDoh](https://github.com/SolidifiedPlayDoh)).
 
@@ -22,8 +22,8 @@ npm run preview  # preview dist/
 ## Adding a project page
 
 1. Add your page component under `src/pages/` (or similar).
-2. Create `src/projects/<slug>/meta.ts` exporting a `ProjectDefinition` (see `src/projects/femtanylFNF/meta.ts`).
-3. The homepage **Projects** grid and app routes pick it up automatically — no manual card list.
+2. Create `src/projects/<slug>/meta.ts` exporting a `ProjectDefinition` (see `src/projects/atype/meta.ts`).
+3. The homepage **Projects** grid and app routes pick it up automatically - no manual card list.
 
 Homepage copy lives in `src/content/siteDefaults.ts`.
 

@@ -14,7 +14,7 @@ export const siteContent: SiteContent = {
   links: [
     { label: "Store", href: "/store" },
     { label: "GitHub", href: "https://github.com/SolidifiedPlayDoh" },
-    { label: "SoundCloud", href: "https://soundcloud.com/solidifiedplaydoh" },
+    { label: "YouTube", href: "https://www.youtube.com/@SolidifiedPlayDoh" },
   ],
 };
 

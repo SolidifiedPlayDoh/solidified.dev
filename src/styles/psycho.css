@@ -1,0 +1,356 @@
+/**
+ * Frutiger Psycho ambient field — wireframes, arcs, micro UI chrome.
+ */
+
+:root {
+  --ptr-x: 0;
+  --ptr-y: 0;
+}
+
+.psycho-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  color: rgba(244, 244, 255, 0.55);
+}
+
+.psycho-field__parallax {
+  position: absolute;
+  inset: -4%;
+  will-change: transform;
+}
+
+.psycho-field__parallax--far {
+  transform: translate3d(
+    calc(var(--ptr-x) * -28px),
+    calc(var(--ptr-y) * -22px),
+    0
+  );
+}
+
+.psycho-field__parallax--mid {
+  transform: translate3d(
+    calc(var(--ptr-x) * 18px),
+    calc(var(--ptr-y) * 14px),
+    0
+  );
+}
+
+.psycho-field__parallax--near {
+  transform: translate3d(
+    calc(var(--ptr-x) * 36px),
+    calc(var(--ptr-y) * 28px),
+    0
+  );
+}
+
+.psycho-field__cursor {
+  position: absolute;
+  left: calc(50% + var(--ptr-x) * 100%);
+  top: calc(50% + var(--ptr-y) * 100%);
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border: 1px solid rgba(155, 156, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(125, 249, 255, 0.2);
+  opacity: 0.55;
+  transform: translate3d(
+    calc(var(--ptr-x) * 40px),
+    calc(var(--ptr-y) * 40px),
+    0
+  );
+}
+
+.psycho-field__cursor::before,
+.psycho-field__cursor::after {
+  content: "";
+  position: absolute;
+  background: rgba(244, 244, 255, 0.45);
+}
+
+.psycho-field__cursor::before {
+  left: 50%;
+  top: -6px;
+  bottom: -6px;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.psycho-field__cursor::after {
+  top: 50%;
+  left: -6px;
+  right: -6px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.psycho-field__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.psycho-field__rings {
+  transform-origin: 72% 38%;
+  animation: psycho-spin 48s linear infinite;
+  translate: calc(var(--ptr-x) * -12px) calc(var(--ptr-y) * -10px);
+}
+
+.psycho-field__slab {
+  transform-origin: 50% 50%;
+  animation: psycho-slab-drift 22s ease-in-out infinite alternate;
+}
+
+.psycho-field__arc {
+  stroke: rgba(155, 156, 255, 0.45);
+  fill: none;
+  stroke-width: 1.25;
+  animation: psycho-arc-pulse 7s ease-in-out infinite alternate;
+}
+
+.psycho-field__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.psycho-field__chrome {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 255, 0.42);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.psycho-field__chrome--a {
+  top: 9%;
+  left: 4%;
+  animation: psycho-label-flicker 9s steps(1, end) infinite;
+}
+
+.psycho-field__chrome--b {
+  top: 14%;
+  right: 6%;
+  color: rgba(155, 156, 255, 0.55);
+  animation: psycho-label-flicker 11s steps(1, end) infinite 1.5s;
+}
+
+.psycho-field__chrome--c {
+  bottom: 18%;
+  left: 7%;
+  animation: psycho-label-flicker 10s steps(1, end) infinite 0.8s;
+}
+
+.psycho-field__chrome--d {
+  bottom: 12%;
+  right: 8%;
+  color: rgba(125, 249, 255, 0.4);
+  animation: psycho-label-flicker 12s steps(1, end) infinite 2.2s;
+}
+
+.psycho-field__chrome--e {
+  top: 48%;
+  left: 2%;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.14em;
+  opacity: 0.35;
+}
+
+.psycho-field__cross {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(244, 244, 255, 0.28);
+}
+
+.psycho-field__cross::before,
+.psycho-field__cross::after {
+  content: "";
+  position: absolute;
+  background: rgba(244, 244, 255, 0.35);
+}
+
+.psycho-field__cross::before {
+  left: 50%;
+  top: -4px;
+  bottom: -4px;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.psycho-field__cross::after {
+  top: 50%;
+  left: -4px;
+  right: -4px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.psycho-field__cross--1 {
+  top: 22%;
+  right: 22%;
+  animation: psycho-cross-blink 8s steps(1, end) infinite;
+}
+
+.psycho-field__cross--2 {
+  bottom: 28%;
+  left: 18%;
+  width: 12px;
+  height: 12px;
+  animation: psycho-cross-blink 9.5s steps(1, end) infinite 1.1s;
+}
+
+.psycho-field__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.32;
+  mix-blend-mode: screen;
+}
+
+.psycho-field__blob--a {
+  width: min(48vw, 380px);
+  height: min(48vw, 380px);
+  top: -8%;
+  right: -6%;
+  background: radial-gradient(circle, rgba(155, 156, 255, 0.85), transparent 70%);
+  animation: psycho-blob 16s ease-in-out infinite alternate;
+}
+
+.psycho-field__blob--b {
+  width: min(40vw, 300px);
+  height: min(40vw, 300px);
+  bottom: 8%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(92, 92, 224, 0.75), transparent 70%);
+  animation: psycho-blob 20s ease-in-out infinite alternate-reverse;
+}
+
+.psycho-field__blob--c {
+  width: min(28vw, 200px);
+  height: min(28vw, 200px);
+  top: 42%;
+  left: 55%;
+  background: radial-gradient(circle, rgba(125, 249, 255, 0.35), transparent 70%);
+  animation: psycho-blob 14s ease-in-out infinite alternate;
+}
+
+@keyframes psycho-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes psycho-slab-drift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+    opacity: 0.35;
+  }
+  to {
+    transform: translate3d(-12px, 18px, 0) rotate(1deg);
+    opacity: 0.55;
+  }
+}
+
+@keyframes psycho-arc-pulse {
+  from {
+    stroke-opacity: 0.35;
+  }
+  to {
+    stroke-opacity: 0.75;
+  }
+}
+
+@keyframes psycho-label-flicker {
+  0%,
+  92%,
+  100% {
+    opacity: 0.42;
+    transform: none;
+  }
+  93% {
+    opacity: 0.9;
+    transform: translateX(2px);
+  }
+  94% {
+    opacity: 0.2;
+    transform: translateX(-1px);
+  }
+  95% {
+    opacity: 0.55;
+    transform: none;
+  }
+}
+
+@keyframes psycho-cross-blink {
+  0%,
+  90%,
+  100% {
+    opacity: 0.4;
+  }
+  91% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0.15;
+  }
+  93% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes psycho-blob {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-24px, 16px, 0) scale(1.08);
+  }
+}
+
+@media (max-width: 720px) {
+  .psycho-field__chrome--e,
+  .psycho-field__cross--2 {
+    display: none;
+  }
+
+  .psycho-field__blob {
+    opacity: 0.14;
+  }
+
+  .psycho-field__chrome {
+    font-size: 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .psycho-field__rings,
+  .psycho-field__slab,
+  .psycho-field__arc,
+  .psycho-field__chrome,
+  .psycho-field__cross,
+  .psycho-field__blob {
+    animation: none !important;
+  }
+
+  .psycho-field__parallax,
+  .psycho-field__cursor {
+    transform: none !important;
+  }
+
+  .psycho-field__cursor {
+    display: none;
+  }
+
+  .psycho-field__blob {
+    opacity: 0.12;
+  }
+}
