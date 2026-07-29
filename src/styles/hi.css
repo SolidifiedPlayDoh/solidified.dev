@@ -44,10 +44,124 @@
   margin-top: 1.25rem;
 }
 
-.hi-page--short .soft-site__inner {
-  max-width: 36rem;
+/**
+ * /hi — short door for people who found a link in the wild.
+ */
+
+.hi-door {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 5vw, 3rem) clamp(1.1rem, 4vw, 2rem);
 }
 
-.hi-page--short .hi-page__headline {
-  margin-top: 0.5rem;
+.hi-door__inner {
+  width: min(28rem, 100%);
+}
+
+.hi-door__stamp {
+  display: inline-block;
+  margin: 0 0 0.85rem;
+  padding: 0.22rem 0.5rem;
+  border: 1px solid rgba(155, 156, 255, 0.55);
+  background: rgba(8, 8, 16, 0.72);
+  color: var(--psycho-lavender, #9b9cff);
+  font-family: var(--font-mono, "IBM Plex Mono", monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hi-door__brand {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.1rem, 9vw, 3.1rem);
+  line-height: 0.95;
+}
+
+.hi-door__lead {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-display, Syne, system-ui, sans-serif);
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--psycho-bone, #f4f4ff);
+}
+
+.hi-door__found {
+  margin: 0 0 1rem;
+  max-width: 36ch;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(162, 169, 245, 0.92);
+  border-left: 2px solid rgba(155, 156, 255, 0.45);
+  padding-left: 0.75rem;
+}
+
+.hi-door__body {
+  margin: 0 0 1.6rem;
+  max-width: 36ch;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--psycho-ash, #9a9ab8);
+}
+
+.hi-door__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.55rem;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid rgba(155, 156, 255, 0.65);
+  background: linear-gradient(
+    180deg,
+    rgba(155, 156, 255, 0.22),
+    rgba(42, 42, 106, 0.45)
+  );
+  color: var(--psycho-bone, #f4f4ff);
+  font-family: var(--font-mono, "IBM Plex Mono", monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: none;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 9px) 0,
+    100% 9px,
+    100% 100%,
+    9px 100%,
+    0 calc(100% - 9px)
+  );
+  box-shadow: 3px 3px 0 rgba(42, 42, 106, 0.55);
+  transition:
+    background 120ms steps(2, end),
+    transform 120ms steps(2, end);
+}
+
+.hi-door__cta:hover,
+.hi-door__cta:focus-visible {
+  background: linear-gradient(
+    180deg,
+    rgba(155, 156, 255, 0.4),
+    rgba(92, 92, 224, 0.55)
+  );
+  outline: none;
+  transform: translate(-1px, -1px);
+}
+
+.hi-door__cta:focus-visible {
+  box-shadow:
+    3px 3px 0 rgba(42, 42, 106, 0.55),
+    0 0 0 2px rgba(155, 156, 255, 0.45);
+}
+
+@media (max-width: 480px) {
+  .hi-door__found {
+    max-width: none;
+  }
 }

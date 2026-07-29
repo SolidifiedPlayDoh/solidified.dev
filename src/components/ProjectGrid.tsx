@@ -9,7 +9,6 @@ type ProjectGridProps = {
 };
 
 function projectIntelId(path: string): string | undefined {
-  if (path.includes("atype")) return "project-atype";
   if (path.includes("youtube")) return "project-youtube";
   return undefined;
 }

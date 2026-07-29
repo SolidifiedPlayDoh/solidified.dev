@@ -18,7 +18,7 @@ export const intelDossiers: Record<string, IntelDossier> = {
     id: "HOME",
     tag: "ROOT",
     subject: "Solidified.dev",
-    summary: "The site. Me. Weird little web toys live here.",
+    summary: "My site. Random web toys live here.",
     branches: [
       { label: "AKA", value: "SolidifiedPlayDoh" },
       { label: "VIBE", value: "VIBECODER" },
@@ -29,7 +29,7 @@ export const intelDossiers: Record<string, IntelDossier> = {
     id: "ABOUT",
     tag: "BIO",
     subject: "About",
-    summary: "I build fast, hack random hardware, and ship silly stuff before bed.",
+    summary: "I build fast, hack random hardware, and make silly stuff.",
     branches: [
       { label: "ROLE", value: "VIBECODER" },
       { label: "NOTES", value: "AUTISM · ADHD" },
@@ -84,22 +84,11 @@ export const intelDossiers: Record<string, IntelDossier> = {
     id: "PROJECTS",
     tag: "GRID",
     subject: "Projects",
-    summary: "Toys, tools, and weird web experiments.",
+    summary: "Stuff ive made. Click one.",
     branches: [
       { label: "LIST", value: "LIVE" },
       { label: "TIP", value: "CLICK TO ENTER" },
       { label: "FILTER", value: "NONE" },
-    ],
-  },
-  "project-atype": {
-    id: "ATYPE",
-    tag: "FONT",
-    subject: "AType",
-    summary: "Circles with dots. Read the gaps.",
-    branches: [
-      { label: "KIND", value: "TYPEFACE" },
-      { label: "COST", value: "FREE" },
-      { label: "PATH", value: "/atype" },
     ],
   },
   "project-youtube": {

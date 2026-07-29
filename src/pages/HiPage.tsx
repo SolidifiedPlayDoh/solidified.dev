@@ -1,63 +1,57 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-import { AboutSections } from "../components/AboutSections";
 import { GlitchReveal } from "../components/GlitchReveal";
 import { SiteShell } from "../components/SiteShell";
-import { hiPageCopy } from "../content/hiContent";
-import { siteContent } from "../content/siteDefaults";
+import { hiPageCopy, resolveHiSource } from "../content/hiContent";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 import "../styles/hi.css";
 
 export function HiPage() {
+  const { hash } = useLocation();
+  const source = resolveHiSource(hash);
+
   usePageMeta({
-    title: "Hi | Solidified.dev",
-    description:
-      "hello!! im SolidifiedPlayDoh. welcome to my corner of the internet >w<",
+    title: "hi | Solidified.dev",
+    description: source.found,
     path: "/hi",
-    themeColor: "#080506",
+    themeColor: "#050508",
   });
 
   return (
     <SiteShell>
-      <main id="main" className="soft-site hi-page hi-page--short">
-        <div className="soft-site__inner">
-          <GlitchReveal variant="hero" delay={60}>
-            <header>
-              <h1
-                className="soft-brand scene-headline hi-page__headline"
-                data-text={hiPageCopy.headline}
-              >
-                {hiPageCopy.headline}
-              </h1>
-            </header>
+      <main id="main" className="hi-door">
+        <div className="hi-door__inner">
+          <GlitchReveal variant="line" delay={0}>
+            <p className="hi-door__stamp">{source.stamp}</p>
+          </GlitchReveal>
+
+          <GlitchReveal variant="hero" delay={40}>
+            <h1
+              className="hi-door__brand scene-headline glitch-idle"
+              data-text={hiPageCopy.brand}
+            >
+              {hiPageCopy.brand}
+            </h1>
+          </GlitchReveal>
+
+          <GlitchReveal variant="block" delay={100}>
+            <p className="hi-door__lead">{hiPageCopy.lead}</p>
+          </GlitchReveal>
+
+          <GlitchReveal variant="block" delay={140}>
+            <p className="hi-door__found">{source.found}</p>
           </GlitchReveal>
 
           <GlitchReveal variant="block" delay={180}>
-            <AboutSections sections={hiPageCopy.sections} />
+            <p className="hi-door__body">{hiPageCopy.body}</p>
           </GlitchReveal>
 
-          <div className="hi-page__links">
-            <GlitchReveal variant="pill" delay={300}>
-              <Link to="/" className="soft-pill">
-                <span className="soft-pill__dot" aria-hidden />
-                <span className="soft-pill__label">{hiPageCopy.moreAboutLabel}</span>
-              </Link>
-            </GlitchReveal>
-            {siteContent.links.map((link, idx) => (
-              <GlitchReveal key={link.href} variant="pill" delay={360 + idx * 70}>
-                <a
-                  href={link.href}
-                  className="soft-pill"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <span className="soft-pill__dot" aria-hidden />
-                  <span className="soft-pill__label">{link.label}</span>
-                </a>
-              </GlitchReveal>
-            ))}
-          </div>
+          <GlitchReveal variant="pill" delay={220}>
+            <Link to={hiPageCopy.ctaHome} className="hi-door__cta">
+              {hiPageCopy.cta}
+            </Link>
+          </GlitchReveal>
         </div>
       </main>
     </SiteShell>

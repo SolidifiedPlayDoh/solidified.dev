@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 
 import { HomePage } from "./components/HomePage";
 import { SiteShell } from "./components/SiteShell";
@@ -26,17 +26,25 @@ function LegacyATypeFontRedirect() {
   return <Navigate to={`/store/atype/${slug}`} replace />;
 }
 
+/** Old /welcome links keep working; hash is preserved (#radio etc). */
+function WelcomeToHiRedirect() {
+  const { hash } = useLocation();
+  return <Navigate to={`/hi${hash}`} replace />;
+}
+
 export function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/femtanylFNF/*" element={<Navigate to="/" replace />} />
         <Route path="/" element={<PortfolioHome />} />
+        <Route path="/welcome" element={<WelcomeToHiRedirect />} />
         <Route path="/hi" element={<HiPage />} />
         <Route path="/wow" element={<WowPage />} />
         <Route path="/store/stillweb" element={<StillwebPage />} />
         <Route path="/store/atype/:slug" element={<ATypeFontPage />} />
         <Route path="/store" element={<StorePage />} />
+        <Route path="/atype" element={<Navigate to="/store?tag=AType" replace />} />
         <Route path="/atype/:slug" element={<LegacyATypeFontRedirect />} />
         <Route path="/music" element={<MusicRedirect />} />
         {projects.map((project) =>
