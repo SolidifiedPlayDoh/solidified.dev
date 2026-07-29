@@ -11,8 +11,26 @@ import {
 import { PsychoBootOverlay } from "../components/PsychoBootOverlay";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
-/** Survives SPA navigations; resets on full page reload. */
+const BOOT_SEEN_KEY = "solidified.psychoBoot.seen";
+
+/** Survives SPA navigations within one document load. */
 let bootPlayedThisDocument = false;
+
+function readBootSeen(): boolean {
+  try {
+    return window.localStorage.getItem(BOOT_SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeBootSeen() {
+  try {
+    window.localStorage.setItem(BOOT_SEEN_KEY, "1");
+  } catch {
+    /* private mode / blocked storage */
+  }
+}
 
 type PsychoBootContextValue = {
   /** True once UI may start landing (handoff) or boot was skipped. */
@@ -45,7 +63,8 @@ type PsychoBootProviderProps = {
 export function PsychoBootProvider({ children }: PsychoBootProviderProps) {
   const reducedMotion = usePrefersReducedMotion();
   const force = forceBootFromQuery();
-  const skip = reducedMotion || (bootPlayedThisDocument && !force);
+  const alreadySeen = !force && (bootPlayedThisDocument || readBootSeen());
+  const skip = reducedMotion || alreadySeen;
   const [bootComplete, setBootComplete] = useState(skip);
   const [booting, setBooting] = useState(!skip);
 
@@ -74,6 +93,7 @@ export function PsychoBootProvider({ children }: PsychoBootProviderProps) {
 
   const finishBoot = useCallback(() => {
     bootPlayedThisDocument = true;
+    writeBootSeen();
     document.body.classList.remove("psycho-handoff");
     setBooting(false);
     setBootComplete(true);

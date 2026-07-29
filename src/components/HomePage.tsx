@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { AboutSections } from "./AboutSections";
 import { GlitchReveal } from "./GlitchReveal";
 import { homePageCopy } from "../content/hiContent";
+import { SEO_HOME_DESCRIPTION, SEO_HOME_TITLE } from "../content/seo";
 import { siteContent } from "../content/siteDefaults";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 import { ProjectGrid } from "./ProjectGrid";
 import { StoreShelf } from "./StoreShelf";
@@ -17,6 +19,13 @@ const linkIntel: Record<string, string> = {
 };
 
 export function HomePage() {
+  usePageMeta({
+    title: SEO_HOME_TITLE,
+    description: SEO_HOME_DESCRIPTION,
+    path: "/",
+    themeColor: "#050508",
+  });
+
   return (
     <div className="soft-site">
       <div className="soft-site__inner">

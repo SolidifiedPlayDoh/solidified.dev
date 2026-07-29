@@ -12,8 +12,8 @@ export function HiPage() {
   const source = resolveHiSource(hash);
 
   usePageMeta({
-    title: "hi | Solidified.dev",
-    description: source.found,
+    title: "hi | SolidifiedPlayDoh — Solidified.dev",
+    description: `${source.found} SolidifiedPlayDoh (Solidified PlayDoh / Soli) at solidified.dev.`,
     path: "/hi",
     themeColor: "#050508",
   });
