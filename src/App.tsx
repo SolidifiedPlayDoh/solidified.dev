@@ -5,6 +5,8 @@ import { SiteShell } from "./components/SiteShell";
 import { ATypeFontPage } from "./pages/ATypeFontPage";
 import { HiPage } from "./pages/HiPage";
 import { MusicRedirect } from "./pages/MusicRedirect";
+import { MulvyrPage } from "./pages/MulvyrPage";
+import { NewsArticlePage } from "./pages/NewsArticlePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { StillwebPage } from "./pages/StillwebPage";
 import { StorePage } from "./pages/StorePage";
@@ -40,7 +42,10 @@ export function App() {
         <Route path="/" element={<PortfolioHome />} />
         <Route path="/welcome" element={<WelcomeToHiRedirect />} />
         <Route path="/hi" element={<HiPage />} />
+        <Route path="/news/:slug" element={<NewsArticlePage />} />
         <Route path="/wow" element={<WowPage />} />
+        <Route path="/mulvyr" element={<MulvyrPage />} />
+        <Route path="/store/decoy" element={<Navigate to="/decoy" replace />} />
         <Route path="/store/stillweb" element={<StillwebPage />} />
         <Route path="/store/atype/:slug" element={<ATypeFontPage />} />
         <Route path="/store" element={<StorePage />} />

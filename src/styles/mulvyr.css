@@ -1,0 +1,155 @@
+html.mulvyr-route,
+body.mulvyr-route {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+  background: #0078d7 !important;
+  background-image: none !important;
+  color: #fff;
+  overflow: hidden !important;
+  cursor: none;
+  user-select: none;
+  -webkit-user-select: none;
+  color-scheme: only light;
+  font-family:
+    "Segoe UI Variable Display",
+    "Segoe UI Variable",
+    "Segoe UI",
+    "SegoeUI",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+html.mulvyr-route #root,
+body.mulvyr-route #root {
+  min-height: 100%;
+  height: 100%;
+  background: #0078d7;
+}
+
+body.mulvyr-route .crt-overlay,
+body.mulvyr-route .glitch-ambience,
+body.mulvyr-route .skip-to-content,
+body.mulvyr-route .psycho-field,
+body.mulvyr-route .psycho-boot,
+body.mulvyr-route .intel-layer {
+  display: none !important;
+}
+
+.bsod {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  margin: 0;
+  padding: clamp(3.25rem, 10vh, 7.5rem) clamp(2rem, 9vw, 8.5rem) 3rem;
+  background: #0078d7;
+  color: #fff;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.bsod__inner {
+  max-width: 58rem;
+}
+
+.bsod__face {
+  margin: 0 0 clamp(1.1rem, 3vh, 2rem);
+  font-size: clamp(5.25rem, 13vw, 9.25rem);
+  font-weight: 200;
+  line-height: 0.85;
+  letter-spacing: 0.02em;
+  font-variant-emoji: text;
+  font-family:
+    "Segoe UI Variable Display Light",
+    "Segoe UI Light",
+    "Segoe UI Variable Display",
+    "Segoe UI",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+.bsod__headline,
+.bsod__collect,
+.bsod__pct,
+.bsod__help p {
+  margin: 0;
+  font-weight: 400;
+}
+
+.bsod__headline {
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.bsod__collect {
+  margin-top: 0.15rem;
+  max-width: 38rem;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  line-height: 1.35;
+}
+
+.bsod__pct {
+  margin-top: clamp(1.4rem, 3.2vh, 2.15rem);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+}
+
+.bsod__details {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.15rem;
+  margin-top: clamp(2.4rem, 7vh, 4.25rem);
+  max-width: 42rem;
+}
+
+.bsod__qr {
+  flex: 0 0 auto;
+  width: 118px;
+  height: 118px;
+  padding: 6px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.bsod__qr img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bsod__help {
+  padding-top: 0.1rem;
+}
+
+.bsod__help p {
+  font-size: clamp(0.78rem, 1.15vw, 0.95rem);
+  line-height: 1.45;
+}
+
+.bsod__help p + p {
+  margin-top: 1.05rem;
+}
+
+@media (max-width: 640px) {
+  .bsod {
+    padding: 12vw 8vw 3rem;
+  }
+
+  .bsod__headline {
+    max-width: none;
+  }
+
+  .bsod__details {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bsod__pct {
+    font-variant-numeric: tabular-nums;
+  }
+}

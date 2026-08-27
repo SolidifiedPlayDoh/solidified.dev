@@ -1,0 +1,420 @@
+.decoy-page__top {
+  margin-bottom: 0.5rem;
+}
+
+.decoy-page__headline {
+  margin: 0 0 0.35rem;
+}
+
+.decoy-page__lead {
+  margin: 0;
+  max-width: 28rem;
+}
+
+.decoy-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 1.75rem;
+}
+
+@media (max-width: 900px) {
+  .decoy-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.decoy-panel {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .decoy-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+.decoy-card {
+  padding: clamp(1rem, 3vw, 1.35rem);
+  border-radius: 2px;
+  background: linear-gradient(160deg, rgba(18, 18, 32, 0.95) 0%, rgba(6, 6, 12, 0.98) 100%);
+  border: 1px solid rgba(155, 156, 255, 0.28);
+}
+
+.decoy-card__title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: var(--scene-bone, #f4f4ff);
+}
+
+.decoy-fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.decoy-field {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.decoy-field > span {
+  font-weight: 500;
+}
+
+.decoy-field input[type="text"],
+.decoy-field textarea {
+  width: 100%;
+  border: 1px solid rgba(155, 156, 255, 0.22);
+  background: rgba(5, 5, 8, 0.85);
+  color: var(--scene-bone, #f4f4ff);
+  border-radius: 2px;
+  padding: 0.85rem 0.95rem;
+  outline: none;
+  font-family: var(--font-mono);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.decoy-field input[type="text"]:focus,
+.decoy-field textarea:focus {
+  border-color: rgba(155, 156, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(155, 156, 255, 0.12);
+}
+
+.decoy-field textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+.decoy-colors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.decoy-color-field {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(155, 156, 255, 0.22);
+  border-radius: 2px;
+  background: rgba(5, 5, 8, 0.85);
+}
+
+.decoy-color-field input[type="color"] {
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.decoy-color-field strong {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--scene-bone, #f4f4ff);
+}
+
+.decoy-drop {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 9rem;
+  border: 1.5px dashed rgba(155, 156, 255, 0.35);
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, rgba(155, 156, 255, 0.08), transparent 55%),
+    rgba(5, 5, 8, 0.85);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.decoy-drop:hover,
+.decoy-drop--drag {
+  border-color: var(--psycho-lavender, #9b9cff);
+  transform: translateY(-1px);
+}
+
+.decoy-drop input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.decoy-drop__copy {
+  text-align: center;
+  pointer-events: none;
+  padding: 1rem;
+}
+
+.decoy-drop__copy strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--scene-bone, #f4f4ff);
+}
+
+.decoy-drop__copy span {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.decoy-drop__preview {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 22.5%;
+  margin: 0 auto 0.65rem;
+  background: #161820 center / cover no-repeat;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.decoy-actions {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1.15rem;
+}
+
+.decoy-btn {
+  appearance: none;
+  border: 0;
+  border-radius: 2px;
+  padding: 0.95rem 1.1rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
+}
+
+.decoy-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.decoy-btn--primary {
+  background: var(--psycho-lavender, #9b9cff);
+  color: #050508;
+}
+
+.decoy-result {
+  margin-top: 1rem;
+  padding: 0.95rem;
+  border-radius: 2px;
+  background: rgba(155, 156, 255, 0.08);
+  border: 1px solid rgba(155, 156, 255, 0.22);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.decoy-result__label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.decoy-hold-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem;
+  border-radius: 2px;
+  background: rgba(5, 5, 8, 0.85);
+  border: 1px solid rgba(155, 156, 255, 0.28);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.decoy-hold-link:hover {
+  border-color: rgba(155, 156, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+.decoy-hold-link__icon {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 22.5%;
+  background: #161820 center / cover no-repeat;
+  flex: 0 0 auto;
+}
+
+.decoy-hold-link__text {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.decoy-hold-link__text strong {
+  font-family: var(--font-display);
+  color: var(--scene-bone, #f4f4ff);
+}
+
+.decoy-hold-link__text em {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.decoy-hint {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.decoy-steps {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.decoy-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.decoy-step__num {
+  width: 1.8rem;
+  height: 1.8rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(155, 156, 255, 0.14);
+  color: var(--psycho-lavender, #9b9cff);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.decoy-step h3 {
+  margin: 0 0 0.2rem;
+  font-size: 0.98rem;
+  color: var(--scene-bone, #f4f4ff);
+}
+
+.decoy-step p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.decoy-phone {
+  justify-self: end;
+  width: min(100%, 280px);
+}
+
+@media (max-width: 900px) {
+  .decoy-phone {
+    justify-self: center;
+  }
+}
+
+.decoy-phone__frame {
+  border-radius: 2px;
+  padding: 1rem 1rem 1.35rem;
+  background: linear-gradient(160deg, rgba(18, 18, 32, 0.95) 0%, rgba(6, 6, 12, 0.98) 100%);
+  border: 1px solid rgba(155, 156, 255, 0.28);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.decoy-phone__status {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(244, 244, 255, 0.45);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 1.1rem;
+  padding: 0 0.35rem;
+}
+
+.decoy-phone__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem 0.55rem;
+  min-height: 17rem;
+}
+
+.decoy-app-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.decoy-app-slot__icon {
+  width: 3.35rem;
+  height: 3.35rem;
+  border-radius: 22.5%;
+  background: #2a2a40 center / cover no-repeat;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+.decoy-app-slot__label {
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.decoy-app-slot--decoy .decoy-app-slot__icon {
+  outline: 2px solid rgba(155, 156, 255, 0.55);
+  outline-offset: 2px;
+  animation: decoy-pop 0.55s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.decoy-app-slot--ghost .decoy-app-slot__icon,
+.decoy-app-slot--ghost .decoy-app-slot__label {
+  opacity: 0.28;
+}
+
+.decoy-phone__dock {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.55rem;
+  margin-top: 1.15rem;
+  padding: 0.7rem;
+  border-radius: 2px;
+  background: rgba(155, 156, 255, 0.08);
+}
+
+.decoy-phone__dock div {
+  width: 3.1rem;
+  height: 3.1rem;
+  margin: 0 auto;
+  border-radius: 22.5%;
+  background: #2a2a40;
+  opacity: 0.55;
+}
+
+@keyframes decoy-pop {
+  0% {
+    transform: scale(0.86);
+  }
+  60% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

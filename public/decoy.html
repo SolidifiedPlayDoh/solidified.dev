@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#050508" />
+    <script>
+      (function () {
+        try {
+          var raw = location.hash.charAt(0) === "#" ? location.hash.slice(1) : "";
+          if (!raw) return;
+          var p = new URLSearchParams(raw);
+          var name = p.get("n") || "Decoy";
+          var icon = p.get("i") || "";
+          var mime = p.get("t") || "image/jpeg";
+          document.title = name;
+
+          var titleMeta = document.createElement("meta");
+          titleMeta.name = "apple-mobile-web-app-title";
+          titleMeta.content = name;
+          document.head.appendChild(titleMeta);
+
+          if (icon) {
+            var href = "data:" + mime + ";base64," + icon;
+            var link = document.createElement("link");
+            link.rel = "apple-touch-icon";
+            link.href = href;
+            document.head.appendChild(link);
+
+            var iconLink = document.createElement("link");
+            iconLink.rel = "icon";
+            iconLink.href = href;
+            document.head.appendChild(iconLink);
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <title>Decoy</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #050508;
+        --panel: #0c0c14;
+        --line: rgba(155, 156, 255, 0.22);
+        --text: #f4f4ff;
+        --muted: rgba(154, 154, 184, 0.92);
+        --accent: #9b9cff;
+        --accent-ink: #050508;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        min-height: 100dvh;
+        background: var(--ink);
+        color: var(--text);
+        font-family: "Archivo", system-ui, sans-serif;
+      }
+      body {
+        padding: 1.25rem 1.1rem calc(1.5rem + env(safe-area-inset-bottom));
+      }
+      body.is-app {
+        display: grid;
+        place-items: center;
+        padding: 2rem 1.25rem calc(2rem + env(safe-area-inset-bottom));
+      }
+      .hidden {
+        display: none !important;
+      }
+
+      .stage {
+        width: min(100%, 22rem);
+        text-align: center;
+      }
+      .glyph {
+        width: 7.5rem;
+        height: 7.5rem;
+        margin: 0 auto 1.5rem;
+        border-radius: 22.5%;
+        background: #161820 center / cover no-repeat;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        animation: settle 0.7s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+      }
+      .stage h1 {
+        margin: 0 0 0.65rem;
+        font-family: "Syne", sans-serif;
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        animation: settle 0.7s cubic-bezier(0.2, 0.9, 0.2, 1) 0.05s both;
+      }
+      .stage p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.45;
+        animation: settle 0.7s cubic-bezier(0.2, 0.9, 0.2, 1) 0.1s both;
+      }
+
+      .install {
+        width: min(100%, 26rem);
+        margin: 0 auto;
+        animation: settle 0.55s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+      }
+      .install-top {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        margin-bottom: 1.25rem;
+      }
+      .install-icon {
+        width: 3.6rem;
+        height: 3.6rem;
+        border-radius: 22.5%;
+        background: #161820 center / cover no-repeat;
+        flex: 0 0 auto;
+      }
+      .install-top h1 {
+        margin: 0;
+        font-family: "Syne", sans-serif;
+        font-size: 1.55rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+      .install-top p {
+        margin: 0.2rem 0 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      .banner {
+        margin: 0 0 1.1rem;
+        padding: 0.85rem 0.95rem;
+        border-radius: 2px;
+        background: rgba(155, 156, 255, 0.1);
+        border: 1px solid rgba(155, 156, 255, 0.28);
+        color: var(--accent);
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 0.82rem;
+        font-weight: 600;
+        line-height: 1.35;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .steps {
+        display: grid;
+        gap: 0.85rem;
+      }
+      .step {
+        background: linear-gradient(160deg, rgba(18, 18, 32, 0.95) 0%, rgba(6, 6, 12, 0.98) 100%);
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        padding: 0.95rem;
+      }
+      .step-head {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin-bottom: 0.75rem;
+      }
+      .num {
+        width: 1.7rem;
+        height: 1.7rem;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: rgba(155, 156, 255, 0.14);
+        color: var(--accent);
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        font-weight: 800;
+        flex: 0 0 auto;
+      }
+      .step h2 {
+        margin: 0;
+        font-size: 0.98rem;
+        font-weight: 700;
+      }
+      .step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.4;
+      }
+
+      .viz {
+        margin-top: 0.8rem;
+        border-radius: 2px;
+        overflow: hidden;
+        background: #0c0c14;
+        border: 1px solid var(--line);
+      }
+      .viz-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.55rem 0.6rem;
+        background: #161820;
+      }
+      .viz-pill {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.45rem 0.6rem;
+        border-radius: 999px;
+        background: #050508;
+        color: rgba(244, 244, 255, 0.72);
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        font-weight: 600;
+      }
+      .viz-pill.pulse {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+        animation: glow 1.4s ease-in-out infinite;
+      }
+      .viz-pill span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .lock {
+        width: 0.7rem;
+        height: 0.7rem;
+        border: 1.5px solid currentColor;
+        border-radius: 0.15rem;
+        position: relative;
+        flex: 0 0 auto;
+        opacity: 0.7;
+      }
+      .lock::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: -0.28rem;
+        width: 0.38rem;
+        height: 0.28rem;
+        border: 1.5px solid currentColor;
+        border-bottom: 0;
+        border-radius: 0.25rem 0.25rem 0 0;
+        transform: translateX(-50%);
+      }
+      .share-btn {
+        width: 1.7rem;
+        height: 1.7rem;
+        border-radius: 2px;
+        display: grid;
+        place-items: center;
+        color: #6aa8ff;
+        flex: 0 0 auto;
+      }
+      .share-btn.pulse {
+        background: rgba(155, 156, 255, 0.16);
+        box-shadow: 0 0 0 2px var(--accent);
+        animation: glow 1.4s ease-in-out infinite;
+      }
+      .share-btn svg {
+        width: 1.05rem;
+        height: 1.05rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .sheet {
+        padding: 0.65rem;
+        display: grid;
+        gap: 0.4rem;
+      }
+      .sheet-row {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.55rem 0.65rem;
+        border-radius: 2px;
+        background: #050508;
+        color: rgba(244, 244, 255, 0.55);
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+      .sheet-row.active {
+        background: rgba(155, 156, 255, 0.12);
+        color: var(--accent);
+        box-shadow: inset 0 0 0 1px rgba(155, 156, 255, 0.35);
+        animation: glow 1.4s ease-in-out infinite;
+      }
+      .sheet-ico {
+        width: 1.35rem;
+        height: 1.35rem;
+        border-radius: 2px;
+        background: #161820;
+        display: grid;
+        place-items: center;
+        font-size: 0.7rem;
+        flex: 0 0 auto;
+      }
+      .sheet-row.active .sheet-ico {
+        background: var(--accent);
+        color: var(--accent-ink);
+      }
+      .arrow {
+        margin-left: auto;
+        opacity: 0.5;
+        font-size: 0.9rem;
+      }
+      .note {
+        margin: 1rem 0 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.4;
+      }
+
+      @keyframes settle {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes glow {
+        0%,
+        100% {
+          filter: brightness(1);
+        }
+        50% {
+          filter: brightness(1.15);
+        }
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="stage hidden" id="app-view">
+      <div class="glyph" id="glyph" aria-hidden="true"></div>
+      <h1 id="name">Decoy</h1>
+      <p id="message">This app does nothing. That is the joke.</p>
+    </main>
+
+    <main class="install hidden" id="install-view">
+      <div class="install-top">
+        <div class="install-icon" id="install-icon" aria-hidden="true"></div>
+        <div>
+          <h1 id="install-name">Decoy</h1>
+          <p>Add this fake app to your home screen</p>
+        </div>
+      </div>
+
+      <div class="banner">You’re in Safari. Follow these steps:</div>
+
+      <div class="steps">
+        <section class="step">
+          <div class="step-head">
+            <div class="num">1</div>
+            <h2>Hold the address bar at the bottom</h2>
+          </div>
+          <p>Long-press the URL pill until Share shows up.</p>
+          <div class="viz" aria-hidden="true">
+            <div class="viz-bar">
+              <div class="viz-pill pulse">
+                <div class="lock"></div>
+                <span id="url-demo">solidified.dev</span>
+              </div>
+              <div class="share-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3v12" />
+                  <path d="M7 8l5-5 5 5" />
+                  <path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step">
+          <div class="step-head">
+            <div class="num">2</div>
+            <h2>Tap Share</h2>
+          </div>
+          <p>The square with the arrow pointing up.</p>
+          <div class="viz" aria-hidden="true">
+            <div class="viz-bar">
+              <div class="viz-pill">
+                <div class="lock"></div>
+                <span>this page</span>
+              </div>
+              <div class="share-btn pulse">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3v12" />
+                  <path d="M7 8l5-5 5 5" />
+                  <path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step">
+          <div class="step-head">
+            <div class="num">3</div>
+            <h2>More → Add to Home Screen</h2>
+          </div>
+          <p>Scroll the share sheet if you don’t see it yet.</p>
+          <div class="viz" aria-hidden="true">
+            <div class="sheet">
+              <div class="sheet-row">
+                <div class="sheet-ico">↑</div>
+                Copy
+              </div>
+              <div class="sheet-row">
+                <div class="sheet-ico">★</div>
+                Favorites
+                <span class="arrow">›</span>
+              </div>
+              <div class="sheet-row active">
+                <div class="sheet-ico">＋</div>
+                Add to Home Screen
+                <span class="arrow">›</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <p class="note">
+        After that, open it from your home screen — it’ll show your joke page instead of these
+        instructions.
+      </p>
+    </main>
+
+    <script>
+      (function () {
+        var raw = location.hash.charAt(0) === "#" ? location.hash.slice(1) : "";
+        var p = new URLSearchParams(raw);
+        var name = p.get("n") || "Decoy";
+        var message = p.get("m") || "This app does nothing. That is the joke.";
+        var bg = p.get("bg") || "050508";
+        var fg = p.get("fg") || "f4f4ff";
+        var icon = p.get("i") || "";
+        var mime = p.get("t") || "image/jpeg";
+        var iconUrl = icon ? "data:" + mime + ";base64," + icon : "";
+
+        function isStandalone() {
+          return (
+            window.navigator.standalone === true ||
+            window.matchMedia("(display-mode: standalone)").matches ||
+            window.matchMedia("(display-mode: fullscreen)").matches ||
+            window.matchMedia("(display-mode: minimal-ui)").matches
+          );
+        }
+
+        var appView = document.getElementById("app-view");
+        var installView = document.getElementById("install-view");
+
+        if (isStandalone()) {
+          document.body.classList.add("is-app");
+          document.documentElement.style.background = "#" + bg;
+          document.body.style.background = "#" + bg;
+          document.body.style.color = "#" + fg;
+
+          document.getElementById("name").textContent = name;
+          document.getElementById("message").textContent = message;
+          document.getElementById("message").style.color =
+            "color-mix(in srgb, #" + fg + " 62%, transparent)";
+          if (iconUrl) {
+            document.getElementById("glyph").style.backgroundImage = "url(" + iconUrl + ")";
+          }
+          appView.classList.remove("hidden");
+        } else {
+          document.getElementById("install-name").textContent = name;
+          document.getElementById("url-demo").textContent = name;
+          if (iconUrl) {
+            document.getElementById("install-icon").style.backgroundImage =
+              "url(" + iconUrl + ")";
+          }
+          installView.classList.remove("hidden");
+        }
+      })();
+    </script>
+  </body>
+</html>
