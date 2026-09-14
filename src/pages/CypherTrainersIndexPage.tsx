@@ -10,7 +10,7 @@ export function CypherTrainersIndexPage() {
   usePageMeta({
     title: "Cypher trainers | Solidified.dev",
     description:
-      "Practice quizzes for pigpen, Morse, Caesar, and Atbash. Learn to read cyphers with friends.",
+      "50-question quizzes for pigpen, Morse, and Atbash. Timed letters with a graph of slow symbols.",
     path: "/cyphertrainers",
     themeColor: "#f3efe6",
   });
@@ -22,12 +22,8 @@ export function CypherTrainersIndexPage() {
           <header className="cypher-head">
             <h1>Cypher trainers</h1>
             <p>
-              Tiny practice quizzes for reading cyphers. Start with single letters. When that feels
-              easy, switch to random sentences so you cannot cheat off the shape of a famous quote.
-            </p>
-            <p>
-              If you miss, it tells you the right answer, then the next question. Share a link with
-              a friend and race streaks.
+              50-question quizzes. Letters are timed so you get a graph of which symbols slow you
+              down. Misses show the right answer, then the next question.
             </p>
           </header>
 

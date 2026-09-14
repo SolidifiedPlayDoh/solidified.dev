@@ -1,4 +1,4 @@
-export type CypherId = "pigpen" | "morse" | "caesar" | "atbash";
+export type CypherId = "pigpen" | "morse" | "atbash";
 
 export type CypherMeta = {
   id: CypherId;
@@ -22,13 +22,6 @@ export const CYPHERS: CypherMeta[] = [
     title: "Morse code",
     blurb: "Dots and dashes for each letter. Start with one symbol, then read whole lines.",
     how: "A short beep is a dot (·). A long beep is a dash (–). Letters are separated by a space. Words are separated by /.",
-  },
-  {
-    id: "caesar",
-    name: "Caesar",
-    title: "Caesar shift",
-    blurb: "Every letter slides forward in the alphabet by a fixed number.",
-    how: "If the shift is 3, A becomes D, B becomes E, and so on. Z wraps around to C. The quiz tells you the shift so you can practice doing it in your head.",
   },
   {
     id: "atbash",

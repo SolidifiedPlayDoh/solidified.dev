@@ -52,6 +52,7 @@ export function App() {
           <Route path="/atype" element={<Navigate to="/store?tag=AType" replace />} />
           <Route path="/atype/:slug" element={<LegacyATypeFontRedirect />} />
           <Route path="/music" element={<MusicRedirect />} />
+          <Route path="/cyphertrainers/caesar" element={<Navigate to="/cyphertrainers" replace />} />
           <Route path="/cyphertrainers" element={<CypherTrainersIndexPage />} />
           <Route path="/cyphertrainers/:cypher" element={<CypherTrainerPage />} />
           {projects.map((project) =>

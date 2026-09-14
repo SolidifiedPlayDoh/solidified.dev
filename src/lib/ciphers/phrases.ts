@@ -64,15 +64,30 @@ export function randomPhrase(wordCount?: number): string {
   return words.join(" ");
 }
 
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+export function alphabetLetters(): string[] {
+  return ALPHABET.split("");
+}
+
 export function randomLetter(except?: string): string {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let ch = alphabet[Math.floor(Math.random() * alphabet.length)];
-  if (except && alphabet.length > 1) {
+  let ch = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+  if (except && ALPHABET.length > 1) {
     while (ch === except.toUpperCase()) {
-      ch = alphabet[Math.floor(Math.random() * alphabet.length)];
+      ch = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
     }
   }
   return ch;
+}
+
+/** 26 letters once, then extras, shuffled to QUIZ_LEN. */
+export function letterQuizDeck(count = 50): string[] {
+  const base = ALPHABET.split("");
+  const extra: string[] = [];
+  while (base.length + extra.length < count) {
+    extra.push(randomLetter());
+  }
+  return shuffle([...base, ...extra]).slice(0, count);
 }
 
 export function normalizeGuess(value: string): string {

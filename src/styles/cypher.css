@@ -89,10 +89,75 @@
 }
 
 .cypher-score {
-  margin: 0 0 16px;
+  margin: 0 0 8px;
   font-size: 14px;
   line-height: 20px;
   color: var(--muted, var(--text-dim));
+}
+
+.cypher-progress {
+  height: 4px;
+  margin: 0 0 16px;
+  background: var(--line, #e2e2e2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cypher-progress span {
+  display: block;
+  height: 100%;
+  background: var(--ink, #111);
+}
+
+.cypher-results__percent {
+  margin: 0 0 8px;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.cypher-chart-wrap {
+  margin: 24px 0;
+}
+
+.cypher-chart-wrap figcaption,
+.cypher-chart-scale,
+.cypher-chart-slow {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted, var(--text-dim));
+}
+
+.cypher-timechart {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 8px 0;
+}
+
+.cypher-timechart__bar {
+  fill: var(--ink, #111);
+}
+
+.cypher-timechart__bar.is-miss {
+  fill: #a32d2d;
+}
+
+.cypher-timechart__label {
+  font-size: 7px;
+  fill: var(--muted, #5c564c);
+}
+
+.cypher-card > button {
+  font: inherit;
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid var(--ink, #111);
+  border-radius: var(--radius, 4px);
+  background: var(--ink, #111);
+  color: #fff;
 }
 
 .cypher-card {

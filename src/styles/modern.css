@@ -872,11 +872,18 @@ html[data-skin="modern"] .cypher-modes button,
 html[data-skin="modern"] .cypher-type button,
 html[data-skin="modern"] .cypher-choices button,
 html[data-skin="modern"] .cypher-feedback button,
-html[data-skin="modern"] .cypher-type input {
+html[data-skin="modern"] .cypher-type input,
+html[data-skin="modern"] .cypher-card > button {
   background: #fff;
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+}
+
+html[data-skin="modern"] .cypher-card > button {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
 }
 
 html[data-skin="modern"] body.phase-site #main .cypher-index a,

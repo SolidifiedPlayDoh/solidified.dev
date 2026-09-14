@@ -2,12 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } fro
 import { Link, useParams } from "react-router-dom";
 
 import { CipherPrompt, MorseChart, PigpenChart } from "../components/CipherPrompt";
+import { QuizTimingChart, type QuizHit } from "../components/QuizTimingChart";
 import { SiteShell } from "../components/SiteShell";
 import { usePageMeta } from "../hooks/usePageMeta";
 import {
   choiceDistractors,
+  letterQuizDeck,
   normalizeGuess,
-  randomLetter,
   randomPhrase,
   shuffle,
 } from "../lib/ciphers/phrases";
@@ -15,35 +16,49 @@ import { CYPHERS, getCypher, type CypherId } from "../lib/ciphers/registry";
 
 import "../styles/cypher.css";
 
+const QUIZ_LEN = 50;
+
 type Mode = "letters" | "type" | "choice";
 type Phase = "ask" | "feedback";
+type Status = "ready" | "running" | "done";
 
 type Question = {
   answer: string;
-  shift?: number;
   choices?: string[];
 };
 
-function nextQuestion(cypher: CypherId, mode: Mode, previous?: string): Question {
+type Trial = {
+  answer: string;
+  guess: string;
+  ms: number;
+  correct: boolean;
+};
+
+function makeQuestions(mode: Mode): Question[] {
   if (mode === "letters") {
-    const shift = cypher === "caesar" ? 1 + Math.floor(Math.random() * 12) : undefined;
-    return { answer: randomLetter(previous), shift };
+    return letterQuizDeck(QUIZ_LEN).map((letter) => ({
+      answer: letter,
+    }));
   }
 
-  let phrase = randomPhrase();
-  const prev = previous ? normalizeGuess(previous) : "";
-  while (normalizeGuess(phrase) === prev) {
-    phrase = randomPhrase();
+  const items: Question[] = [];
+  let previous = "";
+  for (let i = 0; i < QUIZ_LEN; i++) {
+    let phrase = randomPhrase();
+    while (normalizeGuess(phrase) === previous) {
+      phrase = randomPhrase();
+    }
+    previous = normalizeGuess(phrase);
+    if (mode === "choice") {
+      items.push({
+        answer: phrase,
+        choices: shuffle([phrase, ...choiceDistractors(phrase, 3)]),
+      });
+    } else {
+      items.push({ answer: phrase });
+    }
   }
-  const shift = cypher === "caesar" ? 1 + Math.floor(Math.random() * 12) : undefined;
-  if (mode === "choice") {
-    return {
-      answer: phrase,
-      shift,
-      choices: shuffle([phrase, ...choiceDistractors(phrase, 3)]),
-    };
-  }
-  return { answer: phrase, shift };
+  return items;
 }
 
 export function CypherTrainerPage() {
@@ -104,71 +119,92 @@ function Trainer({
   how: string;
 }) {
   const [mode, setMode] = useState<Mode>("letters");
+  const [status, setStatus] = useState<Status>("ready");
   const [phase, setPhase] = useState<Phase>("ask");
-  const [question, setQuestion] = useState<Question>(() => nextQuestion(cypher, "letters"));
+  const [deck, setDeck] = useState<Question[]>(() => makeQuestions("letters"));
+  const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
   const [guess, setGuess] = useState("");
   const [correct, setCorrect] = useState(false);
-  const [right, setRight] = useState(0);
-  const [wrong, setWrong] = useState(0);
-  const [streak, setStreak] = useState(0);
+  const [trials, setTrials] = useState<Trial[]>([]);
   const [showKey, setShowKey] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const shownAt = useRef(0);
+
+  const question = deck[index] ?? deck[0];
+  const answered = trials.length;
+  const right = trials.filter((trial) => trial.correct).length;
+  const percent = answered === 0 ? 0 : Math.round((right / answered) * 100);
+  const finalPercent = Math.round((right / QUIZ_LEN) * 100);
 
   usePageMeta({
-    title: `${title} trainer | Solidified.dev`,
-    description: `Practice reading ${name}. Letters first, then whole sentences.`,
+    title: `${title} quiz | Solidified.dev`,
+    description: `50-question ${name} quiz. Timed letters with a graph of which symbols slow you down.`,
     path: `/cyphertrainers/${cypher}`,
     themeColor: "#f3efe6",
   });
 
-  const goNext = useCallback(
-    (nextMode: Mode = mode) => {
-      setQuestion((prev) => nextQuestion(cypher, nextMode, prev.answer));
+  const resetQuiz = useCallback(
+    (nextMode: Mode) => {
+      setMode(nextMode);
+      setDeck(makeQuestions(nextMode));
+      setIndex(0);
+      setStatus("ready");
       setPhase("ask");
       setTyped("");
       setGuess("");
       setCorrect(false);
+      setTrials([]);
+      setShowKey(false);
     },
-    [cypher, mode],
+    [cypher],
   );
 
-  const changeMode = (next: Mode) => {
-    setMode(next);
-    setRight(0);
-    setWrong(0);
-    setStreak(0);
-    setQuestion(nextQuestion(cypher, next));
+  const startQuiz = () => {
+    setStatus("running");
+    setPhase("ask");
+    shownAt.current = performance.now();
+  };
+
+  const goNext = useCallback(() => {
+    if (index + 1 >= QUIZ_LEN) {
+      setStatus("done");
+      setPhase("ask");
+      return;
+    }
+    setIndex((n) => n + 1);
     setPhase("ask");
     setTyped("");
     setGuess("");
     setCorrect(false);
-    setShowKey(false);
-  };
+  }, [index]);
 
   const grade = useCallback(
     (value: string) => {
-      if (phase !== "ask") return;
+      if (status !== "running" || phase !== "ask") return;
       const expected = normalizeGuess(question.answer);
       const got = normalizeGuess(value);
       if (!got) return;
       const ok = got === expected;
+      const ms = Math.max(0, Math.round(performance.now() - shownAt.current));
       setGuess(got);
       setCorrect(ok);
       setPhase("feedback");
-      if (ok) {
-        setRight((n) => n + 1);
-        setStreak((n) => n + 1);
-      } else {
-        setWrong((n) => n + 1);
-        setStreak(0);
-      }
+      setTrials((rows) => [
+        ...rows,
+        { answer: expected, guess: got, ms, correct: ok },
+      ]);
     },
-    [phase, question.answer],
+    [phase, question.answer, status],
   );
 
   useEffect(() => {
-    if (mode !== "letters" || phase !== "ask") return;
+    if (status !== "running" || phase !== "ask") return;
+    shownAt.current = performance.now();
+  }, [index, phase, status]);
+
+  useEffect(() => {
+    if (mode !== "letters" || status !== "running" || phase !== "ask") return;
 
     const onKey = (event: KeyboardEvent) => {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
@@ -180,22 +216,28 @@ function Trainer({
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [grade, mode, phase]);
+  }, [grade, mode, phase, status]);
 
   useEffect(() => {
-    if (mode === "type" && phase === "ask") {
+    if (mode === "type" && status === "running" && phase === "ask") {
       inputRef.current?.focus();
     }
-  }, [mode, phase, question.answer]);
+  }, [mode, phase, status, question.answer]);
 
   useEffect(() => {
-    if (phase !== "feedback" || !correct) return;
-    const id = window.setTimeout(() => goNext(), 850);
+    if (status !== "running" || phase !== "feedback") return;
+    const wait = correct ? 400 : 1100;
+    const id = window.setTimeout(() => goNext(), wait);
     return () => window.clearTimeout(id);
-  }, [phase, correct, goNext]);
+  }, [correct, goNext, phase, status]);
 
   const promptSize = mode === "letters" ? "letter" : "sentence";
-  const expected = useMemo(() => normalizeGuess(question.answer), [question.answer]);
+  const expected = useMemo(() => normalizeGuess(question?.answer ?? ""), [question?.answer]);
+  const letterHits: QuizHit[] = trials.map((trial) => ({
+    letter: trial.answer,
+    ms: trial.ms,
+    correct: trial.correct,
+  }));
 
   return (
     <SiteShell>
@@ -206,90 +248,123 @@ function Trainer({
             <p>{how}</p>
           </header>
 
-          <div className="cypher-modes" role="tablist" aria-label="Practice mode">
-            <ModeButton current={mode} id="letters" onPick={changeMode}>
+          <div className="cypher-modes" role="tablist" aria-label="Quiz type">
+            <ModeButton current={mode} id="letters" onPick={resetQuiz}>
               Letters
             </ModeButton>
-            <ModeButton current={mode} id="type" onPick={changeMode}>
+            <ModeButton current={mode} id="type" onPick={resetQuiz}>
               Type a sentence
             </ModeButton>
-            <ModeButton current={mode} id="choice" onPick={changeMode}>
+            <ModeButton current={mode} id="choice" onPick={resetQuiz}>
               Multiple choice
             </ModeButton>
           </div>
 
-          <p className="cypher-score">
-            {right} right · {wrong} wrong · streak {streak}
-          </p>
+          {status === "ready" && (
+            <section className="cypher-card">
+              <p className="cypher-ask">
+                {QUIZ_LEN} questions.{" "}
+                {mode === "letters"
+                  ? "A symbol shows, then you press the letter. Each press is timed so the graph can show which ones slow you down."
+                  : "Same length as the letter quiz. You get a percent at the end."}
+              </p>
+              <button type="button" onClick={startQuiz}>
+                Start quiz
+              </button>
+            </section>
+          )}
 
-          <section className="cypher-card" aria-live="polite">
-            {cypher === "caesar" && question.shift != null && (
-              <p className="cypher-hint">Shift is {question.shift}. Undo it to get the real letter.</p>
-            )}
+          {status === "running" && (
+            <>
+              <p className="cypher-score">
+                Question {index + 1} of {QUIZ_LEN}
+                {answered > 0 ? ` · ${percent}% right so far` : null}
+              </p>
+              <div className="cypher-progress" aria-hidden>
+                <span style={{ width: `${(answered / QUIZ_LEN) * 100}%` }} />
+              </div>
 
-            <p className="cypher-ask">
-              {mode === "letters"
-                ? "What letter is this? Press it on your keyboard."
-                : mode === "type"
-                  ? "Type what it says."
-                  : "Which one matches the cypher?"}
-            </p>
+              <section className="cypher-card" aria-live="polite">
+                <p className="cypher-ask">
+                  {mode === "letters"
+                    ? "What letter is this? Press it on your keyboard."
+                    : mode === "type"
+                      ? "Type what it says."
+                      : "Which one matches the cypher?"}
+                </p>
 
-            <CipherPrompt
-              cypher={cypher}
-              text={question.answer}
-              shift={question.shift}
-              size={promptSize}
-            />
-
-            {mode === "type" && phase === "ask" && (
-              <form
-                className="cypher-type"
-                onSubmit={(event: FormEvent) => {
-                  event.preventDefault();
-                  grade(typed);
-                }}
-              >
-                <label htmlFor="cypher-guess">Your answer</label>
-                <input
-                  id="cypher-guess"
-                  ref={inputRef}
-                  autoComplete="off"
-                  autoCapitalize="off"
-                  spellCheck={false}
-                  value={typed}
-                  onChange={(event) => setTyped(event.target.value)}
+                <CipherPrompt
+                  cypher={cypher}
+                  text={question.answer}
+                  size={promptSize}
                 />
-                <button type="submit">Check</button>
-              </form>
-            )}
 
-            {mode === "choice" && phase === "ask" && (
-              <div className="cypher-choices">
-                {question.choices?.map((option) => (
-                  <button key={option} type="button" onClick={() => grade(option)}>
-                    {option}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {phase === "feedback" && (
-              <div className={`cypher-feedback ${correct ? "is-right" : "is-wrong"}`}>
-                {correct ? (
-                  <p>Yes — {expected}</p>
-                ) : (
-                  <p>
-                    Not quite. You said {guess || "nothing"}. The right answer is{" "}
-                    <strong>{expected}</strong>.
-                  </p>
+                {mode === "type" && phase === "ask" && (
+                  <form
+                    className="cypher-type"
+                    onSubmit={(event: FormEvent) => {
+                      event.preventDefault();
+                      grade(typed);
+                    }}
+                  >
+                    <label htmlFor="cypher-guess">Your answer</label>
+                    <input
+                      id="cypher-guess"
+                      ref={inputRef}
+                      autoComplete="off"
+                      autoCapitalize="off"
+                      spellCheck={false}
+                      value={typed}
+                      onChange={(event) => setTyped(event.target.value)}
+                    />
+                    <button type="submit">Check</button>
+                  </form>
                 )}
-                <button type="button" onClick={() => goNext()}>
-                  Next
-                </button>
-              </div>
-            )}
-          </section>
+
+                {mode === "choice" && phase === "ask" && (
+                  <div className="cypher-choices">
+                    {question.choices?.map((option) => (
+                      <button key={option} type="button" onClick={() => grade(option)}>
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {phase === "feedback" && (
+                  <div className={`cypher-feedback ${correct ? "is-right" : "is-wrong"}`}>
+                    {correct ? (
+                      <p>
+                        Yes — {expected}
+                        {mode === "letters" ? ` · ${trials[trials.length - 1]?.ms ?? 0} ms` : null}
+                      </p>
+                    ) : (
+                      <p>
+                        Not quite. You said {guess || "nothing"}. The right answer is{" "}
+                        <strong>{expected}</strong>.
+                      </p>
+                    )}
+                  </div>
+                )}
+              </section>
+            </>
+          )}
+
+          {status === "done" && (
+            <section className="cypher-card cypher-results">
+              <p className="cypher-results__percent">{finalPercent}%</p>
+              <p>
+                {right} of {QUIZ_LEN} right
+                {mode === "letters"
+                  ? ` · ${Math.round(trials.reduce((sum, trial) => sum + trial.ms, 0) / trials.length)} ms average`
+                  : null}
+              </p>
+              {mode === "letters" ? <QuizTimingChart hits={letterHits} /> : null}
+              <button type="button" onClick={() => resetQuiz(mode)}>
+                Take again
+              </button>
+            </section>
+          )}
 
           <details
             className="cypher-key"
@@ -299,14 +374,10 @@ function Trainer({
             <summary>Show the key (peek if you get stuck)</summary>
             {cypher === "pigpen" && <PigpenChart />}
             {cypher === "morse" && <MorseChart />}
-            {cypher === "caesar" && (
-              <p className="cypher-key__note">
-                Count forward {question.shift ?? 3} letters for the cypher, or backward the same
-                amount to decode.
-              </p>
-            )}
             {cypher === "atbash" && (
-              <p className="cypher-key__note">A↔Z · B↔Y · C↔X · D↔W · E↔V · F↔U · G↔T · H↔S · I↔R · J↔Q · K↔P · L↔O · M↔N</p>
+              <p className="cypher-key__note">
+                A↔Z · B↔Y · C↔X · D↔W · E↔V · F↔U · G↔T · H↔S · I↔R · J↔Q · K↔P · L↔O · M↔N
+              </p>
             )}
           </details>
         </div>

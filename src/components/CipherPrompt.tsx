@@ -1,13 +1,12 @@
 import { PigpenGlyph } from "./PigpenGlyph";
 import { encodeMorseLetter } from "../lib/ciphers/morse";
-import { atbashLetter, atbashText, shiftLetter, shiftText } from "../lib/ciphers/shift";
+import { atbashLetter, atbashText } from "../lib/ciphers/shift";
 import { isPigpenLetter } from "../lib/ciphers/pigpen";
 import type { CypherId } from "../lib/ciphers/registry";
 
 type CipherPromptProps = {
   cypher: CypherId;
   text: string;
-  shift?: number;
   size?: "letter" | "sentence";
 };
 
@@ -23,7 +22,7 @@ function MorseMarks({ code }: { code: string }) {
   );
 }
 
-export function CipherPrompt({ cypher, text, shift = 3, size = "letter" }: CipherPromptProps) {
+export function CipherPrompt({ cypher, text, size = "letter" }: CipherPromptProps) {
   const glyphSize = size === "letter" ? 120 : 52;
 
   if (cypher === "pigpen") {
@@ -71,15 +70,6 @@ export function CipherPrompt({ cypher, text, shift = 3, size = "letter" }: Ciphe
             })}
           </span>
         ))}
-      </p>
-    );
-  }
-
-  if (cypher === "caesar") {
-    const shown = size === "letter" ? shiftLetter(text, shift) : shiftText(text, shift);
-    return (
-      <p className={`cypher-latin cypher-latin--${size}`} aria-hidden>
-        {shown}
       </p>
     );
   }
