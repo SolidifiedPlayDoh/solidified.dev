@@ -7,7 +7,7 @@ export type PigpenShape = GridCell | WedgeCell;
 
 const GRID_LETTERS = "ABCDEFGHI";
 const GRID_DOT_LETTERS = "JKLMNOPQR";
-const WEDGE_ORDER: Array<WedgeCell["dir"]> = ["n", "e", "s", "w"];
+const WEDGE_ORDER: Array<WedgeCell["dir"]> = ["n", "w", "e", "s"];
 
 export function pigpenShape(letter: string): PigpenShape | null {
   const ch = letter.toUpperCase();

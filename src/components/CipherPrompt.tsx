@@ -84,7 +84,7 @@ export function CipherPrompt({ cypher, text, size = "letter" }: CipherPromptProp
 
 export function PigpenChart() {
   const rows = ["ABCDEFGHI", "JKLMNOPQR", "STUV", "WXYZ"];
-  const labels = ["A–I (grid)", "J–R (grid + dot)", "S–V (X)", "W–Z (X + dot)"];
+  const labels = ["A–I (grid)", "J–R (grid + dot)", "S–V (X: top, left, right, bottom)", "W–Z (X + dot)"];
 
   return (
     <div className="cypher-chart">

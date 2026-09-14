@@ -14,7 +14,7 @@ export const CYPHERS: CypherMeta[] = [
     name: "Pigpen",
     title: "Pigpen cypher",
     blurb: "Each letter is a piece of a tic-tac-toe grid or an X. Learn to read the shapes.",
-    how: "A–I live in a tic-tac-toe board. J–R are the same shapes with a dot. S–Z are the four corners of an X, then those same corners with a dot.",
+    how: "A–I live in a tic-tac-toe board. J–R are the same shapes with a dot. On the X, S is the top, T left, U right, V bottom. W–Z are those same corners with a dot.",
   },
   {
     id: "morse",
