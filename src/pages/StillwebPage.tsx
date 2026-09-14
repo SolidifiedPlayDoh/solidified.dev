@@ -32,7 +32,7 @@ export function StillwebPage() {
     description:
       "Download StillWeb. Free Chrome ad blocker.",
     path: "/store/stillweb",
-    themeColor: "#080506",
+    themeColor: "#f3efe6",
   });
 
   useEffect(() => {

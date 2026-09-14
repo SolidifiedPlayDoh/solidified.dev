@@ -22,26 +22,13 @@ export function StorePage() {
     title: "Store | Solidified.dev",
     description: "Download free tools, extensions, and fonts from Solidified.dev.",
     path: "/store",
-    themeColor: "#080506",
+    themeColor: "#f3efe6",
   });
 
   return (
     <SiteShell>
       <main id="main" className="soft-site store-page">
         <div className="soft-site__inner">
-          <GlitchReveal variant="pill" delay={40}>
-            <nav className="store-page__top">
-              <Link to="/" className="soft-pill">
-                <span className="soft-pill__dot" aria-hidden />
-                <span className="soft-pill__label">← home</span>
-              </Link>
-            </nav>
-          </GlitchReveal>
-
-          <GlitchReveal variant="line" delay={100}>
-            <hr className="soft-divider" aria-hidden />
-          </GlitchReveal>
-
           <GlitchReveal variant="hero" delay={160}>
             <header>
               <h1
@@ -60,7 +47,7 @@ export function StorePage() {
             <section className="store-catalog" aria-labelledby="store-catalog-title">
               <div className="store-catalog__heading">
                 <h2 id="store-catalog-title" className="store-catalog__title">
-                  {activeTag ? `#${activeTag}` : "All"}
+                  {activeTag ? activeTag : "All"}
                 </h2>
                 <span className="store-catalog__count">{visibleProducts.length}</span>
               </div>

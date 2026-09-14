@@ -117,7 +117,7 @@ export function resolveHiSource(hash: string): HiSource {
 
 /** Full about - the main homepage. */
 export const homePageCopy = {
-  headline: "Solidified.dev",
+  headline: "SolidifiedPlayDoh",
   sections: [
     {
       id: "hello",

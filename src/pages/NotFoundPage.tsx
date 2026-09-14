@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
+
 import "../styles/notfound.css";
 
 export function NotFoundPage() {
@@ -11,6 +13,7 @@ export function NotFoundPage() {
 
   return (
     <div className="nf">
+      <Breadcrumbs />
       <div className="nf__field" aria-hidden>
         <div className="nf__heat" />
         <div className="nf__scan" />

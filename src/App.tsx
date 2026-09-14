@@ -2,15 +2,16 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "
 
 import { HomePage } from "./components/HomePage";
 import { SiteShell } from "./components/SiteShell";
+import { SiteSkinProvider } from "./context/SiteSkinContext";
 import { ATypeFontPage } from "./pages/ATypeFontPage";
 import { HiPage } from "./pages/HiPage";
 import { MusicRedirect } from "./pages/MusicRedirect";
-import { MulvyrPage } from "./pages/MulvyrPage";
 import { NewsArticlePage } from "./pages/NewsArticlePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { StillwebPage } from "./pages/StillwebPage";
 import { StorePage } from "./pages/StorePage";
-import { WowPage } from "./pages/WowPage";
+import { CypherTrainerPage } from "./pages/CypherTrainerPage";
+import { CypherTrainersIndexPage } from "./pages/CypherTrainersIndexPage";
 import { projects } from "./projects/registry";
 
 function PortfolioHome() {
@@ -36,33 +37,35 @@ function WelcomeToHiRedirect() {
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/femtanylFNF/*" element={<Navigate to="/" replace />} />
-        <Route path="/" element={<PortfolioHome />} />
-        <Route path="/welcome" element={<WelcomeToHiRedirect />} />
-        <Route path="/hi" element={<HiPage />} />
-        <Route path="/news/:slug" element={<NewsArticlePage />} />
-        <Route path="/wow" element={<WowPage />} />
-        <Route path="/mulvyr" element={<MulvyrPage />} />
-        <Route path="/store/decoy" element={<Navigate to="/decoy" replace />} />
-        <Route path="/store/stillweb" element={<StillwebPage />} />
-        <Route path="/store/atype/:slug" element={<ATypeFontPage />} />
-        <Route path="/store" element={<StorePage />} />
-        <Route path="/atype" element={<Navigate to="/store?tag=AType" replace />} />
-        <Route path="/atype/:slug" element={<LegacyATypeFontRedirect />} />
-        <Route path="/music" element={<MusicRedirect />} />
-        {projects.map((project) =>
-          project.Component ? (
-            <Route
-              key={project.path}
-              path={project.path}
-              element={<project.Component />}
-            />
-          ) : null,
-        )}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <SiteSkinProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/femtanylFNF/*" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<PortfolioHome />} />
+          <Route path="/welcome" element={<WelcomeToHiRedirect />} />
+          <Route path="/hi" element={<HiPage />} />
+          <Route path="/news/:slug" element={<NewsArticlePage />} />
+          <Route path="/store/decoy" element={<Navigate to="/decoy" replace />} />
+          <Route path="/store/stillweb" element={<StillwebPage />} />
+          <Route path="/store/atype/:slug" element={<ATypeFontPage />} />
+          <Route path="/store" element={<StorePage />} />
+          <Route path="/atype" element={<Navigate to="/store?tag=AType" replace />} />
+          <Route path="/atype/:slug" element={<LegacyATypeFontRedirect />} />
+          <Route path="/music" element={<MusicRedirect />} />
+          <Route path="/cyphertrainers" element={<CypherTrainersIndexPage />} />
+          <Route path="/cyphertrainers/:cypher" element={<CypherTrainerPage />} />
+          {projects.map((project) =>
+            project.Component ? (
+              <Route
+                key={project.path}
+                path={project.path}
+                element={<project.Component />}
+              />
+            ) : null,
+          )}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
+    </SiteSkinProvider>
   );
 }

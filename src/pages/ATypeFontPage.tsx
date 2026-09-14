@@ -28,13 +28,13 @@ export function ATypeFontPage() {
             title: `${font.name} | Store | Solidified.dev`,
             description: font.description,
             path: `/store/atype/${font.slug}`,
-            themeColor: "#080506",
+            themeColor: "#f3efe6",
           }
         : {
             title: "Store | Solidified.dev",
             description: "Font not found.",
             path: "/store",
-            themeColor: "#080506",
+            themeColor: "#f3efe6",
           },
     [font],
   );
@@ -63,7 +63,7 @@ export function ATypeFontPage() {
             }
             secondaryNav={
               <Link to="/store?tag=AType" className="soft-pill">
-                <span className="soft-pill__label">Browse #AType</span>
+                <span className="soft-pill__label">Browse AType</span>
               </Link>
             }
             actions={

@@ -23,7 +23,7 @@ export function StoreTagPills({
             className={activeTag === tag ? "store-tag-pill store-tag-pill--active" : "store-tag-pill"}
             aria-current={activeTag === tag ? "page" : undefined}
           >
-            #{tag}
+            {tag}
           </Link>
         </li>
       ))}

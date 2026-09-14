@@ -15,7 +15,7 @@ export function HiPage() {
     title: "hi | SolidifiedPlayDoh — Solidified.dev",
     description: `${source.found} SolidifiedPlayDoh (Solidified PlayDoh / Soli) at solidified.dev.`,
     path: "/hi",
-    themeColor: "#050508",
+    themeColor: "#f3efe6",
   });
 
   return (

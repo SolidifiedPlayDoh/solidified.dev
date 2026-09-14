@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 
 import { GlitchReveal } from "../components/GlitchReveal";
 import { SiteShell } from "../components/SiteShell";
@@ -32,7 +31,7 @@ export function DecoyPage() {
     title: "Decoy | Solidified.dev",
     description: decoyPageCopy.lead,
     path: "/decoy",
-    themeColor: "#050508",
+    themeColor: "#f3efe6",
   });
 
   const previewIcon = useMemo(
@@ -98,19 +97,6 @@ export function DecoyPage() {
     <SiteShell>
       <main id="main" className="soft-site decoy-page">
         <div className="soft-site__inner">
-          <GlitchReveal variant="pill" delay={40}>
-            <nav className="decoy-page__top">
-              <Link to="/" className="soft-pill">
-                <span className="soft-pill__dot" aria-hidden />
-                <span className="soft-pill__label">← home</span>
-              </Link>
-            </nav>
-          </GlitchReveal>
-
-          <GlitchReveal variant="line" delay={100}>
-            <hr className="soft-divider" aria-hidden />
-          </GlitchReveal>
-
           <section className="decoy-hero">
             <GlitchReveal variant="hero" delay={160}>
               <header className="decoy-hero__copy">

@@ -23,16 +23,12 @@ export function HomePage() {
     title: SEO_HOME_TITLE,
     description: SEO_HOME_DESCRIPTION,
     path: "/",
-    themeColor: "#050508",
+    themeColor: "#f3efe6",
   });
 
   return (
     <div className="soft-site">
       <div className="soft-site__inner">
-        <GlitchReveal variant="line" delay={0}>
-          <hr className="soft-divider" aria-hidden />
-        </GlitchReveal>
-
         <GlitchReveal variant="hero" delay={0}>
           <header data-intel="brand">
             <h1

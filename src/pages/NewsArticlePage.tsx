@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { getNewsArticle } from "../content/newsContent";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { NotFoundPage } from "./NotFoundPage";
 
@@ -36,6 +37,7 @@ export function NewsArticlePage() {
 
   return (
     <div className="news">
+      <Breadcrumbs />
       <header className="news__masthead">
         <p className="news__paper">The Solidified Times</p>
         <p className="news__edition">Online Edition</p>

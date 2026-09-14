@@ -1,0 +1,288 @@
+.cypher-page {
+  position: relative;
+  z-index: 1;
+}
+
+.cypher-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 24px;
+}
+
+.cypher-head h1 {
+  margin: 0 0 16px;
+}
+
+.cypher-head p {
+  margin: 0 0 16px;
+  max-width: 40em;
+  color: var(--muted, var(--text-dim));
+}
+
+.cypher-index {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.cypher-index a {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--line, #e2e2e2);
+  border-radius: var(--radius, 4px);
+  background: var(--page, #fff);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: none;
+}
+
+.cypher-index a:hover,
+.cypher-index a:focus-visible {
+  text-decoration: none;
+  border-color: var(--ink, #111);
+}
+
+.cypher-index strong {
+  font-weight: 600;
+  color: var(--ink, var(--text-bright));
+}
+
+.cypher-index span {
+  color: var(--muted, var(--text-dim));
+}
+
+.cypher-index em {
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted, var(--text-dim));
+}
+
+.cypher-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 16px;
+}
+
+.cypher-modes button,
+.cypher-type button,
+.cypher-choices button,
+.cypher-feedback button {
+  font: inherit;
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid var(--line, #e2e2e2);
+  border-radius: var(--radius, 4px);
+  background: var(--page, #fff);
+  color: var(--ink, var(--text-bright));
+}
+
+.cypher-modes button.is-on {
+  background: var(--ink, #111);
+  color: #fff;
+  border-color: var(--ink, #111);
+}
+
+.cypher-score {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted, var(--text-dim));
+}
+
+.cypher-card {
+  padding: 16px;
+  border: 1px solid var(--line, #e2e2e2);
+  border-radius: var(--radius, 4px);
+  background: var(--page, #fff);
+  box-shadow: none;
+}
+
+.cypher-hint,
+.cypher-ask {
+  margin: 0 0 16px;
+}
+
+.cypher-glyphs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px 16px;
+  min-height: 128px;
+  margin: 0 0 16px;
+}
+
+.cypher-glyphs--sentence {
+  justify-content: flex-start;
+  min-height: 0;
+}
+
+.cypher-glyphs__word {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.cypher-glyphs svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.cypher-morse-block {
+  margin: 8px 0 16px;
+  text-align: center;
+  font-size: 40px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.cypher-morse-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.cypher-morse-word {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cypher-morse-letter {
+  display: inline-flex;
+}
+
+.cypher-morse,
+.cypher-latin,
+.cypher-chart__cell {
+  font-family: var(--font-mono);
+}
+
+.cypher-latin {
+  margin: 0 0 16px;
+  word-break: break-word;
+}
+
+.cypher-latin--letter {
+  text-align: center;
+  font-size: 48px;
+  line-height: 1;
+}
+
+.cypher-latin--sentence {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.cypher-type {
+  display: grid;
+  gap: 8px;
+  justify-items: stretch;
+  max-width: 28rem;
+}
+
+.cypher-type button {
+  justify-self: start;
+}
+
+.cypher-type input {
+  font: inherit;
+  padding: 8px;
+  border: 1px solid var(--line, #e2e2e2);
+  border-radius: var(--radius, 4px);
+  background: #fff;
+  color: inherit;
+}
+
+.cypher-choices {
+  display: grid;
+  gap: 8px;
+}
+
+.cypher-choices button {
+  text-align: left;
+}
+
+.cypher-feedback {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line, #e2e2e2);
+}
+
+.cypher-feedback p {
+  margin: 0 0 16px;
+}
+
+.cypher-feedback.is-right {
+  color: #17643a;
+}
+
+.cypher-feedback.is-wrong {
+  color: #a32d2d;
+}
+
+.cypher-key {
+  margin-top: 24px;
+}
+
+.cypher-key summary {
+  cursor: pointer;
+  color: var(--muted, var(--text-dim));
+}
+
+.cypher-key__note {
+  margin: 16px 0 0;
+}
+
+.cypher-chart {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.cypher-chart--morse {
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 8px;
+}
+
+.cypher-chart__label {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted, var(--text-dim));
+}
+
+.cypher-chart__glyphs,
+.cypher-chart__cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.cypher-chart__cell {
+  flex-direction: column;
+  align-items: center;
+  min-width: 40px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@media (max-width: 640px) {
+  .cypher-latin--letter {
+    font-size: 40px;
+  }
+
+  .cypher-morse-block {
+    font-size: 32px;
+  }
+}

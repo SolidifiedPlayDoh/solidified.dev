@@ -25,9 +25,9 @@ export function StoreShelf({ revealDelay = 0 }: StoreShelfProps) {
           <h2
             id="store-shelf-heading"
             className="store-shelf__title soft-brand scene-headline"
-            data-text="New in the store"
+            data-text="Store"
           >
-            New in the store
+            Store
           </h2>
           <Link to="/store" className="store-shelf__all soft-pill" data-intel="link-store">
             <span className="soft-pill__dot" aria-hidden />
